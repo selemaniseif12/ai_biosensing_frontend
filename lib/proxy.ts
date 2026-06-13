@@ -1,4 +1,4 @@
-import { rewrite, redirect, next } from "next/server";
+import { NextResponse } from "next/server";
 import { verifyIdToken } from "@/lib/firebaseAdmin";
 import * as admin from "firebase-admin";
 
@@ -10,7 +10,7 @@ if (!admin.apps.length) {
 
 const db = admin.firestore();
 
-export async function proxy(request) {
+export async function middleware(request: Request) {
   const url = new URL(request.url);
   const path = url.pathname;
 
@@ -18,22 +18,25 @@ export async function proxy(request) {
   // 1) ADMIN PROTECTION — /admin/*
   // ----------------------------------------------------
   if (path.startsWith("/admin")) {
-    const token = request.cookies.get("session")?.value;
+    const token = request.headers.get("cookie")
+      ?.split("; ")
+      .find((c) => c.startsWith("session="))
+      ?.split("=")[1];
 
     if (!token) {
-      return redirect("/login");
+      return NextResponse.redirect(new URL("/login", request.url));
     }
 
     try {
       const decoded = await verifyIdToken(token);
 
       if (decoded.role !== "admin") {
-        return redirect("/login");
+        return NextResponse.redirect(new URL("/login", request.url));
       }
 
-      return next();
+      return NextResponse.next();
     } catch {
-      return redirect("/login");
+      return NextResponse.redirect(new URL("/login", request.url));
     }
   }
 
@@ -44,20 +47,20 @@ export async function proxy(request) {
     const apiKey = request.headers.get("x-api-key");
 
     if (!apiKey) {
-      return Response.json({ error: "Missing API key" }, { status: 401 });
+      return NextResponse.json({ error: "Missing API key" }, { status: 401 });
     }
 
     const keyRef = db.collection("apiKeys").doc(apiKey);
     const keySnap = await keyRef.get();
 
     if (!keySnap.exists) {
-      return Response.json({ error: "Invalid API key" }, { status: 401 });
+      return NextResponse.json({ error: "Invalid API key" }, { status: 401 });
     }
 
     const keyData = keySnap.data();
 
     if (keyData.revoked) {
-      return Response.json({ error: "API key revoked" }, { status: 403 });
+      return NextResponse.json({ error: "API key revoked" }, { status: 403 });
     }
 
     // -------------------------
@@ -82,7 +85,7 @@ export async function proxy(request) {
       });
     } else {
       if (windowCount >= limit) {
-        return Response.json(
+        return NextResponse.json(
           { error: "Rate limit exceeded" },
           { status: 429 }
         );
@@ -129,10 +132,14 @@ export async function proxy(request) {
     const newHeaders = new Headers(request.headers);
     newHeaders.set("x-user-id", userId);
 
-    return next({ request: { headers: newHeaders } });
+    return NextResponse.next({
+      request: {
+        headers: newHeaders,
+      },
+    });
   }
 
-  return next();
+  return NextResponse.next();
 }
 
 export const config = {
