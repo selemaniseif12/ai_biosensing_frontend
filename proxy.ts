@@ -2,8 +2,7 @@ import { NextResponse } from "next/server";
 import { verifyIdToken } from "@/lib/firebaseAdmin";
 import * as admin from "firebase-admin";
 
-export async function proxy(request)
-
+export async function proxy(request: Request) {
   const url = new URL(request.url);
   const path = url.pathname;
 
