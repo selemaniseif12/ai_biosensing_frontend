@@ -1,26 +1,18 @@
-import * as admin from "firebase-admin";
+// Firebase Admin has been disabled and removed from the project.
+// This file is intentionally commented out to prevent build errors
+// such as: "Module not found: Can't resolve 'firebase-admin'".
 
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.cert({
-      projectId: process.env.FIREBASE_PROJECT_ID,
-      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-      privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
-    }),
-  });
-}
+// import * as admin from "firebase-admin";
 
-export const adminDB = admin.firestore();
-export const adminAuth = admin.auth();
+// // Initialize Firebase Admin only if needed.
+// if (!admin.apps.length) {
+//   admin.initializeApp({
+//     // credential: admin.credential.applicationDefault()
+//   });
+// }
 
-/**
- * Verify Firebase ID Token
- */
-export async function verifyIdToken(token: string) {
-  try {
-    return await adminAuth.verifyIdToken(token);
-  } catch (error) {
-    console.error("Error verifying ID token:", error);
-    throw error;
-  }
-}
+// // Disabled: Firebase token verification.
+// export async function verifyIdToken(token: string) {
+//   // return admin.auth().verifyIdToken(token);
+//   return null; // Firebase removed — always return null.
+// }
