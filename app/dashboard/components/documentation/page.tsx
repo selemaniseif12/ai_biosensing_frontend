@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import DocumentationList from "./components/DocumentationList";
-import PdfViewer from "./components/PdfViewer";
+import DocumentationList from "./DocumentationList";
+import PdfViewer from "./PdfViewer";
 
 export default function DocumentationPage() {
   const [selectedDoc, setSelectedDoc] = useState(null);
