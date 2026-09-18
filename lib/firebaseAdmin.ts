@@ -3,9 +3,8 @@
 // still import verifyIdToken. This file prevents build failures.
 
 export async function verifyIdToken(token: string) {
-  // Firebase removed — always return a safe result.
   return {
     valid: false,
-    userId: null
+    userId: null,
   };
 }
