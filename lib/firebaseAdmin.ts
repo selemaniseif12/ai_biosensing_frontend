@@ -1,18 +1,11 @@
-// Firebase Admin has been disabled and removed from the project.
-// This file is intentionally commented out to prevent build errors
-// such as: "Module not found: Can't resolve 'firebase-admin'".
+// Safe Firebase Admin placeholder for Vercel builds.
+// Firebase Admin has been removed from the project, but some API routes
+// still import verifyIdToken. This file prevents build failures.
 
-// import * as admin from "firebase-admin";
-
-// // Initialize Firebase Admin only if needed.
-// if (!admin.apps.length) {
-//   admin.initializeApp({
-//     // credential: admin.credential.applicationDefault()
-//   });
-// }
-
-// // Disabled: Firebase token verification.
-// export async function verifyIdToken(token: string) {
-//   // return admin.auth().verifyIdToken(token);
-//   return null; // Firebase removed — always return null.
-// }
+export async function verifyIdToken(token: string) {
+  // Firebase removed — always return a safe result.
+  return {
+    valid: false,
+    userId: null
+  };
+}

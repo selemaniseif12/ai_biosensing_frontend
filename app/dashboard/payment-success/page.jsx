@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Receipt from "@/components/Receipt";
+import Receipt from "../../../components/Receipt"; // FIXED: no alias, correct relative path
 
 export default function PaymentSuccess() {
   const [receipt, setReceipt] = useState(null);
@@ -22,7 +22,7 @@ export default function PaymentSuccess() {
     }
 
     // Call backend to finalize payment
-    fetch("http://127.0.0.1:8000/payments/success", {
+    fetch("https://ai-biosensing-backend-trial2.onrender.com/payments/success", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

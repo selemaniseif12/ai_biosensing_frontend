@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { issueToken, validateToken, getStoredToken } from "./ServiceTokenClient.jsx";
+import { issueToken, validateToken, getStoredToken } from "./ServiceTokenClient";
 
 export default function MLAccessDropdown({ userId }) {
   const [modelId, setModelId] = useState("v2");
@@ -12,28 +12,48 @@ export default function MLAccessDropdown({ userId }) {
     const serviceName = modelId; // must match backend
 
     setStatus("Checking token...");
-    const isValid = await validateToken(serviceName);
-    let token = getStoredToken(serviceName);
 
-    if (!isValid) {
+    // Get stored token
+    let token = getStoredToken();
+
+    // Validate token
+    const validation = await validateToken(token);
+
+    if (!validation.success || !validation.valid) {
       setStatus("Issuing new token...");
-      token = await issueToken(serviceName, userId);
+      const issued = await issueToken(serviceName, userId);
+
+      if (!issued.success) {
+        setStatus("Failed to issue token");
+        return;
+      }
+
+      token = issued.token;
     }
 
     setStatus(`Accessing ML model ${modelId}...`);
 
-    const response = await fetch(
-      `http://127.0.0.1:8000/services/ml/${modelId}?token=${token}`
-    );
+    try {
+      const response = await fetch(
+        `https://ai-biosensing-backend-trial2.onrender.com/services/ml/${modelId}?token=${token}`,
+        {
+          method: "GET",
+          cache: "no-store",
+        }
+      );
 
-    if (!response.ok) {
-      setStatus("Invalid or inactive token");
-      return;
+      if (!response.ok) {
+        setStatus("Invalid or inactive token");
+        return;
+      }
+
+      const json = await response.json();
+      setData(json);
+      setStatus("Access granted");
+    } catch (err) {
+      console.error(err);
+      setStatus("Failed to access ML model");
     }
-
-    const json = await response.json();
-    setData(json);
-    setStatus("Access granted");
   };
 
   return (
