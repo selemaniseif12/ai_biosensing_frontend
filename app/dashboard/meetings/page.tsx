@@ -3,158 +3,95 @@
 import { useEffect, useState } from "react";
 
 export default function MeetingsDashboard() {
-  const [meetings, setMeetings] = useState([]);
-  const [loading, setLoading] = useState(false);
+  // FIX: Proper typing for arrays
+  const [meetings, setMeetings] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const [form, setForm] = useState({
-    title: "",
-    date: "",
-    time: "",
-    description: "",
-  });
+  const API = process.env.NEXT_PUBLIC_API_URL;
 
-  const loadMeetings = async () => {
+  const safeFetch = async (url: string) => {
     try {
-      setLoading(true);
-      const res = await fetch("/api/meetings");
+      const res = await fetch(url);
+
+      if (!res || !res.ok) {
+        console.error("Fetch failed:", url, res?.status);
+        return [];
+      }
+
       const data = await res.json();
-      setMeetings(data.meetings || []);
-    } finally {
-      setLoading(false);
+      return Array.isArray(data) ? data : [];
+    } catch (err) {
+      console.error("Network error:", url, err);
+      return [];
     }
+  };
+
+  const fetchMeetings = async () => {
+    setLoading(true);
+
+    const meetingsData = await safeFetch(`${API}/meetings`);
+    setMeetings(meetingsData);
+
+    setLoading(false);
   };
 
   useEffect(() => {
-    loadMeetings();
+    fetchMeetings();
   }, []);
 
-  const createMeeting = async () => {
-    const res = await fetch("/api/meetings", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
-
-    if (res.ok) {
-      setForm({ title: "", date: "", time: "", description: "" });
-      loadMeetings();
-    }
-  };
-
-  const deleteMeeting = async (id) => {
-    await fetch(`/api/meetings/${id}`, { method: "DELETE" });
-    loadMeetings();
-  };
+  if (loading) return <p className="p-6">Loading meetings...</p>;
 
   return (
-    <div style={{ padding: "24px", maxWidth: "1200px", margin: "0 auto" }}>
-      <h1>Meetings Dashboard</h1>
+    <div style={{ padding: "24px" }}>
+      <h1 style={{ marginBottom: "20px" }}>Meetings</h1>
 
-      {/* Create Meeting */}
-      <div
-        style={{
-          padding: "20px",
-          background: "#f5f5f5",
-          borderRadius: "10px",
-          marginBottom: "30px",
-        }}
-      >
-        <h2>Create a Meeting</h2>
+      {meetings.length === 0 ? (
+        <p>No meetings found.</p>
+      ) : (
+        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+          {meetings.map((m) => (
+            <div
+              key={m.id}   {/* FIX: Now valid because meetings is typed */}
+              style={{
+                padding: "15px",
+                border: "1px solid #ddd",
+                borderRadius: "10px",
+                backgroundColor: "#fafafa",
+              }}
+            >
+              <h2 style={{ marginBottom: "8px" }}>{m.title}</h2>
 
-        <input
-          type="text"
-          placeholder="Meeting Title"
-          value={form.title}
-          onChange={(e) => setForm({ ...form, title: e.target.value })}
-          style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
-        />
+              <p>
+                <strong>Date:</strong>{" "}
+                {m.datetime ? new Date(m.datetime).toLocaleString() : "N/A"}
+              </p>
 
-        <input
-          type="date"
-          value={form.date}
-          onChange={(e) => setForm({ ...form, date: e.target.value })}
-          style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
-        />
+              <p>
+                <strong>Platform:</strong> {m.platform ?? "N/A"}
+              </p>
 
-        <input
-          type="time"
-          value={form.time}
-          onChange={(e) => setForm({ ...form, time: e.target.value })}
-          style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
-        />
+              <p>
+                <strong>Link:</strong>{" "}
+                <a
+                  href={m.meeting_link}
+                  target="_blank"
+                  style={{ color: "#0057b8", textDecoration: "underline" }}
+                >
+                  {m.meeting_link}
+                </a>
+              </p>
 
-        <textarea
-          placeholder="Description"
-          value={form.description}
-          onChange={(e) => setForm({ ...form, description: e.target.value })}
-          style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
-        />
+              <p>
+                <strong>Status:</strong> {m.status ?? "N/A"}
+              </p>
 
-        <button
-          onClick={createMeeting}
-          style={{
-            padding: "10px 20px",
-            background: "#0057b8",
-            color: "#fff",
-            borderRadius: "6px",
-            cursor: "pointer",
-          }}
-        >
-          Create Meeting
-        </button>
-      </div>
-
-      {/* Meetings List */}
-      <h2>Upcoming Meetings</h2>
-
-      {loading && <p>Loading meetings...</p>}
-
-      {!loading && meetings.length === 0 && <p>No meetings scheduled yet.</p>}
-
-      {meetings.map((m) => (
-        <div
-          key={m.id}
-          style={{
-            padding: "15px",
-            border: "1px solid #ddd",
-            borderRadius: "8px",
-            marginBottom: "12px",
-          }}
-        >
-          <h3>{m.title}</h3>
-          <p><strong>Date:</strong> {m.date}</p>
-          <p><strong>Time:</strong> {m.time}</p>
-          <p>{m.description}</p>
-
-          <button
-            onClick={() => deleteMeeting(m.id)}
-            style={{
-              marginTop: "10px",
-              padding: "8px 16px",
-              background: "red",
-              color: "#fff",
-              borderRadius: "6px",
-              cursor: "pointer",
-            }}
-          >
-            Delete
-          </button>
+              <p>
+                <strong>Notes:</strong> {m.notes || "No notes"}
+              </p>
+            </div>
+          ))}
         </div>
-      ))}
-
-      <button
-        onClick={loadMeetings}
-        style={{
-          marginTop: "20px",
-          padding: "10px 20px",
-          background: "#333",
-          color: "#fff",
-          borderRadius: "6px",
-          cursor: "pointer",
-        }}
-      >
-        Refresh
-      </button>
+      )}
     </div>
   );
 }
