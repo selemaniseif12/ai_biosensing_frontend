@@ -63,7 +63,7 @@ import AdminTokenDashboard from "./components/AdminTokenDashboard.jsx";
 
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState("home");
-  const [openSection, setOpenSection] = useState("home");
+  const [openSection, setOpenSection] = useState<string | null>("home");
   // FIX: Proper typing for meetings array
   const [meetings, setMeetings] = useState<any[]>([]);
   const [token, setToken] = useState("");
