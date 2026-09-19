@@ -1,3 +1,4 @@
+"use client";
 export const FullStackAPILessonContent = {
   "What is an API?": "Introduction to how APIs enable communication between systems.",
   "REST vs GraphQL vs Webhooks": "Comparison of modern API paradigms and when to use each.",

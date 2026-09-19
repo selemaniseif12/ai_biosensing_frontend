@@ -1,3 +1,4 @@
+"use client";
 export const FullStackAPIMetadata = {
   courseId: "fullstack-api-001",
   title: "Full‑Stack API Engineering",

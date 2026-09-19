@@ -1,3 +1,4 @@
+"use client";
 export default function CustomersSummary({ customers }) {
   const total = customers?.length || 0;
 

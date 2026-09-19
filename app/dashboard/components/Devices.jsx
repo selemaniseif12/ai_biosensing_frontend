@@ -1,3 +1,4 @@
+"use client",
 export default function Devices({ devices }) {
   if (!devices || devices.length === 0) {
     return (

@@ -1,3 +1,4 @@
+"use client";
 <template>
   <button
     class="join-meeting-btn"

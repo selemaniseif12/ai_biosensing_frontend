@@ -1,3 +1,4 @@
+"use client";
 export default function CustomersPanel({ customers }) {
   if (!customers || customers.length === 0) {
     return (

@@ -1,3 +1,4 @@
+"use client";
 export default function FullStackAPICard() {
   return (
     <div className="p-4 rounded-xl shadow-md bg-white dark:bg-gray-900">

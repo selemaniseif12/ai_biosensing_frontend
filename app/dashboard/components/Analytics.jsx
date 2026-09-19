@@ -1,3 +1,4 @@
+"use client";
 export default function Analytics({ data }) {
   if (!data) {
     return (

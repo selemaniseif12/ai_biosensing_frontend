@@ -1,3 +1,4 @@
+"use client";
 export const FullStackAPIOutline = {
   courseId: "fullstack-api-001",
   modules: [

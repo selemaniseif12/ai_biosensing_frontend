@@ -1,3 +1,4 @@
+"use client";
 export default function MlTrainingCompare({ v2, v6 }) {
   if (!v2 || !v6) {
     return (

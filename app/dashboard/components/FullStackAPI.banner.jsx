@@ -1,3 +1,4 @@
+"use client",
 export default function FullStackAPIBanner() {
   return (
     <div className="p-6 bg-blue-600 text-white rounded-xl shadow-lg">
