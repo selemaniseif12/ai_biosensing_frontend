@@ -3,8 +3,22 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
+/* -----------------------------
+   FIX: Add proper typing
+------------------------------ */
+type Consultation = {
+  id: number;
+  student_name?: string;
+  datetime?: string;
+  platform?: string;
+};
+
 export default function AdminDashboardOverview() {
-  const [upcoming, setUpcoming] = useState([]);
+  /* -----------------------------
+     FIX: Type upcoming correctly
+  ------------------------------ */
+  const [upcoming, setUpcoming] = useState<Consultation[]>([]);
+
   const [teamStats, setTeamStats] = useState([]);
   const [platformStats, setPlatformStats] = useState([]);
   const [paymentStats, setPaymentStats] = useState({
@@ -23,21 +37,20 @@ export default function AdminDashboardOverview() {
       const res = await fetch("http://localhost:8000/consultations/overview");
       const data = await res.json();
 
-      // SAFE FALLBACKS — prevents undefined crashes
       setUpcoming(data?.upcoming ?? []);
       setTeamStats(data?.team_stats ?? []);
       setPlatformStats(data?.platform_stats ?? []);
-      setPaymentStats(data?.payment_stats ?? {
-        total_payments: 0,
-        total_amount: 0,
-        pending: 0,
-        completed: 0,
-      });
-
+      setPaymentStats(
+        data?.payment_stats ?? {
+          total_payments: 0,
+          total_amount: 0,
+          pending: 0,
+          completed: 0,
+        }
+      );
     } catch (err) {
       console.error("Failed to load admin overview:", err);
 
-      // fallback to safe empty values
       setUpcoming([]);
       setTeamStats([]);
       setPlatformStats([]);
@@ -60,7 +73,6 @@ export default function AdminDashboardOverview() {
 
   return (
     <div className="p-6">
-
       <h1 className="text-3xl font-bold mb-6">Admin Dashboard Overview</h1>
 
       {/* Quick Actions */}
@@ -89,16 +101,24 @@ export default function AdminDashboardOverview() {
 
       {/* Upcoming Consultations */}
       <div className="mb-10">
-        <h2 className="text-xl font-semibold mb-4">Upcoming Consultations (Next 7 Days)</h2>
+        <h2 className="text-xl font-semibold mb-4">
+          Upcoming Consultations (Next 7 Days)
+        </h2>
 
-        {(!upcoming || upcoming.length === 0) ? (
+        {!upcoming || upcoming.length === 0 ? (
           <p>No upcoming consultations.</p>
         ) : (
           <div className="border rounded p-4 bg-white shadow">
             {upcoming.map((c) => (
               <div key={c.id} className="border-b py-2">
-                <p className="font-semibold">{c.student_name ?? "Unknown Student"}</p>
-                <p>{c.datetime ? new Date(c.datetime).toLocaleString() : "No date"}</p>
+                <p className="font-semibold">
+                  {c.student_name ?? "Unknown Student"}
+                </p>
+                <p>
+                  {c.datetime
+                    ? new Date(c.datetime).toLocaleString()
+                    : "No date"}
+                </p>
                 <p className="capitalize">{c.platform ?? "Unknown platform"}</p>
                 <Link
                   href={`/admin/consultations/${c.id}`}
