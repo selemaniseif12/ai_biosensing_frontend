@@ -1,28 +1,17 @@
 "use client";
 
-import { useState } from "react";
-import DocumentationList from "./DocumentationList";
-import PdfViewer from "./PdfViewer";
+import PdfViewer from "./components/PdfViewer";
+import DocumentationList from "./components/DocumentationList";
 
 export default function DocumentationPage() {
-  const [selectedDoc, setSelectedDoc] = useState(null);
-
   return (
-    <div className="flex h-screen">
-      {/* Left side: List of documents */}
-      <div className="w-1/3 border-r overflow-y-auto">
-        <DocumentationList onSelect={setSelectedDoc} />
-      </div>
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">Documentation</h1>
 
-      {/* Right side: PDF viewer */}
-      <div className="flex-1 overflow-y-auto">
-        {selectedDoc ? (
-          <PdfViewer fileUrl={selectedDoc.url} />
-        ) : (
-          <div className="p-6 text-gray-600">
-            Select a document from the list to view it.
-          </div>
-        )}
+      <DocumentationList />
+
+      <div className="mt-6">
+        <PdfViewer />
       </div>
     </div>
   );
