@@ -72,12 +72,16 @@ export async function assignTeam(meetingId, teamId) {
 /* --------------------------------------------------
    SEND EMAIL (optional API helper)
 --------------------------------------------------- */
-export async function sendEmail(payload) {
+export async function sendEmail(recipients, subject, message) {
   try {
     const res = await fetch("/api/email/send", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({
+        recipients,
+        subject,
+        message,
+      }),
     });
 
     if (!res.ok) {
@@ -91,3 +95,4 @@ export async function sendEmail(payload) {
     return null;
   }
 }
+
