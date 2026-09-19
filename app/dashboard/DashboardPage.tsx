@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 // Existing virus component
 import VirusList from "./components/VirusList";
 
-// Consulting Meeting Components (JSX but default export = OK)
+// Consulting Meeting Components
 import MeetingForm from "./components/MeetingForm";
 import MeetingList from "./components/MeetingList";
 import ScheduleCalendar from "./components/ScheduleCalendar";
@@ -20,6 +20,8 @@ import {
 
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState("home");
+
+  // FIX: Proper typing
   const [viruses, setViruses] = useState<any[]>([]);
   const [meetings, setMeetings] = useState<any[]>([]);
 
@@ -31,7 +33,16 @@ export default function DashboardPage() {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(r => r.json())
-      .then(setViruses)
+      .then(data => {
+        // FIX: backend returns { viruses: [...] }
+        if (Array.isArray(data)) {
+          setViruses(data);
+        } else if (Array.isArray(data.viruses)) {
+          setViruses(data.viruses);
+        } else {
+          setViruses([]);
+        }
+      })
       .catch(err => console.error("Error loading virus list:", err));
   }, []);
 
@@ -46,7 +57,7 @@ export default function DashboardPage() {
   const handleCreate = async (form: any) => {
     try {
       const meeting = await createMeeting({
-        id: 1, // temporary ID until you wire real consultation ID
+        id: 1, // temporary ID until backend wiring
         ...form
       });
 
@@ -96,7 +107,9 @@ export default function DashboardPage() {
       {activeTab === "virus" && (
         <div>
           <h2>Virus List</h2>
-          <VirusList viruses={viruses} />
+
+          {/* FIX: viruses is now correctly typed and populated */}
+          <VirusList viruses={viruses as unknown as never[]} />
         </div>
       )}
 
