@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 /* -----------------------------
-   FIX: Add proper typing
+   TYPES (Fix TS errors)
 ------------------------------ */
 type Consultation = {
   id: number;
@@ -13,15 +13,34 @@ type Consultation = {
   platform?: string;
 };
 
+type TeamStat = {
+  team_id: number;
+  team_name?: string;
+  total?: number;
+  upcoming?: number;
+  completed?: number;
+};
+
+type PlatformStat = {
+  platform: string;
+  total?: number;
+};
+
+type PaymentStats = {
+  total_payments: number;
+  total_amount: number;
+  pending: number;
+  completed: number;
+};
+
 export default function AdminDashboardOverview() {
   /* -----------------------------
-     FIX: Type upcoming correctly
+     FIX: Proper typing for all states
   ------------------------------ */
   const [upcoming, setUpcoming] = useState<Consultation[]>([]);
-
-  const [teamStats, setTeamStats] = useState([]);
-  const [platformStats, setPlatformStats] = useState([]);
-  const [paymentStats, setPaymentStats] = useState({
+  const [teamStats, setTeamStats] = useState<TeamStat[]>([]);
+  const [platformStats, setPlatformStats] = useState<PlatformStat[]>([]);
+  const [paymentStats, setPaymentStats] = useState<PaymentStats>({
     total_payments: 0,
     total_amount: 0,
     pending: 0,
