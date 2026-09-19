@@ -51,7 +51,7 @@ export default function MeetingsDashboard() {
         <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
           {meetings.map((m) => (
             <div
-              key={m.id}   {/* FIX: Now valid because meetings is typed */}
+              key={m.id}   // ✔ Comment moved here safely
               style={{
                 padding: "15px",
                 border: "1px solid #ddd",
