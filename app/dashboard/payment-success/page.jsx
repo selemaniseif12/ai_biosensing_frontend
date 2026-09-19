@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Receipt from "../../../components/Receipt"; // FIXED: no alias, correct relative path
+import Receipt from "../../components/Receipt"; // FIXED: correct relative path
 
 export default function PaymentSuccess() {
   const [receipt, setReceipt] = useState(null);
@@ -15,13 +15,11 @@ export default function PaymentSuccess() {
     const amount_paid = params.get("amount_paid");
     const transaction_id = params.get("transaction_id");
 
-    // If Stripe didn't return required data
     if (!user_id || !service_name || !amount_paid || !transaction_id) {
       setLoading(false);
       return;
     }
 
-    // Call backend to finalize payment
     fetch("https://ai-biosensing-backend-trial2.onrender.com/payments/success", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
