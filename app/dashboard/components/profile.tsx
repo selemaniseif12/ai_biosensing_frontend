@@ -6,9 +6,22 @@ export default function Profile() {
   const [image, setImage] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/app/profile/image")
-      .then((res) => res.json())
-      .then((data) => setImage(data.image))
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/app/profile/image`;
+
+    fetch(url, {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to fetch profile image");
+        }
+        return res.blob();
+      })
+      .then((blob) => {
+        const imageUrl = URL.createObjectURL(blob);
+        setImage(imageUrl);
+      })
       .catch((err) => console.error("Error loading profile image:", err));
   }, []);
 
@@ -32,11 +45,8 @@ export default function Profile() {
 
         <p>
           Dr. Selemani Mziray is a Full‑Stack API Engineer and founder working at the intersection of advanced biosensing and AI‑driven software development. His technical foundation includes AI certification from DeepLearning.AI under Andrew Ng (Coursera verification: https://coursera.org/verify/DZA9TFVEOAQO), validating his skills in Python, AI integration, data analysis, and generative AI.
-
           He built practical expertise in LLM‑based applications, API architecture, machine learning, and automation—accelerated by early use of AI assistants for debugging and rapid prototyping. This progression led him to establish Piezo – Pico to Femtotechnology Sensors Inc., a company pioneering next‑generation biosensing with intelligent API systems.
-
           He developed a proprietary API and machine‑learning pipeline that integrates his patented QCM biosensor technology to deliver rapid, high‑accuracy viral classification and prediction. He also introduced Full‑Stack API Engineering, a course delivered through the company’s API ecosystem.
-
           Dr. Mziray’s work reflects a strong fusion of AI engineering and biosensor science, demonstrating his commitment to innovation, scientific rigor, and the practical application of machine learning in global health.
         </p>
 
@@ -121,65 +131,54 @@ export default function Profile() {
           transforming ideas into deployable technology.”
         </blockquote>
 
-        {/* ⭐ Updated Selected Publications Section */}
         <h2 className="text-2xl font-semibold mt-10">Selected Publications</h2>
 
         <ul className="list-disc pl-6 space-y-3 text-blue-700">
-
           <li>
             <a href="https://patentimages.storage.googleapis.com/44/d5/f5/3e1186c38b0a06/US10830738.pdf" target="_blank">
               US Patent 10830738 — Piezoelectric Biosensing Technology
             </a>
           </li>
-
           <li>
             <a href="https://patentimages.storage.googleapis.com/19/a0/98/54abbea587e949/US20200173898A1.pdf" target="_blank">
               US Patent Application 20200173898 — Advanced QCM Biosensing
             </a>
           </li>
-
           <li>
             <a href="https://paperity.org/p/352894092/review-on-ultra-sensitive-qcm-mass-sensor-and-microfluidic-for-diagnostic-point-of-care" target="_blank">
               Review on Ultra‑Sensitive QCM Mass Sensors & Microfluidics
             </a>
           </li>
-
           <li>
             <a href="https://sci-hub.sidesgame.com/10.1002/er.3584" target="_blank">
               Evaluation of Efficiency Factors & Internal Resistance of Thermoelectric Materials
             </a>
           </li>
-
           <li>
             <a href="https://sci-hub.sidesgame.com/10.1016/j.matlet.2003.08.023#google_vignette" target="_blank">
               Materials Letters — Piezoelectric Thin‑Film Sensor Study
             </a>
           </li>
-
           <li>
             <a href="https://sci-hub.sidesgame.com/10.1080/00150190490891300" target="_blank">
               Ferroelectrics Journal — QCM Frequency Response Analysis
             </a>
           </li>
-
           <li>
             <a href="https://selemaniseif12.github.io/dsi-project-report/" target="_blank">
               DSI Project Report — Biosensing & ML Integration
             </a>
           </li>
-
           <li>
             <a href="https://www.linkedin.com/posts/selemani-mziray-751010343_insights-according-to-market-research-future-ugcPost-7397086027779313665-Vutj/" target="_blank">
               Market Research Insights — Biosensing Industry Trends
             </a>
           </li>
-
           <li>
             <a href="https://www.linkedin.com/posts/selemani-mziray-751010343_stock-market-analysis-of-four-major-banks-ugcPost-7396019047533912064-UDvd/" target="_blank">
               Stock Market Analysis — Financial Modeling Insights
             </a>
           </li>
-
         </ul>
 
       </div>
