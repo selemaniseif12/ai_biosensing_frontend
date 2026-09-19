@@ -3,7 +3,7 @@ console.log("RUNNING UPDATED VIRUS LIST FILE — TOKEN PROTECTED");
 
 import React, { useState } from "react";
 
-export default function VirusList() {
+export default function VirusList({ viruses = [] }) {
   const [token, setToken] = useState("");
   const [fromID, setFromID] = useState(1);
   const [toID, setToID] = useState(175);
@@ -24,8 +24,7 @@ export default function VirusList() {
       }
 
       const cleanToken = token.trim();
-const url = `${API_URL}/virus/list?from_id=${fromID}&to_id=${toID}&token=${cleanToken}`;
-
+      const url = `${API_URL}/virus/list?from_id=${fromID}&to_id=${toID}&token=${cleanToken}`;
 
       const res = await fetch(url, { method: "GET" });
       const data = await res.json();
@@ -128,46 +127,24 @@ const url = `${API_URL}/virus/list?from_id=${fromID}&to_id=${toID}&token=${clean
         >
           <thead>
             <tr>
-              <th style={{ border: "1px solid black", padding: "8px" }}>
-                Virus ID
-              </th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>Virus ID</th>
               <th style={{ border: "1px solid black", padding: "8px" }}>Name</th>
-              <th style={{ border: "1px solid black", padding: "8px" }}>
-                Mass (fg)
-              </th>
-              <th style={{ border: "1px solid black", padding: "8px" }}>
-                Antigen
-              </th>
-              <th style={{ border: "1px solid black", padding: "8px" }}>
-                Antibody
-              </th>
-              <th style={{ border: "1px solid black", padding: "8px" }}>
-                Transmission
-              </th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>Mass (fg)</th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>Antigen</th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>Antibody</th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>Transmission</th>
             </tr>
           </thead>
 
           <tbody>
             {filteredResults.map((v, i) => (
               <tr key={i}>
-                <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {v.virus_id}
-                </td>
-                <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {v.name}
-                </td>
-                <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {v.mass_fg}
-                </td>
-                <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {v.antigen}
-                </td>
-                <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {v.antibody}
-                </td>
-                <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {v.transmission}
-                </td>
+                <td style={{ border: "1px solid black", padding: "8px" }}>{v.virus_id}</td>
+                <td style={{ border: "1px solid black", padding: "8px" }}>{v.name}</td>
+                <td style={{ border: "1px solid black", padding: "8px" }}>{v.mass_fg}</td>
+                <td style={{ border: "1px solid black", padding: "8px" }}>{v.antigen}</td>
+                <td style={{ border: "1px solid black", padding: "8px" }}>{v.antibody}</td>
+                <td style={{ border: "1px solid black", padding: "8px" }}>{v.transmission}</td>
               </tr>
             ))}
           </tbody>
@@ -176,9 +153,7 @@ const url = `${API_URL}/virus/list?from_id=${fromID}&to_id=${toID}&token=${clean
 
       {/* SECOND TABLE */}
       <div style={{ marginTop: "40px" }}>
-        <h2 style={{ marginBottom: "10px" }}>
-          Environmental & Detection Parameters
-        </h2>
+        <h2 style={{ marginBottom: "10px" }}>Environmental & Detection Parameters</h2>
 
         <table
           style={{
@@ -189,64 +164,30 @@ const url = `${API_URL}/virus/list?from_id=${fromID}&to_id=${toID}&token=${clean
         >
           <thead>
             <tr>
-              <th style={{ border: "1px solid black", padding: "8px" }}>
-                Virus ID
-              </th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>Virus ID</th>
               <th style={{ border: "1px solid black", padding: "8px" }}>Name</th>
-              <th style={{ border: "1px solid black", padding: "8px" }}>
-                Antigen
-              </th>
-              <th style={{ border: "1px solid black", padding: "8px" }}>
-                Antibody
-              </th>
-              <th style={{ border: "1px solid black", padding: "8px" }}>
-                Temp (°C)
-              </th>
-              <th style={{ border: "1px solid black", padding: "8px" }}>
-                Flow Rate (L/min)
-              </th>
-              <th style={{ border: "1px solid black", padding: "8px" }}>
-                Deposition Rate (s)
-              </th>
-              <th style={{ border: "1px solid black", padding: "8px" }}>
-                Humidity (%)
-              </th>
-              <th style={{ border: "1px solid black", padding: "8px" }}>
-                Time to Detection (s)
-              </th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>Antigen</th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>Antibody</th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>Temp (°C)</th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>Flow Rate (L/min)</th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>Deposition Rate (s)</th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>Humidity (%)</th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>Time to Detection (s)</th>
             </tr>
           </thead>
 
           <tbody>
             {filteredResults.map((v) => (
               <tr key={v.virus_id}>
-                <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {v.virus_id}
-                </td>
-                <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {v.name}
-                </td>
-                <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {v.antigen}
-                </td>
-                <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {v.antibody}
-                </td>
-                <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {v.temperature_c}
-                </td>
-                <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {v.flow_rate}
-                </td>
-                <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {v.deposition_rate_s}
-                </td>
-                <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {v.humidity}
-                </td>
-                <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {v.time_to_detection_s}
-                </td>
+                <td style={{ border: "1px solid black", padding: "8px" }}>{v.virus_id}</td>
+                <td style={{ border: "1px solid black", padding: "8px" }}>{v.name}</td>
+                <td style={{ border: "1px solid black", padding: "8px" }}>{v.antigen}</td>
+                <td style={{ border: "1px solid black", padding: "8px" }}>{v.antibody}</td>
+                <td style={{ border: "1px solid black", padding: "8px" }}>{v.temperature_c}</td>
+                <td style={{ border: "1px solid black", padding: "8px" }}>{v.flow_rate}</td>
+                <td style={{ border: "1px solid black", padding: "8px" }}>{v.deposition_rate_s}</td>
+                <td style={{ border: "1px solid black", padding: "8px" }}>{v.humidity}</td>
+                <td style={{ border: "1px solid black", padding: "8px" }}>{v.time_to_detection_s}</td>
               </tr>
             ))}
           </tbody>
