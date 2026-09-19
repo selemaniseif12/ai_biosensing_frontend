@@ -7,8 +7,9 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 
 export default function AdminConsultationCalendar() {
-  const [consultations, setConsultations] = useState([]);
-  const [students, setStudents] = useState([]);
+  // FIX: Proper typing for arrays
+  const [consultations, setConsultations] = useState<any[]>([]);
+  const [students, setStudents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   const API = process.env.NEXT_PUBLIC_API_URL;
@@ -36,6 +37,7 @@ export default function AdminConsultationCalendar() {
     const consultationsData = await safeFetch(`${API}/consultations`);
     const studentsData = await safeFetch(`${API}/students`);
 
+    // FIX: Now assignable because state is typed as any[]
     setConsultations(consultationsData);
     setStudents(studentsData);
 
