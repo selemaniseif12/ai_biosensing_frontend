@@ -1,5 +1,4 @@
 "use client";
-
 export default function PdfViewer({ fileUrl }) {
   if (!fileUrl) {
     return (

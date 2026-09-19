@@ -1,5 +1,4 @@
 "use client";
-
 export default function AdminCoursesList({ course, onOpenOutline }) {
   if (!course) {
     return <p>No course found.</p>;

@@ -1,5 +1,4 @@
 "use client";
-
 export default function DocumentationPage() {
   return (
     <div className="p-6">

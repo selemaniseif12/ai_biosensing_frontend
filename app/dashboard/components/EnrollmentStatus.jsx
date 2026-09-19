@@ -1,5 +1,4 @@
 "use client";
-
 export default function EnrollmentStatus() {
   return (
     <div style={{ padding: "20px" }}>
