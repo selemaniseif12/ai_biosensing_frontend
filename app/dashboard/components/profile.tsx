@@ -16,7 +16,7 @@ export default function Profile() {
         if (!res.ok) {
           throw new Error("Failed to fetch profile image");
         }
-        return res.blob();
+        return res.blob(); // backend returns an actual image file
       })
       .then((blob) => {
         const imageUrl = URL.createObjectURL(blob);
