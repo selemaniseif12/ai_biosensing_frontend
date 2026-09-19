@@ -1,7 +1,9 @@
 // MeetingsAPI.jsx
 
+/* --------------------------------------------------
+   GET MEETINGS (your original function, unchanged)
+--------------------------------------------------- */
 export async function getMeetings() {
-  // Use your Next.js API route instead of FastAPI
   const res = await fetch("/api/meetings");
 
   if (!res.ok) {
@@ -11,18 +13,81 @@ export async function getMeetings() {
 
   const data = await res.json();
 
-  return data.map(m => ({
+  return data.map((m) => ({
     id: m.id || m.consultation_id || crypto.randomUUID(),
-
-    // Your backend provides separate date + time fields
     date: m.date || "",
     time: m.time || "",
-
-    // Your backend fields
     platform: m.platform || "N/A",
     link: m.meeting_link || "",
-
-    // No title/topic in backend → create a default
     title: "Consultation Meeting",
   }));
+}
+
+/* --------------------------------------------------
+   CREATE MEETING (added to fix Next.js build error)
+--------------------------------------------------- */
+export async function createMeeting(payload) {
+  try {
+    const res = await fetch("/api/meetings/create", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) {
+      console.error("Failed to create meeting:", res.status);
+      return null;
+    }
+
+    return await res.json();
+  } catch (err) {
+    console.error("createMeeting error:", err);
+    return null;
+  }
+}
+
+/* --------------------------------------------------
+   ASSIGN TEAM (optional API helper)
+--------------------------------------------------- */
+export async function assignTeam(meetingId, teamId) {
+  try {
+    const res = await fetch(`/api/meetings/${meetingId}/assign-team`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ teamId }),
+    });
+
+    if (!res.ok) {
+      console.error("Failed to assign team:", res.status);
+      return null;
+    }
+
+    return await res.json();
+  } catch (err) {
+    console.error("assignTeam error:", err);
+    return null;
+  }
+}
+
+/* --------------------------------------------------
+   SEND EMAIL (optional API helper)
+--------------------------------------------------- */
+export async function sendEmail(payload) {
+  try {
+    const res = await fetch("/api/email/send", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) {
+      console.error("Failed to send email:", res.status);
+      return null;
+    }
+
+    return await res.json();
+  } catch (err) {
+    console.error("sendEmail error:", err);
+    return null;
+  }
 }
