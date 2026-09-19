@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Receipt from "../../components/Receipt"; // FIXED: correct relative path
+import Receipt from "../components/Receipt"; // FIXED: correct folder based on your screenshot
 
 export default function PaymentSuccess() {
   const [receipt, setReceipt] = useState(null);
