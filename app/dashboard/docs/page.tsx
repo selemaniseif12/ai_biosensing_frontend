@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 
 export default function DocumentationDashboard() {
-  const [documents, setDocuments] = useState([]);
+  // FIX: Proper typing for arrays
+  const [documents, setDocuments] = useState<any[]>([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   // ⭐ Fetch the 11 documents from your Render backend
@@ -23,6 +24,7 @@ export default function DocumentationDashboard() {
         // Ensure array format
         const backendDocs = Array.isArray(data) ? data : [];
 
+        // FIX: Now assignable because state is typed as any[]
         setDocuments(backendDocs);
       } catch (err) {
         console.error("Failed to load documents:", err);
