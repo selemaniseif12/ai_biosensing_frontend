@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export default function CreateConsultationPage() {
-  const [students, setStudents] = useState([]);
-  const [teams, setTeams] = useState([]);
+  // FIX: Proper typing for arrays
+  const [students, setStudents] = useState<any[]>([]);
+  const [teams, setTeams] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   const [form, setForm] = useState({
@@ -29,6 +30,7 @@ export default function CreateConsultationPage() {
       const resTeams = await fetch(`${API}/team`);
       const dataTeams = await resTeams.json();
 
+      // FIX: Now assignable because state is typed as any[]
       setStudents(Array.isArray(dataStudents) ? dataStudents : []);
       setTeams(Array.isArray(dataTeams) ? dataTeams : []);
 
@@ -45,7 +47,7 @@ export default function CreateConsultationPage() {
     fetchData();
   }, []);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     const res = await fetch(`${API}/consultations`, {
