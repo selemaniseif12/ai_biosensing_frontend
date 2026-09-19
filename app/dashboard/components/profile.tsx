@@ -10,17 +10,21 @@ export default function Profile() {
 
     fetch(url, {
       method: "GET",
-      credentials: "include",
+      headers: {
+        "Accept": "application/json"
+      }
     })
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to fetch profile image");
         }
-        return res.blob(); // backend returns an actual image file
+        return res.json(); // backend returns JSON with Base64
       })
-      .then((blob) => {
-        const imageUrl = URL.createObjectURL(blob);
-        setImage(imageUrl);
+      .then((data) => {
+        if (data.image) {
+          const base64Image = `data:image/jpeg;base64,${data.image}`;
+          setImage(base64Image);
+        }
       })
       .catch((err) => console.error("Error loading profile image:", err));
   }, []);
