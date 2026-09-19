@@ -1,10 +1,19 @@
 // services/outline.ts
 
-// Use your Render backend URL from .env
-const API_URL = import.meta.env.VITE_API_URL;
+// Use your Render backend URL from .env (Next.js syntax)
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+if (!API_URL) {
+  throw new Error("Missing NEXT_PUBLIC_API_URL in environment variables.");
+}
 
 export async function getOutline(courseId: number) {
   const res = await fetch(`${API_URL}/outline/${courseId}`);
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch outline for course ${courseId}`);
+  }
+
   return res.json();
 }
 
@@ -20,6 +29,11 @@ export async function addOutlineItem(data: {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
+
+  if (!res.ok) {
+    throw new Error("Failed to add outline item");
+  }
+
   return res.json();
 }
 
@@ -32,5 +46,10 @@ export async function deleteLesson(
     `${API_URL}/outline/${courseId}/delete?module_title=${moduleTitle}&lesson_title=${lessonTitle}`,
     { method: "DELETE" }
   );
+
+  if (!res.ok) {
+    throw new Error("Failed to delete lesson");
+  }
+
   return res.json();
 }
