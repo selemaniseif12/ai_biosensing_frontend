@@ -64,7 +64,8 @@ import AdminTokenDashboard from "./components/AdminTokenDashboard.jsx";
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState("home");
   const [openSection, setOpenSection] = useState("home");
-  const [meetings, setMeetings] = useState([]);
+  // FIX: Proper typing for meetings array
+  const [meetings, setMeetings] = useState<any[]>([]);
   const [token, setToken] = useState("");
 
   const params = useSearchParams();
@@ -74,11 +75,11 @@ export default function DashboardPage() {
     localStorage.setItem("user_id", "1");
   }, []);
 
-  const toggleSection = (section) => {
+  const toggleSection = (section: string) => {
     setOpenSection(openSection === section ? null : section);
   };
 
-  const handleCreate = (meeting) => {
+  const handleCreate = (meeting: any) => {
     const normalized = {
       id: meeting.id || crypto.randomUUID(),
       title: meeting.title || "Consultation Meeting",
@@ -116,7 +117,7 @@ export default function DashboardPage() {
     minWidth: "260px",
   };
 
-  const buttonStyle = (isActive) => ({
+  const buttonStyle = (isActive: boolean) => ({
     padding: "10px 16px",
     border: "none",
     borderRadius: "6px",
@@ -454,7 +455,11 @@ export default function DashboardPage() {
 
         {/* VIRUS LIST */}
         {activeTab === "virus_list" &&
-          (token ? <VirusList /> : <div style={{ color: "red" }}>Token required</div>)}
+          (token ? (
+            <VirusList />
+          ) : (
+            <div style={{ color: "red" }}>Token required</div>
+          ))}
 
         {/* MACHINE LEARNING */}
         {activeTab === "ml_v2" && <MLTrainingV2 />}
