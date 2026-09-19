@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { issueToken, validateToken, getStoredToken } from "./ServiceTokenClient.jsx";
+import { issueToken, validateToken, getStoredToken } from "../ServiceTokenClient.jsx";
 
 export default function VirusAccessButton({ virusService, userId }) {
   const [status, setStatus] = useState("");
@@ -11,19 +11,14 @@ export default function VirusAccessButton({ virusService, userId }) {
     setStatus("Checking token...");
 
     const serviceName = `virus_${virusService}`;
-
-    // Step 1: Validate existing token
     const isValid = await validateToken(serviceName);
-
     let token = getStoredToken(serviceName);
 
-    // Step 2: Issue new token if invalid or missing
     if (!isValid) {
       setStatus("Issuing new token...");
       token = await issueToken(serviceName, userId);
     }
 
-    // Step 3: Access the virus service
     setStatus("Accessing virus service...");
 
     try {

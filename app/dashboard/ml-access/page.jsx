@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { issueToken, validateToken, getStoredToken } from "./ServiceTokenClient.jsx";
+import { issueToken, validateToken, getStoredToken } from "../ServiceTokenClient.jsx";
 
 export default function MLAccessButton({ modelName, userId }) {
   const [status, setStatus] = useState("");
@@ -11,19 +11,14 @@ export default function MLAccessButton({ modelName, userId }) {
     setStatus("Checking token...");
 
     const serviceName = `ml_${modelName}`;
-
-    // Step 1: Validate existing token
     const isValid = await validateToken(serviceName);
-
     let token = getStoredToken(serviceName);
 
-    // Step 2: Issue new token if invalid or missing
     if (!isValid) {
       setStatus("Issuing new token...");
       token = await issueToken(serviceName, userId);
     }
 
-    // Step 3: Access the ML service
     setStatus("Accessing ML model...");
 
     try {

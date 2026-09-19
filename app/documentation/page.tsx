@@ -1,11 +1,66 @@
 "use client";
 
 import { useState } from "react";
-import DocumentationList from "./components/DocumentationList";
-import PdfViewer from "../components/PdfViewer";
+
+type DocumentationItem = {
+  title: string;
+  file: string;
+};
+
+function PdfViewer({ doc }: { doc: DocumentationItem | null }) {
+  if (!doc) {
+    return (
+      <div className="flex h-[600px] items-center justify-center rounded border bg-gray-50 text-gray-500">
+        Select a document to view it.
+      </div>
+    );
+  }
+
+  return (
+    <iframe
+      title={doc.title}
+      src={`/documents/${doc.file}`}
+      className="h-[600px] w-full rounded border"
+    />
+  );
+}
+
+const documents: DocumentationItem[] = [
+  { title: "Backend & Frontend Architecture", file: "backend-frontend-architecture.pdf" },
+  { title: "Biosensing Platform Documentation", file: "biosensing-platform.pdf" },
+  { title: "Course Outline — Fullstack API Engineering", file: "fullstack-api-engineering.pdf" },
+  { title: "General Auth Token Access System", file: "general-auth-token-access-system.pdf" },
+  { title: "Main.py Documentation", file: "main-py-documentation.pdf" },
+  { title: "ML Models Folder Structure", file: "ml-models-folder-structure.pdf" },
+  { title: "Payment System Architecture", file: "payment-system-architecture.pdf" },
+  { title: "Router Documentation", file: "router-documentation.pdf" },
+  { title: "Swagger Documentation", file: "swagger-documentation.pdf" },
+  { title: "Token-Based Access System", file: "token-based-access-system.pdf" },
+];
+
+function DocumentationList({
+  onSelect,
+}: {
+  onSelect: (document: DocumentationItem) => void;
+}) {
+  return (
+    <div className="space-y-2">
+      {documents.map((document) => (
+        <button
+          key={document.file}
+          type="button"
+          onClick={() => onSelect(document)}
+          className="block w-full rounded border bg-white p-3 text-left hover:bg-gray-50"
+        >
+          {document.title}
+        </button>
+      ))}
+    </div>
+  );
+}
 
 export default function DocumentationPage() {
-  const [selectedDoc, setSelectedDoc] = useState(null);
+  const [selectedDoc, setSelectedDoc] = useState<DocumentationItem | null>(null);
 
   return (
     <div className="p-6">
