@@ -10,11 +10,17 @@ export default function MLTrainingV2() {
     setResult(null);
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/dashboard/ml/train/v2");
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/dashboard/ml/train/v2`;
+
+      const res = await fetch(url);
 
       if (!res.ok) {
-        const err = await res.json();
-        setError(err.detail || "Error fetching training V2");
+        let errMsg = "Error fetching training V2";
+        try {
+          const err = await res.json();
+          errMsg = err.detail || errMsg;
+        } catch {}
+        setError(errMsg);
         return;
       }
 
@@ -52,7 +58,7 @@ export default function MLTrainingV2() {
           <div><strong>Training Time (min):</strong> {result.training_time_minutes}</div>
 
           <h3 className="font-semibold text-xl mt-4">Logs</h3>
-          {result.logs.map((log, idx) => (
+          {result.logs?.map((log, idx) => (
             <div key={idx} className="border p-2 rounded bg-gray-100">
               {log}
             </div>

@@ -46,7 +46,9 @@ export default function ConsultingPage() {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:8000/consulting", {
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/consulting`;
+
+      const res = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form)
@@ -197,14 +199,12 @@ export default function ConsultingPage() {
         {loading ? "Sending..." : "Submit Consulting Request"}
       </button>
 
-      {/* ⭐ SUCCESS MESSAGE */}
       {message && (
         <p style={{ marginTop: "20px", color: "green", fontWeight: "bold" }}>
           {message}
         </p>
       )}
 
-      {/* ⭐ ERROR MESSAGE */}
       {error && (
         <p style={{ marginTop: "20px", color: "red", fontWeight: "bold" }}>
           {error}
