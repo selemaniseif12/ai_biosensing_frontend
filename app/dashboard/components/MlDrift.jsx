@@ -35,12 +35,18 @@ export default function MlDrift() {
   const [running, setRunning] = useState(false);
   const intervalRef = useRef(null);
 
+  const API = process.env.NEXT_PUBLIC_API_URL;
+
   const initSweep = async () => {
-    const res = await fetch(
-      `http://127.0.0.1:8000/sensor/live_init?start_time=${startTime}&stop_time=${stopTime}`
-    );
-    const data = await res.json();
-    setBaseFreq(data.base_frequency_hz);
+    try {
+      const res = await fetch(
+        `${API}/sensor/live_init?start_time=${startTime}&stop_time=${stopTime}`
+      );
+      const data = await res.json();
+      setBaseFreq(data.base_frequency_hz);
+    } catch {
+      console.error("Init sweep failed");
+    }
   };
 
   const startLiveSweep = async () => {
@@ -64,28 +70,31 @@ export default function MlDrift() {
     if (!running) return;
 
     const fetchTick = async () => {
-      const res = await fetch(
-        `http://127.0.0.1:8000/sensor/live_tick?threshold=${threshold}`
-      );
-      const data = await res.json();
+      try {
+        const res = await fetch(
+          `${API}/sensor/live_tick?threshold=${threshold}`
+        );
+        const data = await res.json();
 
-      if (data.done) {
+        if (data.done) {
+          setCurrentFreq(data.measured_frequency_hz);
+          stopLiveSweep();
+          return;
+        }
+
+        setTimeData((prev) => [...prev, data.time_s]);
+        setFreqData((prev) => [...prev, data.measured_frequency_hz]);
+        setDriftData((prev) => [...prev, data.drift_hz]);
         setCurrentFreq(data.measured_frequency_hz);
-        stopLiveSweep();
-        return;
-      }
 
-      setTimeData((prev) => [...prev, data.time_s]);
-      setFreqData((prev) => [...prev, data.measured_frequency_hz]);
-      setDriftData((prev) => [...prev, data.drift_hz]);
-      setCurrentFreq(data.measured_frequency_hz);
-
-      if (baseFreq === null) {
-        setBaseFreq(data.base_frequency_hz);
+        if (baseFreq === null) {
+          setBaseFreq(data.base_frequency_hz);
+        }
+      } catch {
+        console.error("Tick fetch failed");
       }
     };
 
-    fetchTick();
     intervalRef.current = setInterval(fetchTick, 1000);
 
     return () => {
