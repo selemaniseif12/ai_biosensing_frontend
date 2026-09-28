@@ -40,7 +40,7 @@
     "next.config.js",
     "app/dashboard/components/AllSignal.jsx",
     "app/dashboard/components/profile.tsx"
-, "app/dashboard/admin/students/[id]/page.jsx"  ],
+, "app/dashboard/admin/students/[id]/page.jsx", "app/documentation/page.jsx"  ],
   "exclude": [
     "node_modules"
   ]
