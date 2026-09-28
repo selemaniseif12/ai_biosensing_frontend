@@ -11,7 +11,8 @@ export default function Profile() {
         Piezo‑Pico to Femtotechnology Sensors Inc.
       </h1>
 
-      <div className="flex flex-col md:flex-row md:items-start md:gap-8">
+      {/* ⭐ Updated layout: text fills right side and below image */}
+      <div className="flex flex-col md:flex-row items-start md:gap-8">
         <div className="flex-shrink-0 mb-6 md:mb-0">
           <Image
             src="/profile.png"
@@ -23,7 +24,8 @@ export default function Profile() {
           />
         </div>
 
-        <div className="text-lg leading-relaxed space-y-6">
+        {/* ⭐ Text now expands fully using flex-1 */}
+        <div className="flex-1 text-lg leading-relaxed space-y-6">
           <p>
             Dr. Selemani Mziray is a Full‑Stack API Engineer and founder working
             at the intersection of advanced biosensing and AI‑driven software
@@ -86,6 +88,7 @@ export default function Profile() {
         </div>
       </div>
 
+      {/* EDUCATION SECTION */}
       <div className="mt-12 space-y-8">
         <h2 className="text-3xl font-bold text-center mb-6">
           Education & Certifications
