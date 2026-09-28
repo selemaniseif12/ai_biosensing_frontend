@@ -4,6 +4,12 @@ import Link from "next/link";
 import React from "react";
 
 export default function Sidebar() {
+  // Check if admin is logged in
+  const isAdmin =
+    typeof window !== "undefined"
+      ? !!localStorage.getItem("admin_token")
+      : false;
+
   return (
     <div
       style={{
@@ -29,7 +35,6 @@ export default function Sidebar() {
         {/* Government Admin Viewer */}
         <Link href="/dashboard/government/admin">Government Admin</Link>
 
-        {/* Divider */}
         <hr style={{ borderColor: "#ddd" }} />
 
         {/* Course Access */}
@@ -49,6 +54,22 @@ export default function Sidebar() {
 
         {/* Subscription Access */}
         <Link href="/dashboard/subscription-access">Subscription Access</Link>
+
+        {/* ----------------------------- */}
+        {/* ADMIN‑ONLY LINKS (hidden unless logged in) */}
+        {/* ----------------------------- */}
+
+        {isAdmin && (
+          <>
+            <hr style={{ borderColor: "#ddd" }} />
+
+            <Link href="/dashboard/admin">Admin Dashboard</Link>
+            <Link href="/dashboard/admin/payments">Payments</Link>
+            <Link href="/dashboard/admin/devices">Devices</Link>
+            <Link href="/dashboard/admin/students">Students</Link>
+            <Link href="/dashboard/admin/logs">System Logs</Link>
+          </>
+        )}
       </nav>
     </div>
   );
