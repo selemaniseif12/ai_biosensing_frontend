@@ -1,129 +1,105 @@
-import React from "react";
-export default function HomePage({ data }) {
-  return (
-    <div style={{ padding: "20px" }}>
+"use client";
 
-      {/* Company Name */}
-      <h1 style={{ fontSize: "32px", marginBottom: "10px" }}>
-        Piezo‑Pico to Femtotechnology Sensors Inc.
-      </h1>
+import { useEffect, useState } from "react";
 
-      {/* Mission Statement */}
-      <h2 style={{ fontSize: "22px", marginBottom: "20px", color: "#007bff" }}>
-        Building Custom Commercial APIs for the Future
-      </h2>
-
-      {/* Company Introduction */}
-      <p style={{ fontSize: "16px", lineHeight: "1.6", marginBottom: "20px" }}>
-        Piezo‑Pico to Femtotechnology Sensors Inc. leads the next revolution in building commercial APIs for
-        biosensing technology, financial institutions, pharmaceutical companies, government agencies,
-        educational institutions, and private organizations.
-      </p>
-
-      {/* Specialization */}
-      <p style={{ fontSize: "16px", lineHeight: "1.6", marginBottom: "30px" }}>
-        We specialize in custom‑designed API architectures tailored to your operational needs — from biosensing
-        and machine learning integration to enterprise‑grade data systems.
-      </p>
-
-      {/* Process */}
-      <section style={{ marginBottom: "30px" }}>
-        <h2>Our Process</h2>
-        <ul>
-          <li><strong>Phase 1 — Paid Consultation:</strong> Short interview to define goals and specifications.</li>
-          <li><strong>Phase 2 — Evaluation (Unpaid):</strong> Review and agreement on API structure, timeline, and contract.</li>
-        </ul>
-      </section>
-
-      {/* Expertise */}
-      <section style={{ marginBottom: "30px" }}>
-        <h2>Our Expertise</h2>
-        <ul>
-          <li>Commercial API development for biosensing, data analytics, and institutional systems.</li>
-          <li>Machine learning integration for virus detection and biosensor data classification.</li>
-          <li>Custom backend & frontend engineering using Firebase, GitHub, Stripe and Vercel.</li>
-          <li>ML training labs & courses accessible through our API (subscription‑based).</li>
-          <li>Consulting services for organizations seeking customized API design or scientific/financial solutions.</li>
-          <li>Cutting‑edge course development — “Full‑Stack API”, paid through API access.</li>
-
-          {/* ⭐ NEW Expertise Lines */}
-          <li>Data analytics using Power BI for enterprise dashboards and reporting.</li>
-          <li>SQL‑based data engineering and database optimization.</li>
-          <li>LLM‑powered automation and intelligent data processing.</li>
-          <li>OpenAI model integration for advanced analytics and automation.</li>
-          <li>ChatGPT‑based conversational interfaces and workflow assistants.</li>
-
-          {/* ⭐ Newly Added Topics */}
-          <li>API Integration of Machine Learning sensors based on visible and IR lights.</li>
-          <li>API Integration of Machine Learning sensors based on MRI spectroscopies.</li>
-          <li>API Integration of Machine Learning sensors based on Piezoelectric sensors.</li>
-          <li>API Integration of Machine Learning sensors based on Robotic Sensors.</li>
-        </ul>
-      </section>
-
-      {/* ⭐ Biography section removed completely */}
-    </div>
-  );
+interface ProfileData {
+  name: string;
+  title: string;
+  bio: string;
+  image: string;
 }
 
-/* ⭐ Paste‑Image Component */
-function PasteImageBox() {
-  const [image, setImage] = React.useState(null);
+export default function Profile() {
+  const [profile, setProfile] = useState<ProfileData>({
+    name: "Dr. Selemani Mziray",
+    title: "Full‑Stack API Engineer • Founder • AI‑Driven Biosensing Innovator",
+    bio: `
+Dr. Selemani Mziray is a Full‑Stack API Engineer and founder working at the intersection of advanced biosensing and AI‑driven software development. His technical foundation includes certification from DeepLearning.AI under Andrew Ng through Coursera, validating his expertise in Python, AI integration, prompt engineering, automation, data analysis, and generative AI. Over time, he built practical experience in LLM‑based applications, API architecture, machine learning, and intelligent automation—accelerated by early adoption of AI assistants for debugging, rapid prototyping, and system design.
 
-  const handlePaste = (e) => {
-    const items = e.clipboardData.items;
-    for (let i = 0; i < items.length; i++) {
-      if (items[i].type.indexOf("image") !== -1) {
-        const blob = items[i].getAsFile();
-        const src = URL.createObjectURL(blob);
-        setImage(src);
-      }
+This progression led him to establish Piezo – Pico to Femtotechnology Sensors Inc., a company pioneering next‑generation biosensing powered by intelligent API systems. Dr. Mziray developed a proprietary API and machine‑learning pipeline that integrates his patented QCM biosensor technology, enabling rapid, high‑accuracy viral classification and prediction. He also introduced Full‑Stack API Engineering, a course delivered through the company’s API ecosystem to train new‑generation developers in AI‑enhanced engineering workflows.
+
+His work continues to bridge scientific discovery with practical engineering, ensuring that advanced biosensing technologies become accessible, scalable, and impactful across global industries.
+
+Dr. Mziray’s work represents a fusion of AI automation and biosensor science, demonstrating his commitment to innovation, scientific rigor, and practical applications of machine learning in global health, e‑commerce, and institutional systems for both private and government sectors.
+
+---
+
+Scientific Innovation & Patented Biosensing Technology  
+US Patent 10,830,738 B2 — High Q‑Factor AT‑Cut Quartz Crystal Microbalance Femtogram Mass Sensor  
+https://patentimages.storage.googleapis.com/44/d5/f5/3e1186c38b0a06/US10830738.pdf
+
+US Patent Application 2020/0173898 A1 — Process for Detecting Electrolytes & Biomarkers with Femtogram Resolution  
+https://patentimages.storage.googleapis.com/19/a0/98/54abbea587e949/US20200173898A1.pdf
+
+These patented QCM systems enable real‑time detection of viruses, bacteria, troponins, and electrolytes—forming the foundation of the company’s biosensing APIs and machine‑learning training labs.
+
+---
+
+Education & Certifications  
+DeepLearning.AI, Coursera — Certification, October 2025, Stanford University, USA  
+Data Science Infinity — Certification in Data Analyst Specialist, August 2025, USA  
+Northern Alberta Institute of Technology (NAIT) — Diploma in Nanosystem Engineering Technology, 2021–2024, Canada  
+Alabama A&M University — Ph.D. in Applied Physics (Materials Science), 2002–2007, USA
+    `,
+    image: "",
+  });
+
+  useEffect(() => {
+    const storedImage = localStorage.getItem("profile_image");
+    if (storedImage) {
+      setProfile((prev) => ({ ...prev, image: storedImage }));
     }
+  }, []);
+
+  const containerStyle: React.CSSProperties = {
+    maxWidth: "900px",
+    margin: "0 auto",
+    padding: "24px",
+    lineHeight: "1.6",
+  };
+
+  const cardStyle: React.CSSProperties = {
+    background: "#fff",
+    padding: "24px",
+    borderRadius: "12px",
+    boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+    display: "flex",
+    gap: "24px",
+    alignItems: "flex-start",
+  };
+
+  const imageStyle: React.CSSProperties = {
+    width: "160px",
+    height: "160px",
+    borderRadius: "12px",
+    objectFit: "cover",
+    background: "#eee",
+  };
+
+  const bioStyle: React.CSSProperties = {
+    whiteSpace: "pre-line",
+    marginTop: "12px",
   };
 
   return (
-    <div
-      onPaste={handlePaste}
-      className="w-40 h-40 rounded-full bg-gray-200 dark:bg-gray-700 mt-4 flex items-center justify-center shadow-md border border-gray-300 dark:border-gray-600 cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-600 transition-all"
-    >
-      {image ? (
+    <div style={containerStyle}>
+      <h1 style={{ marginBottom: "20px" }}>Profile</h1>
+
+      <div style={cardStyle}>
         <img
-          src={image}
-          alt="Pasted"
-          className="w-40 h-40 rounded-full object-cover"
+          src={
+            profile.image
+              ? `data:image/jpeg;base64,${profile.image}`
+              : "/default-profile.png"
+          }
+          alt="Profile"
+          style={imageStyle}
         />
-      ) : (
-        <span className="text-gray-500 dark:text-gray-300 text-sm text-center px-2">
-          Paste Image Here (Ctrl+V)
-        </span>
-      )}
-    </div>
-  );
-}
 
-/* Existing CollapsibleCard Component */
-function CollapsibleCard({ title, children }) {
-  const [open, setOpen] = React.useState(false);
-
-  return (
-    <div className="border border-gray-300 dark:border-gray-700 rounded-lg p-4 bg-gray-50 dark:bg-gray-800 transition-all duration-300">
-      <button
-        onClick={() => setOpen(!open)}
-        className="w-full text-left flex justify-between items-center text-lg font-semibold text-gray-800 dark:text-gray-100"
-      >
-        {title}
-        <span className={`transform transition-transform ${open ? "rotate-180" : ""}`}>
-          ▼
-        </span>
-      </button>
-
-      <div
-        className={`mt-3 overflow-hidden transition-all duration-500 ${
-          open ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
-        }`}
-      >
-        <div className="text-gray-700 dark:text-gray-300 leading-relaxed">
-          {children}
+        <div>
+          <h2>{profile.name}</h2>
+          <h4 style={{ color: "#555" }}>{profile.title}</h4>
+          <p style={bioStyle}>{profile.bio}</p>
         </div>
       </div>
     </div>
