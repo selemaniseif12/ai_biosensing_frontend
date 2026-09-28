@@ -4,7 +4,7 @@ import { useState } from "react";
 
 type DocumentationItem = {
   title: string;
-  file: string;
+  url: string;
 };
 
 function PdfViewer({ doc }: { doc: DocumentationItem | null }) {
@@ -19,23 +19,53 @@ function PdfViewer({ doc }: { doc: DocumentationItem | null }) {
   return (
     <iframe
       title={doc.title}
-      src={`/documents/${doc.file}`}
+      src={doc.url}
       className="h-[600px] w-full rounded border"
     />
   );
 }
 
 const documents: DocumentationItem[] = [
-  { title: "Backend & Frontend Architecture", file: "backend-frontend-architecture.pdf" },
-  { title: "Biosensing Platform Documentation", file: "biosensing-platform.pdf" },
-  { title: "Course Outline — Fullstack API Engineering", file: "fullstack-api-engineering.pdf" },
-  { title: "General Auth Token Access System", file: "general-auth-token-access-system.pdf" },
-  { title: "Main.py Documentation", file: "main-py-documentation.pdf" },
-  { title: "ML Models Folder Structure", file: "ml-models-folder-structure.pdf" },
-  { title: "Payment System Architecture", file: "payment-system-architecture.pdf" },
-  { title: "Router Documentation", file: "router-documentation.pdf" },
-  { title: "Swagger Documentation", file: "swagger-documentation.pdf" },
-  { title: "Token-Based Access System", file: "token-based-access-system.pdf" },
+  {
+    title: "Backend & Frontend Architecture",
+    url: "https://your-vercel-blob-url/backend-frontend-architecture.pdf",
+  },
+  {
+    title: "Biosensing Platform Documentation",
+    url: "https://your-vercel-blob-url/biosensing-platform.pdf",
+  },
+  {
+    title: "Course Outline — Fullstack API Engineering",
+    url: "https://your-vercel-blob-url/fullstack-api-engineering.pdf",
+  },
+  {
+    title: "General Auth Token Access System",
+    url: "https://your-vercel-blob-url/general-auth-token-access-system.pdf",
+  },
+  {
+    title: "Main.py Documentation",
+    url: "https://your-vercel-blob-url/main-py-documentation.pdf",
+  },
+  {
+    title: "ML Models Folder Structure",
+    url: "https://your-vercel-blob-url/ml-models-folder-structure.pdf",
+  },
+  {
+    title: "Payment System Architecture",
+    url: "https://your-vercel-blob-url/payment-system-architecture.pdf",
+  },
+  {
+    title: "Router Documentation",
+    url: "https://your-vercel-blob-url/router-documentation.pdf",
+  },
+  {
+    title: "Swagger Documentation",
+    url: "https://your-vercel-blob-url/swagger-documentation.pdf",
+  },
+  {
+    title: "Token-Based Access System",
+    url: "https://your-vercel-blob-url/token-based-access-system.pdf",
+  },
 ];
 
 function DocumentationList({
@@ -47,7 +77,7 @@ function DocumentationList({
     <div className="space-y-2">
       {documents.map((document) => (
         <button
-          key={document.file}
+          key={document.url}
           type="button"
           onClick={() => onSelect(document)}
           className="block w-full rounded border bg-white p-3 text-left hover:bg-gray-50"
@@ -64,10 +94,8 @@ export default function DocumentationPage() {
 
   return (
     <div className="p-6">
-      {/* PAGE TITLE */}
       <h1 className="text-2xl font-bold mb-6">Documentation</h1>
 
-      {/* OVERVIEW SECTION — KEEPING YOUR EXISTING STRUCTURE */}
       <div className="mb-8 p-4 bg-gray-100 rounded shadow">
         <h2 className="text-xl font-semibold mb-3">Overview of All Documents</h2>
 
@@ -85,14 +113,11 @@ export default function DocumentationPage() {
         </ul>
       </div>
 
-      {/* MAIN DOCUMENTATION LAYOUT */}
       <div className="flex gap-6">
-        {/* LEFT SIDE — DOCUMENT LIST */}
         <div className="w-1/3">
           <DocumentationList onSelect={setSelectedDoc} />
         </div>
 
-        {/* RIGHT SIDE — PDF VIEWER */}
         <div className="w-2/3">
           <PdfViewer doc={selectedDoc} />
         </div>
