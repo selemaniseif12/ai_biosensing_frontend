@@ -11,7 +11,7 @@ export default function Profile() {
         Piezo‑Pico to Femtotechnology Sensors Inc.
       </h1>
 
-      {/* ⭐ Updated layout: text fills right side and below image */}
+      {/* Updated layout */}
       <div className="flex flex-col md:flex-row items-start md:gap-8">
         <div className="flex-shrink-0 mb-6 md:mb-0">
           <Image
@@ -24,7 +24,6 @@ export default function Profile() {
           />
         </div>
 
-        {/* ⭐ Text now expands fully using flex-1 */}
         <div className="flex-1 text-lg leading-relaxed space-y-6">
           <p>
             Dr. Selemani Mziray is a Full‑Stack API Engineer and founder working
@@ -70,14 +69,28 @@ export default function Profile() {
             <strong>US Patent 10,830,738 B2</strong> — High Q‑Factor AT‑Cut
             Quartz Crystal Microbalance Femtogram Mass Sensor  
             <br />
-            https://patentimages.storage.googleapis.com/44/d5/f5/3e1186c38b0a06/US10830738.pdf
+            <a
+              href="https://patentimages.storage.googleapis.com/44/d5/f5/3e1186c38b0a06/US10830738.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 underline"
+            >
+              View Patent PDF
+            </a>
           </p>
 
           <p>
             <strong>US Patent Application 2020/0173898 A1</strong> — Process for
             Detecting Electrolytes & Biomarkers with Femtogram Resolution  
             <br />
-            https://patentimages.storage.googleapis.com/19/a0/98/54abbea587e949/US20200173898A1.pdf
+            <a
+              href="https://patentimages.storage.googleapis.com/19/a0/98/54abbea587e949/US20200173898A1.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 underline"
+            >
+              View Patent PDF
+            </a>
           </p>
 
           <p>
