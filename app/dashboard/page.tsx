@@ -454,7 +454,8 @@ export default function DashboardPage() {
       {/* TAB CONTENT */}
       <div style={{ marginTop: "18px" }}>
         {activeTab === "home" && <HomePage />}
-        {activeTab === "profile" && <Profile />}
+       {activeTab === "profile" && <HomePage />}
+
 
         {/* VIRUS LIST */}
         {activeTab === "virus_list" &&
