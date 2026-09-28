@@ -7,7 +7,7 @@ export default function HomePage() {
     <div className="homepage-container">
       <div className="profile-header">
         <Image
-          src="/default-profile.png"
+          src="/profile.png"
           alt="Dr. Selemani Mziray"
           width={180}
           height={180}
