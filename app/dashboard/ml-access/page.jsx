@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import RequireToken from "@/app/lib/RequireToken";
 import { issueToken, validateToken, getStoredToken } from "../ServiceTokenClient.jsx";
 
 export default function MLAccessButton({ modelName, userId }) {
@@ -41,35 +42,43 @@ export default function MLAccessButton({ modelName, userId }) {
   };
 
   return (
-    <div style={{ padding: "1rem", border: "1px solid #ddd", borderRadius: "8px" }}>
-      <button
-        onClick={handleAccess}
+    <RequireToken>
+      <div
         style={{
-          padding: "10px 20px",
-          backgroundColor: "#0070f3",
-          color: "white",
-          borderRadius: "6px",
-          border: "none",
-          cursor: "pointer"
+          padding: "1rem",
+          border: "1px solid #ddd",
+          borderRadius: "8px"
         }}
       >
-        Access ML Model: {modelName}
-      </button>
-
-      {status && <p style={{ marginTop: "10px" }}>{status}</p>}
-
-      {mlData && (
-        <pre
+        <button
+          onClick={handleAccess}
           style={{
-            marginTop: "10px",
-            background: "#f5f5f5",
-            padding: "10px",
-            borderRadius: "6px"
+            padding: "10px 20px",
+            backgroundColor: "#0070f3",
+            color: "white",
+            borderRadius: "6px",
+            border: "none",
+            cursor: "pointer"
           }}
         >
-          {JSON.stringify(mlData, null, 2)}
-        </pre>
-      )}
-    </div>
+          Access ML Model: {modelName}
+        </button>
+
+        {status && <p style={{ marginTop: "10px" }}>{status}</p>}
+
+        {mlData && (
+          <pre
+            style={{
+              marginTop: "10px",
+              background: "#f5f5f5",
+              padding: "10px",
+              borderRadius: "6px"
+            }}
+          >
+            {JSON.stringify(mlData, null, 2)}
+          </pre>
+        )}
+      </div>
+    </RequireToken>
   );
 }
