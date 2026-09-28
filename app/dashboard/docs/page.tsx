@@ -3,11 +3,9 @@
 import { useEffect, useState } from "react";
 
 export default function DocumentationDashboard() {
-  // FIX: Proper typing for arrays
   const [documents, setDocuments] = useState<any[]>([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  // ⭐ Fetch the 11 documents from your Render backend
   useEffect(() => {
     async function loadDocs() {
       try {
@@ -20,11 +18,7 @@ export default function DocumentationDashboard() {
         );
 
         const data = await res.json();
-
-        // Ensure array format
         const backendDocs = Array.isArray(data) ? data : [];
-
-        // FIX: Now assignable because state is typed as any[]
         setDocuments(backendDocs);
       } catch (err) {
         console.error("Failed to load documents:", err);
@@ -35,7 +29,6 @@ export default function DocumentationDashboard() {
     loadDocs();
   }, []);
 
-  // ⭐ Loading state
   if (documents.length === 0) {
     return (
       <div style={{ padding: "24px" }}>
@@ -60,6 +53,7 @@ export default function DocumentationDashboard() {
     <div style={{ padding: "24px", maxWidth: "1200px", margin: "0 auto" }}>
       <h1 style={{ marginBottom: "20px" }}>Documentation</h1>
 
+      {/* ⭐ REPLACED OVERVIEW BOX WITH FULL INTRODUCTION */}
       <section
         style={{
           marginBottom: "24px",
@@ -69,19 +63,51 @@ export default function DocumentationDashboard() {
           backgroundColor: "#fafafa",
         }}
       >
-        <h2 style={{ marginBottom: "12px" }}>Overview of All Documents</h2>
-        <p style={{ marginBottom: "12px" }}>
-          This page explains what each document in the biosensing platform
-          covers. Use it as a map before diving into individual PDFs.
+        <h2 className="text-2xl font-bold mb-4">
+          Piezo Pico to Femtotechnology Sensors Inc
+        </h2>
+
+        <p className="mb-4">
+          Piezo Pico to Femtotechnology Sensors Inc is a modern engineering company
+          specializing in full‑stack API development, advanced machine learning
+          integrations, and biosensing technology platforms. Our work spans multiple
+          domains — from ML model deployment to financial‑grade authentication systems —
+          and every document in this dashboard represents real, production‑ready
+          engineering completed by our team.
         </p>
 
-        <ul style={{ paddingLeft: "20px", margin: 0 }}>
-          {documents.map((doc) => (
-            <li key={doc.id} style={{ marginBottom: "8px" }}>
-              <strong>{doc.title}:</strong> {doc.category}
-            </li>
-          ))}
+        <p className="mb-4">
+          This documentation collection demonstrates our capability to design and
+          implement end‑to‑end API ecosystems, including backend architecture, frontend
+          integration, ML model routing, biosensing pipelines, and secure authentication
+          frameworks. Each document highlights a different part of our engineering stack:
+        </p>
+
+        <ul className="list-disc ml-6 mb-4">
+          <li>Architecture documents show how backend and frontend systems communicate.</li>
+          <li>Platform documents explain biosensing workflows and data pipelines.</li>
+          <li>Machine Learning documents detail model structure, routing, and deployment.</li>
+          <li>Course and training documents outline our full‑stack API engineering curriculum.</li>
+          <li>
+            System architecture documents (including authentication and token systems)
+            demonstrate our ability to build secure, scalable, enterprise‑grade access
+            control mechanisms.
+          </li>
         </ul>
+
+        <p className="mb-4">
+          Together, these documents provide a transparent view of our engineering
+          standards, coding practices, and architectural design philosophy. They show
+          that Piezo Pico to Femtotechnology Sensors Inc can build any modern API
+          system, from ML‑powered research tools to financial‑institution‑level
+          authentication systems, using sophisticated, reliable, and scalable
+          technologies.
+        </p>
+
+        <p>
+          Use the document list on the left to explore documents by category. You may
+          open, download, or print any document directly from this dashboard.
+        </p>
       </section>
 
       <div style={{ display: "flex", gap: "20px" }}>
