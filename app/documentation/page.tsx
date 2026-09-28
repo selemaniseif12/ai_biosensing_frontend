@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import DocumentationIntro from "./DocumentationIntro"; // ⭐ IMPORT INTRO
 
 export default function DocumentationPage() {
   const [filter, setFilter] = useState("");
@@ -25,6 +26,10 @@ export default function DocumentationPage() {
 
   return (
     <div className="p-6">
+
+      {/* ⭐ RESTORED INTRODUCTION SECTION */}
+      <DocumentationIntro />
+
       {/* ⭐ Filter Input */}
       <div className="mb-6">
         <input
