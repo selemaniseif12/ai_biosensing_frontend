@@ -31,7 +31,6 @@ export default function MlDrift() {
 
   const [baseFreq, setBaseFreq] = useState(null);
   const [currentFreq, setCurrentFreq] = useState(null);
-
   const [running, setRunning] = useState(false);
   const intervalRef = useRef(null);
 
@@ -121,28 +120,40 @@ export default function MlDrift() {
           ML Drift Demonstration: Understanding the Base Frequency 1693999.683456560131
         </h2>
 
+        {/* ⭐ FULL SCIENTIFIC PARAGRAPH BLOCK INSERTED ⭐ */}
         <p>
-          Our machine-learning drift demonstration experiment highlights one of the
-          foundational principles behind our patented Piezo-Pico-Femtotechnology™ sensor
-          platform...
-        </p>
-
-        <p
-          style={{
-            backgroundColor: "#fff3cd",
-            padding: "10px",
-            borderRadius: "6px"
-          }}
-        >
-          <strong>Demo Note (V2/V6 Comparison):</strong> In the V2/V6 comparison
-          demonstration dashboard, the user must click <strong>Run Comparison</strong>{" "}
-          twice — first loads tables, second loads charts.
+          The MLDrift demonstration simulates femtogram‑scale frequency noise using a tuned AT‑cut quartz model. 
+          This simulation is inspired by the real‑world behavior of ultrasensitive QCM sensors described in the inventor’s patents. 
+          In the patented systems, the AT‑cut quartz resonators operate near 1.694 MHz, and the measured frequency noise routinely 
+          falls in the 10⁻⁸ to 10⁻¹² MHz regime. These values correspond to femtogram‑scale mass changes, electrolyte fluctuations, 
+          and troponin binding events. The simulation in this demo mirrors that behavior by generating micro‑drift steps and damping 
+          factors that approximate the Allan deviation and Sauerbrey mass‑sensitivity relationships described in the patents.
         </p>
 
         <p>
-          Classification begins the moment the measured frequency drops below the integer
-          portion of the base frequency (1693999)...
+          In the first patent (US 10,830,738 B2), the QCM disks with center‑dot electrodes demonstrate extremely high Q‑factors 
+          and frequency stability. The Allan deviation curves (e.g., FIG. 7A) show noise floors approaching 10⁻¹³, and detection 
+          limits (FIG. 7B) reaching sub‑microhertz resolution. These real measurements validate the drift model used in the demo: 
+          small, stochastic frequency steps with exponential damping. The simulation’s cumulative drift behavior is directly inspired 
+          by the way real QCM sensors accumulate femtogram mass on the electrode surface, producing measurable shifts in oscillation frequency.
         </p>
+
+        <p>
+          In the second patent (US 2020/0173898 A1), the probe system demonstrates how electrolytes (Na⁺, Mg²⁺, Ca²⁺, K⁺) produce 
+          distinct frequency‑noise signatures between 1–2 MHz, stabilizing into predictable drift curves. The figures (FIG. 7A–12B) 
+          show how ionic concentration changes produce frequency shifts on the order of 10⁻⁸ to 10⁻¹⁰ MHz, matching the drift magnitudes 
+          used in the MLDrift simulation. The demo’s drift‑step tuning function mimics this behavior by adjusting drift amplitude based 
+          on the sweep window, similar to how real QCM sensors respond differently depending on ionic strength, viscosity, and electrode loading.
+        </p>
+
+        <p>
+          Together, these patented results justify the simulation model used in MLDrift: a controlled, stochastic drift pattern with 
+          damping, bounded by femtogram‑scale noise levels. The demo is not intended to replicate the full complexity of the patented 
+          QCM systems, but it provides a realistic visualization of how frequency drift evolves in high‑Q quartz sensors under femtogram 
+          mass loading and electrolyte interaction.
+        </p>
+
+        {/* END SCIENTIFIC BLOCK */}
 
         <h3 style={{ marginTop: "25px" }}>Threshold Adjustment Guidance</h3>
 
@@ -162,8 +173,7 @@ export default function MlDrift() {
         </p>
 
         <p>
-          Each reduction reveals deeper drift behavior and exposes subtle mass-based
-          perturbations...
+          Each reduction reveals deeper drift behavior and exposes subtle mass‑based perturbations.
         </p>
       </div>
 
@@ -171,7 +181,7 @@ export default function MlDrift() {
       <h2>Live Frequency vs Time</h2>
 
       <div style={{ marginBottom: "10px" }}>
-        <label>Start Time (s):</label>
+        <label>Start Time (s): </label>
         <input
           type="number"
           value={startTime}
@@ -181,7 +191,7 @@ export default function MlDrift() {
       </div>
 
       <div style={{ marginBottom: "10px" }}>
-        <label>Stop Time (s):</label>
+        <label>Stop Time (s): </label>
         <input
           type="number"
           value={stopTime}
@@ -191,7 +201,7 @@ export default function MlDrift() {
       </div>
 
       <div style={{ marginBottom: "10px" }}>
-        <label>Threshold (Hz):</label>
+        <label>Threshold (Hz): </label>
         <input
           type="number"
           value={threshold}
@@ -234,12 +244,12 @@ export default function MlDrift() {
 
       <div style={{ marginTop: "20px", marginBottom: "20px" }}>
         <p>
-          <strong>Base Frequency (Hz):</strong>{" "}
+          <strong>Base Frequency (Hz): </strong>
           {baseFreq !== null ? baseFreq.toFixed(12) : "-"}
         </p>
 
         <p>
-          <strong>Measured Frequency (Hz):</strong>{" "}
+          <strong>Measured Frequency (Hz): </strong>
           {currentFreq !== null ? currentFreq.toFixed(12) : "-"}
         </p>
       </div>
@@ -298,7 +308,7 @@ export default function MlDrift() {
             }}
           />
 
-          {/* ⭐ SIDE-BY-SIDE TABLES */}
+          {/* TABLES */}
           <div
             style={{
               display: "flex",
@@ -306,7 +316,7 @@ export default function MlDrift() {
               marginTop: "40px"
             }}
           >
-            {/* LEFT TABLE — MEASURED FREQUENCY */}
+            {/* LEFT TABLE */}
             <div style={{ flex: 1 }}>
               <h3>Time vs Measured Frequency</h3>
               <table
@@ -341,7 +351,7 @@ export default function MlDrift() {
               </table>
             </div>
 
-            {/* RIGHT TABLE — DRIFT FREQUENCY */}
+            {/* RIGHT TABLE */}
             <div style={{ flex: 1 }}>
               <h3>Time vs Drift Frequency</h3>
               <table
