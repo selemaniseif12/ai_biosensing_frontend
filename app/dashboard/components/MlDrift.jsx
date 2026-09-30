@@ -117,10 +117,9 @@ export default function MlDrift() {
         }}
       >
         <h2 style={{ marginBottom: "10px" }}>
-          ML Drift Demonstration: Understanding the Base Frequency 1693999.683456560131
+          ML Drift Demonstration: Understanding the Base Frequency 1693999.683456560131 Hz
         </h2>
 
-        {/* ⭐ FULL SCIENTIFIC PARAGRAPH BLOCK INSERTED ⭐ */}
         <p>
           The MLDrift demonstration simulates femtogram‑scale frequency noise using a tuned AT‑cut quartz model. 
           This simulation is inspired by the real‑world behavior of ultrasensitive QCM sensors described in the inventor’s patents. 
@@ -152,8 +151,6 @@ export default function MlDrift() {
           QCM systems, but it provides a realistic visualization of how frequency drift evolves in high‑Q quartz sensors under femtogram 
           mass loading and electrolyte interaction.
         </p>
-
-        {/* END SCIENTIFIC BLOCK */}
 
         <h3 style={{ marginTop: "25px" }}>Threshold Adjustment Guidance</h3>
 
