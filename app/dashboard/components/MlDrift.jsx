@@ -120,6 +120,43 @@ export default function MlDrift() {
           ML Drift Demonstration: Understanding the Base Frequency 1693999.683456560131 Hz
         </h2>
 
+        {/* PATENT LINKS */}
+        <div style={{ marginBottom: "20px", marginTop: "10px" }}>
+          <a
+            href="https://patentimages.storage.googleapis.com/44/d5/f5/3e1186c38b0a06/US10830738.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "inline-block",
+              padding: "10px 15px",
+              backgroundColor: "#007bff",
+              color: "white",
+              borderRadius: "6px",
+              textDecoration: "none",
+              marginRight: "10px"
+            }}
+          >
+            View Patent: US 10,830,738 B2
+          </a>
+
+          <a
+            href="https://patentimages.storage.googleapis.com/19/a0/98/54abbea587e949/US20200173898A1.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "inline-block",
+              padding: "10px 15px",
+              backgroundColor: "#28a745",
+              color: "white",
+              borderRadius: "6px",
+              textDecoration: "none"
+            }}
+          >
+            View Patent: US 2020/0173898 A1
+          </a>
+        </div>
+
+        {/* SCIENTIFIC PARAGRAPHS */}
         <p>
           The MLDrift demonstration simulates femtogram‑scale frequency noise using a tuned AT‑cut quartz model. 
           This simulation is inspired by the real‑world behavior of ultrasensitive QCM sensors described in the inventor’s patents. 
