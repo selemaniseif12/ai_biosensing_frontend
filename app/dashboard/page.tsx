@@ -66,10 +66,23 @@ import AdminTokenDashboard from "./components/AdminTokenDashboard.jsx";
 /* ⭐ NEW — SENSOR DEVICES TILE */
 import SensorDevicesTile from "./components/SensorDevicesTile.jsx";
 
+/* ⭐ FIX: Proper Meeting interface */
+interface Meeting {
+  id: string;
+  title: string;
+  date: string;
+  time: string;
+  platform: string;
+  link: string;
+}
+
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState("home");
-  const [openSection, setOpenSection] = useState("home");
-  const [meetings, setMeetings] = useState([]);
+  const [openSection, setOpenSection] = useState<string | null>("home");
+
+  /* ⭐ FIX: Correct TypeScript typing */
+  const [meetings, setMeetings] = useState<Meeting[]>([]);
+
   const [token, setToken] = useState("");
 
   const params = useSearchParams();
@@ -79,12 +92,13 @@ export default function DashboardPage() {
     localStorage.setItem("user_id", "1");
   }, []);
 
-  const toggleSection = (section) => {
+  const toggleSection = (section: string) => {
     setOpenSection(openSection === section ? null : section);
   };
 
-  const handleCreate = (meeting) => {
-    const normalized = {
+  /* ⭐ FIX: handleCreate now matches Meeting interface */
+  const handleCreate = (meeting: any) => {
+    const normalized: Meeting = {
       id: meeting.id || crypto.randomUUID(),
       title: meeting.title || "Consultation Meeting",
       date: meeting.date || "",
@@ -92,11 +106,12 @@ export default function DashboardPage() {
       platform: meeting.platform || "N/A",
       link: meeting.link || "",
     };
-    setMeetings((current) => [...current, normalized]);
+
+    setMeetings((current: Meeting[]) => [...current, normalized]);
   };
 
   useEffect(() => {
-    getMeetings().then(setMeetings).catch(console.error);
+    getMeetings().then((data: Meeting[]) => setMeetings(data)).catch(console.error);
   }, []);
 
   useEffect(() => {
@@ -121,7 +136,7 @@ export default function DashboardPage() {
     minWidth: "260px",
   };
 
-  const buttonStyle = (isActive) => ({
+  const buttonStyle = (isActive: boolean) => ({
     padding: "10px 16px",
     border: "none",
     borderRadius: "6px",
