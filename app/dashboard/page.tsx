@@ -63,8 +63,6 @@ import { getMeetings } from "./components/MeetingAPI.jsx";
 /* ⭐ ADMIN TOKEN DASHBOARD */
 import AdminTokenDashboard from "./components/AdminTokenDashboard.jsx";
 
-/* ⭐ NEW — SENSOR DEVICES TILE */
-import SensorDevicesTile from "./components/SensorDevicesTile.jsx";
 
 /* ⭐ FIX: Proper Meeting interface */
 interface Meeting {
@@ -483,11 +481,6 @@ export default function DashboardPage() {
         {/* MACHINE LEARNING */}
         {activeTab === "ml_v2" && <MLTrainingV2 />}
         {activeTab === "ml_v6" && <MLTrainingV6 />}
-
-        /* SENSOR DEVICES PAGE — removed duplicate header */
-        {activeTab === "sensor_devices" && null}
-
-
 
         {/* CONSULTING */}
         {activeTab === "consulting" && <ConsultingPage />}
