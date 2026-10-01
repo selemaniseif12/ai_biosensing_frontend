@@ -80,9 +80,7 @@ export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState("home");
   const [openSection, setOpenSection] = useState<string | null>("home");
 
-  /* ⭐ FIX: Correct TypeScript typing */
   const [meetings, setMeetings] = useState<Meeting[]>([]);
-
   const [token, setToken] = useState("");
 
   const params = useSearchParams();
@@ -96,7 +94,6 @@ export default function DashboardPage() {
     setOpenSection(openSection === section ? null : section);
   };
 
-  /* ⭐ FIX: handleCreate now matches Meeting interface */
   const handleCreate = (meeting: any) => {
     const normalized: Meeting = {
       id: meeting.id || crypto.randomUUID(),
@@ -224,13 +221,8 @@ export default function DashboardPage() {
                 ML Drift
               </button>
 
-              {/* ⭐ NEW SENSOR DEVICES BUTTON */}
-              <button
-                onClick={() => setActiveTab("sensor_devices")}
-                style={buttonStyle(activeTab === "sensor_devices")}
-              >
-                Sensor Devices
-              </button>
+              {/* ⭐ SENSOR DEVICES TILE */}
+              <SensorDevicesTile />
             </div>
           )}
         </div>
@@ -301,7 +293,7 @@ export default function DashboardPage() {
           )}
         </div>
 
-        {/* ⭐ PAYMENT HISTORY */}
+        {/* PAYMENT HISTORY */}
         <div style={cardStyle}>
           <h3
             onClick={() => router.push("/dashboard/payment-history")}
@@ -492,8 +484,13 @@ export default function DashboardPage() {
         {activeTab === "ml_v2" && <MLTrainingV2 />}
         {activeTab === "ml_v6" && <MLTrainingV6 />}
 
-        {/* ⭐ SENSOR DEVICES */}
-        {activeTab === "sensor_devices" && <SensorDevicesTile />}
+        {/* SENSOR DEVICES PAGE */}
+        {activeTab === "sensor_devices" && (
+          <div>
+            <h2>Sensor Devices</h2>
+            <p>Click the tile above to view full details.</p>
+          </div>
+        )}
 
         {/* CONSULTING */}
         {activeTab === "consulting" && <ConsultingPage />}
