@@ -20,7 +20,8 @@ export default function SensorDevicesPage() {
 
   return (
     <div className="page-container">
-      <h1 className="page-title">{data.title}</h1>
+
+      {/* ⭐ HEADER REMOVED TO ELIMINATE DUPLICATE */}
 
       <img
         src={data.image_url}
