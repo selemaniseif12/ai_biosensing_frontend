@@ -2,7 +2,6 @@
 export const dynamic = "force-dynamic";
 export const runtime = "edge";
 
-
 import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 
@@ -64,11 +63,13 @@ import { getMeetings } from "./components/MeetingAPI.jsx";
 /* ⭐ ADMIN TOKEN DASHBOARD */
 import AdminTokenDashboard from "./components/AdminTokenDashboard.jsx";
 
+/* ⭐ NEW — SENSOR DEVICES TILE */
+import SensorDevicesTile from "./components/SensorDevicesTile.jsx";
+
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState("home");
-  const [openSection, setOpenSection] = useState<string | null>("home");
-  // FIX: Proper typing for meetings array
-  const [meetings, setMeetings] = useState<any[]>([]);
+  const [openSection, setOpenSection] = useState("home");
+  const [meetings, setMeetings] = useState([]);
   const [token, setToken] = useState("");
 
   const params = useSearchParams();
@@ -78,11 +79,11 @@ export default function DashboardPage() {
     localStorage.setItem("user_id", "1");
   }, []);
 
-  const toggleSection = (section: string) => {
+  const toggleSection = (section) => {
     setOpenSection(openSection === section ? null : section);
   };
 
-  const handleCreate = (meeting: any) => {
+  const handleCreate = (meeting) => {
     const normalized = {
       id: meeting.id || crypto.randomUUID(),
       title: meeting.title || "Consultation Meeting",
@@ -120,7 +121,7 @@ export default function DashboardPage() {
     minWidth: "260px",
   };
 
-  const buttonStyle = (isActive: boolean) => ({
+  const buttonStyle = (isActive) => ({
     padding: "10px 16px",
     border: "none",
     borderRadius: "6px",
@@ -206,6 +207,14 @@ export default function DashboardPage() {
                 style={buttonStyle(activeTab === "ml_drift")}
               >
                 ML Drift
+              </button>
+
+              {/* ⭐ NEW SENSOR DEVICES BUTTON */}
+              <button
+                onClick={() => setActiveTab("sensor_devices")}
+                style={buttonStyle(activeTab === "sensor_devices")}
+              >
+                Sensor Devices
               </button>
             </div>
           )}
@@ -453,11 +462,8 @@ export default function DashboardPage() {
 
       {/* TAB CONTENT */}
       <div style={{ marginTop: "18px" }}>
-      {activeTab === "home" && <HomePage />}
-      {activeTab === "profile" && <Profile />}
-
-       
-
+        {activeTab === "home" && <HomePage />}
+        {activeTab === "profile" && <Profile />}
 
         {/* VIRUS LIST */}
         {activeTab === "virus_list" &&
@@ -470,6 +476,9 @@ export default function DashboardPage() {
         {/* MACHINE LEARNING */}
         {activeTab === "ml_v2" && <MLTrainingV2 />}
         {activeTab === "ml_v6" && <MLTrainingV6 />}
+
+        {/* ⭐ SENSOR DEVICES */}
+        {activeTab === "sensor_devices" && <SensorDevicesTile />}
 
         {/* CONSULTING */}
         {activeTab === "consulting" && <ConsultingPage />}

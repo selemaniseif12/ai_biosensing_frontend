@@ -12,7 +12,25 @@ module.exports = {
     "./utils/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      // ⭐ Custom classes for Sensor Devices page
+      spacing: {
+        "page-padding": "2rem",
+      },
+      maxWidth: {
+        "page-width": "900px",
+        "sensor-img": "400px",
+      },
+      borderRadius: {
+        "sensor-img": "8px",
+      },
+      lineHeight: {
+        "paragraph": "1.6",
+      },
+      fontSize: {
+        "page-title": "2rem",
+      },
+    },
   },
   plugins: [],
 };
