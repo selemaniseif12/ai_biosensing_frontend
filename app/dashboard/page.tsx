@@ -220,7 +220,7 @@ export default function DashboardPage() {
               </button>
 
               {/* ⭐ SENSOR DEVICES TILE */}
-              <SensorDevicesTile />
+             
             </div>
           )}
         </div>
@@ -481,6 +481,8 @@ export default function DashboardPage() {
         {/* MACHINE LEARNING */}
         {activeTab === "ml_v2" && <MLTrainingV2 />}
         {activeTab === "ml_v6" && <MLTrainingV6 />}
+        {/* SENSOR DEVICES TILE REMOVED */}
+
 
         {/* CONSULTING */}
         {activeTab === "consulting" && <ConsultingPage />}
