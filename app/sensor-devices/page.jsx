@@ -5,7 +5,8 @@ export default function SensorDevicesPage() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch("https://api.piezo-sensors.com/sensor-devices/")
+   fetch(`${process.env.NEXT_PUBLIC_API_URL}/sensor-devices/`)
+
       .then(res => res.json())
       .then(setData);
   }, []);
