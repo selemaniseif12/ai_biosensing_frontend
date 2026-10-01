@@ -63,7 +63,6 @@ import { getMeetings } from "./components/MeetingAPI.jsx";
 /* ⭐ ADMIN TOKEN DASHBOARD */
 import AdminTokenDashboard from "./components/AdminTokenDashboard.jsx";
 
-
 /* ⭐ FIX: Proper Meeting interface */
 interface Meeting {
   id: string;
@@ -219,8 +218,13 @@ export default function DashboardPage() {
                 ML Drift
               </button>
 
-              {/* ⭐ SENSOR DEVICES TILE */}
-             
+              {/* SENSOR DEVICES (frontend-only, no router) */}
+              <button
+                onClick={() => setActiveTab("sensor_devices")}
+                style={buttonStyle(activeTab === "sensor_devices")}
+              >
+                Sensor Devices
+              </button>
             </div>
           )}
         </div>
@@ -481,8 +485,27 @@ export default function DashboardPage() {
         {/* MACHINE LEARNING */}
         {activeTab === "ml_v2" && <MLTrainingV2 />}
         {activeTab === "ml_v6" && <MLTrainingV6 />}
-        {/* SENSOR DEVICES TILE REMOVED */}
 
+        {/* SENSOR DEVICES (inline text, no router) */}
+        {activeTab === "sensor_devices" && (
+          <div style={{ padding: "20px" }}>
+            <h2>Sensor Devices</h2>
+            <p>
+              Sensor devices are used to collect environmental and biological data
+              from various locations. They provide real-time monitoring and support
+              machine learning models that detect anomalies and predict risks.
+            </p>
+            <p>
+              These devices operate autonomously and transmit data securely to the
+              backend for processing. They are designed for reliability, low power
+              consumption, and high accuracy.
+            </p>
+            <p>
+              Future versions will include enhanced connectivity, improved battery
+              life, and additional sensing capabilities.
+            </p>
+          </div>
+        )}
 
         {/* CONSULTING */}
         {activeTab === "consulting" && <ConsultingPage />}
