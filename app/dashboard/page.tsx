@@ -483,14 +483,9 @@ export default function DashboardPage() {
         {/* MACHINE LEARNING */}
         {activeTab === "ml_v2" && <MLTrainingV2 />}
         {activeTab === "ml_v6" && <MLTrainingV6 />}
-
         {/* SENSOR DEVICES PAGE */}
-        {activeTab === "sensor_devices" && (
-          <div>
-            <h2>Sensor Devices</h2>
-            <p>Click the tile above to view full details.</p>
-          </div>
-        )}
+        {activeTab === "sensor_devices" && null}
+
 
         {/* CONSULTING */}
         {activeTab === "consulting" && <ConsultingPage />}
