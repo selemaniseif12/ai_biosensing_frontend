@@ -483,8 +483,10 @@ export default function DashboardPage() {
         {/* MACHINE LEARNING */}
         {activeTab === "ml_v2" && <MLTrainingV2 />}
         {activeTab === "ml_v6" && <MLTrainingV6 />}
-        {/* SENSOR DEVICES PAGE */}
+
+        /* SENSOR DEVICES PAGE — removed duplicate header */
         {activeTab === "sensor_devices" && null}
+
 
 
         {/* CONSULTING */}
