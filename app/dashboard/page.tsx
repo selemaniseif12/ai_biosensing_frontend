@@ -218,7 +218,7 @@ export default function DashboardPage() {
                 ML Drift
               </button>
 
-              {/* SENSOR DEVICES (frontend-only, no router) */}
+              {/* SENSOR DEVICES */}
               <button
                 onClick={() => setActiveTab("sensor_devices")}
                 style={buttonStyle(activeTab === "sensor_devices")}
@@ -486,23 +486,50 @@ export default function DashboardPage() {
         {activeTab === "ml_v2" && <MLTrainingV2 />}
         {activeTab === "ml_v6" && <MLTrainingV6 />}
 
-        {/* SENSOR DEVICES (inline text, no router) */}
+        {/* SENSOR DEVICES — FULL RESTORED CONTENT */}
         {activeTab === "sensor_devices" && (
-          <div style={{ padding: "20px" }}>
+          <div style={{ padding: "20px", maxWidth: "800px" }}>
             <h2>Sensor Devices</h2>
+
+            <img
+              src="https://ai-biosensing-frontend-v2.vercel.app/device.png"
+              alt="Sensor Device"
+              style={{
+                maxWidth: "350px",
+                marginBottom: "20px",
+                borderRadius: "10px",
+                display: "block"
+              }}
+            />
+
             <p>
-              Sensor devices are used to collect environmental and biological data
-              from various locations. They provide real-time monitoring and support
-              machine learning models that detect anomalies and predict risks.
+              The sensor devices demonstrated in our MLDrift simulation represent
+              the foundational version of our patented low‑grade biosensing
+              technology. These devices are engineered to detect analytes at
+              picogram‑level sensitivity, forming the baseline capability of our
+              broader Piezo‑Pico to Femtotechnology Sensors Inc. platform.
             </p>
+
             <p>
-              These devices operate autonomously and transmit data securely to the
-              backend for processing. They are designed for reliability, low power
-              consumption, and high accuracy.
+              All sensor devices showcased in this dashboard are proprietary
+              products owned exclusively by Piezo‑Pico to Femtotechnology Sensors
+              Inc. The technology, design, firmware, and biosensing mechanisms are
+              protected under active intellectual property rights.
             </p>
+
             <p>
-              Future versions will include enhanced connectivity, improved battery
-              life, and additional sensing capabilities.
+              Any attempt to sell, distribute, replicate, or purchase similar
+              devices from unauthorized sources is strictly prohibited. Unauthorized
+              reproduction, resale, or reverse engineering of our patented
+              biosensing technology will be subject to legal action under applicable
+              statutes.
+            </p>
+
+            <p>
+              By accessing this dashboard, customers acknowledge that the sensor
+              devices and associated ML simulation tools are proprietary assets of
+              Piezo‑Pico to Femtotechnology Sensors Inc. All commercial transactions
+              must occur through our official marketplace.
             </p>
           </div>
         )}
@@ -536,29 +563,23 @@ export default function DashboardPage() {
 
         {/* COURSE ACCESS */}
         {activeTab === "course_access" && (
-          <CourseAccessButton courseId="1" userId={1} />
+          <CourseAccessButton courseId="1" userId="1" />
         )}
-
-        {/* VIRUS ACCESS */}
-        {activeTab === "virus_access" && (
-          <VirusAccessButton userId={1} token={token} />
+        {activeTab === "virus_access" && <VirusAccessButton userId="1" token={token} />}
+        {activeTab === "consulting_access" && (
+          <ConsultingAccessButton consultingService={token} userId="1" />
         )}
 
         {/* CONSULTING MEETINGS */}
         {activeTab === "consulting_meetings" && (
-          <div>
+          <div style={{ display: "grid", gap: "24px" }}>
             <MeetingForm onCreate={handleCreate} />
-            <MeetingList meetings={meetings} />
             <ScheduleCalendar meetings={meetings} />
+            <MeetingList meetings={meetings} />
           </div>
         )}
 
-        {/* CONSULTING ACCESS */}
-        {activeTab === "consulting_access" && (
-          <ConsultingAccessButton consultingService="consulting" userId={1} />
-        )}
-
-        {/* ADMIN TOKEN DASHBOARD */}
+        {/* ADMIN TOKENS */}
         {activeTab === "admin_tokens" && <AdminTokenDashboard />}
       </div>
     </div>
