@@ -142,6 +142,28 @@ export default function DashboardPage() {
   return (
     <div style={pageStyle}>
       <h1 style={{ marginBottom: "20px" }}>Dashboard</h1>
+      <h1 style={{ marginBottom: "20px" }}>Dashboard</h1>
+
+{/* LOGOUT BUTTON */}
+<div style={{ marginBottom: "20px" }}>
+  <button
+    onClick={() => {
+      localStorage.removeItem("token");
+      window.location.href = "/auth/login";
+    }}
+    style={{
+      padding: "10px 16px",
+      backgroundColor: "#d9534f",
+      color: "white",
+      border: "none",
+      borderRadius: "6px",
+      cursor: "pointer"
+    }}
+  >
+    Logout
+  </button>
+</div>
+
 
       {/* TOKEN INPUT */}
       <div style={{ marginBottom: "20px" }}>
