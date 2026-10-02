@@ -31,6 +31,9 @@ export default function LoginPage() {
 
       // Save JWT token
       localStorage.setItem("token", data.access_token);
+      localStorage.setItem("role", data.user.role);
+      localStorage.setItem("user_id", data.user.id);
+
 
       // Redirect to dashboard
       router.push("/dashboard");

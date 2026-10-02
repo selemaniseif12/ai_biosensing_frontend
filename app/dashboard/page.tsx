@@ -1,9 +1,10 @@
 "use client";
+
+import { useEffect, useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+
 export const dynamic = "force-dynamic";
 export const runtime = "edge";
-
-import { useState, useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
 
 /* Existing Components */
 import VirusList from "./components/VirusList.jsx";
@@ -79,12 +80,19 @@ export default function DashboardPage() {
 
   const [meetings, setMeetings] = useState<Meeting[]>([]);
   const [token, setToken] = useState("");
+  const [role, setRole] = useState("");
 
   const params = useSearchParams();
   const router = useRouter();
 
   useEffect(() => {
     localStorage.setItem("user_id", "1");
+  }, []);
+
+  // ⭐ Load role from localStorage
+  useEffect(() => {
+    const storedRole = localStorage.getItem("role");
+    if (storedRole) setRole(storedRole);
   }, []);
 
   const toggleSection = (section: string) => {
@@ -139,9 +147,17 @@ export default function DashboardPage() {
     cursor: "pointer",
   });
 
+  // ⭐ Access Denied Component (correct placement)
+  const AccessDenied = () => (
+    <div style={{ color: "red", padding: "20px" }}>
+      Access Denied — You do not have permission to view this section.
+    </div>
+  );
+
   return (
     <div style={pageStyle}>
       <h1 style={{ marginBottom: "20px" }}>Dashboard</h1>
+
      
 {/* LOGOUT BUTTON */}
 <div style={{ marginBottom: "20px" }}>
@@ -504,8 +520,10 @@ export default function DashboardPage() {
           ))}
 
         {/* MACHINE LEARNING */}
-        {activeTab === "ml_v2" && <MLTrainingV2 />}
-        {activeTab === "ml_v6" && <MLTrainingV6 />}
+      {activeTab === "ml_v2" &&
+  (role === "admin" ? <MLTrainingV2 /> : <AccessDenied />)}
+       {activeTab === "ml_v6" &&
+  (role === "admin" ? <MLTrainingV6 /> : <AccessDenied />)}
 
         {/* SENSOR DEVICES — FULL RESTORED CONTENT */}
         {activeTab === "sensor_devices" && (
@@ -556,10 +574,27 @@ export default function DashboardPage() {
         )}
 
         {/* CONSULTING */}
-        {activeTab === "consulting" && <ConsultingPage />}
-        {activeTab === "consulting_history" && <ConsultingPaymentHistory />}
-        {activeTab === "consulting_calendar" && <ConsultationCalendar />}
+       {activeTab === "consulting" &&
+       (role === "consulting" || role === "admin" ? (
+       <ConsultingPage />
+       ) : (
+       <AccessDenied />
+       ))}
 
+       {activeTab === "consulting_history" &&
+       (role === "consulting" || role === "admin" ? (
+       <ConsultingPaymentHistory />
+       ) : (
+       <AccessDenied />
+     ))}
+
+        {activeTab === "consulting_calendar" &&
+  (role === "consulting" || role === "admin" ? (
+    <ConsultationCalendar />
+  ) : (
+    <AccessDenied />
+  ))}
+ 
         {/* COURSES */}
         {activeTab === "enrollment" && <EnrollmentStatus />}
         {activeTab === "course_dashboard" && <CourseDashboard />}
@@ -567,13 +602,25 @@ export default function DashboardPage() {
         {activeTab === "course_content" && <CourseContentDashboard />}
 
         {/* STUDENT / ADMIN / PUBLIC */}
-        {activeTab === "student" && <StudentDashboard />}
-        {activeTab === "admin" && <AdminDashboard />}
+        {activeTab === "student" &&
+        (role === "student" || role === "admin" ? (
+        <StudentDashboard />
+        ) : (
+        <AccessDenied />
+    ))}
+
+       {activeTab === "admin" &&
+       (role === "admin" ? <AdminDashboard /> : <AccessDenied />)}
+
         {activeTab === "public" && <PublicDashboard />}
 
         {/* ML MODELS */}
-        {activeTab === "vce100_v2" && <VCE100V2Dashboard />}
-        {activeTab === "vce100_v6" && <VCE100V6Dashboard />}
+        {activeTab === "vce100_v2" &&
+  (role === "admin" ? <VCE100V2Dashboard /> : <AccessDenied />)}
+
+        {activeTab === "vce100_v6" &&
+  (role === "admin" ? <VCE100V6Dashboard /> : <AccessDenied />)}
+
         {activeTab === "vce100_compare" && <VCE100CompareDashboard />}
 
         {/* ML DRIFT */}
@@ -592,16 +639,22 @@ export default function DashboardPage() {
         )}
 
         {/* CONSULTING MEETINGS */}
-        {activeTab === "consulting_meetings" && (
-          <div style={{ display: "grid", gap: "24px" }}>
-            <MeetingForm onCreate={handleCreate} />
-            <ScheduleCalendar meetings={meetings} />
-            <MeetingList meetings={meetings} />
-          </div>
-        )}
+        {activeTab === "consulting_meetings" &&
+  (role === "consulting" || role === "admin" ? (
+    <div style={{ display: "grid", gap: "24px" }}>
+      <MeetingForm onCreate={handleCreate} />
+      <ScheduleCalendar meetings={meetings} />
+      <MeetingList meetings={meetings} />
+    </div>
+  ) : (
+    <AccessDenied />
+  ))}
+
 
         {/* ADMIN TOKENS */}
-        {activeTab === "admin_tokens" && <AdminTokenDashboard />}
+        {activeTab === "admin_tokens" &&
+        (role === "admin" ? <AdminTokenDashboard /> : <AccessDenied />)}
+
       </div>
     </div>
   );
