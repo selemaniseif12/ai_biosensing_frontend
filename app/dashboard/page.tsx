@@ -142,8 +142,7 @@ export default function DashboardPage() {
   return (
     <div style={pageStyle}>
       <h1 style={{ marginBottom: "20px" }}>Dashboard</h1>
-      <h1 style={{ marginBottom: "20px" }}>Dashboard</h1>
-
+     
 {/* LOGOUT BUTTON */}
 <div style={{ marginBottom: "20px" }}>
   <button
