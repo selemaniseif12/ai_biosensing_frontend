@@ -23,20 +23,17 @@ export default function GovernmentHomePage() {
         deployed for research and academic institutional use. Our primary focus is fulfilling government
         requirements through formal consultation and contract‑based deployment.
       </p>
+{/* ⭐ UPDATED CONSULTING DESCRIPTION BLOCK */}
+<div style={{ marginTop: "30px", padding: "20px", background: "#f7f7f7", borderRadius: "8px" }}>
+  <p style={{ fontSize: "16px", lineHeight: "1.7" }}>
+    Government agencies should begin by accessing the <strong>Store</strong> to select either Fixed or Custom
+    Consulting. Fixed consulting provides a single one‑hour session for 199 dollars, while Custom Consulting offers a total of
+    two and a half hours for 499 dollars: a full one‑hour consultation, followed by a 45‑minute follow‑up and a final 25‑minute session
+    for additional questions on the same topic. These sessions may be scheduled within the same week but must
+    be completed within one month of the initial consultation.
+  </p>
+</div>
 
-      {/* ⭐ NEW TECHNICAL PARAGRAPH (REPLACES BUTTON BLOCK) */}
-      <div style={{ marginTop: "30px", padding: "20px", background: "#f7f7f7", borderRadius: "8px" }}>
-        <p style={{ fontSize: "16px", lineHeight: "1.7" }}>
-          Government agencies initiating formal collaboration should begin by accessing the{" "}
-          <span style={{ fontWeight: "bold" }}>Store</span> to select the appropriate consulting package
-          (Fixed or Custom). Once selected, the package will appear in the{" "}
-          <span style={{ fontWeight: "bold" }}>Cart</span>, where agents can review the consultation details
-          before proceeding to <span style={{ fontWeight: "bold" }}>Checkout</span> to finalize the initial
-          engagement. After a successful subscription, authorized personnel will gain access to the educational
-          versions of our ML v2 and ML v6 machine learning models, enabling secure evaluation of biosensing
-          analytics, classification pipelines, and early‑stage deployment workflows.
-        </p>
-      </div>
 
       <h2 style={{ marginTop: "40px" }}>Supporting National Priorities</h2>
       <p style={{ fontSize: "16px", lineHeight: "1.6" }}>
