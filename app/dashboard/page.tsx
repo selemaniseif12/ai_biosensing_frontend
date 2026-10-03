@@ -519,11 +519,11 @@ export default function DashboardPage() {
             <div style={{ color: "red" }}>Token required</div>
           ))}
 
-        {/* MACHINE LEARNING */}
-      {activeTab === "ml_v2" &&
-  (role === "admin" ? <MLTrainingV2 /> : <AccessDenied />)}
-       {activeTab === "ml_v6" &&
-  (role === "admin" ? <MLTrainingV6 /> : <AccessDenied />)}
+      {/* MACHINE LEARNING */}
+{activeTab === "ml_v2" && <MLTrainingV2 />}
+
+{activeTab === "ml_v6" && <MLTrainingV6 />}
+
 
         {/* SENSOR DEVICES — FULL RESTORED CONTENT */}
         {activeTab === "sensor_devices" && (
