@@ -46,10 +46,20 @@ import GovernmentHomePage from "./components/GovernmentHomePage.jsx";
 import GovernmentDashboard from "./components/GovernmentDashboard.jsx";
 import GovernmentAdminViewer from "./components/GovernmentAdminViewer.jsx";
 
+type Meeting = {
+  id: string;
+  title: string;
+  date: string;
+  time: string;
+  platform: string;
+  link: string;
+};
+
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState("home");
   const [openSection, setOpenSection] = useState<string | null>("home");
-  const [meetings, setMeetings] = useState([]);
+  const [meetings, setMeetings] = useState<Meeting[]>([]);
+
   const [token, setToken] = useState("");
   const [role, setRole] = useState("");
 
