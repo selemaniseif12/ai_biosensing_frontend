@@ -29,18 +29,22 @@ export default function LoginPage() {
 
       const data = await res.json();
 
-      // Save JWT token
-      localStorage.setItem("token", data.access_token);
-      localStorage.setItem("role", data.user.role);
-      localStorage.setItem("user_id", data.user.id);
+// Save JWT token
+localStorage.setItem("token", data.access_token);
 
+// Save user info based on backend response
+localStorage.setItem("user_id", data.user_id);
+localStorage.setItem("email", data.email);
 
-      // Redirect to dashboard
-      router.push("/dashboard");
-    } catch (err) {
-      setError("Server error. Try again.");
-    }
-  }
+// Set a default role if backend does not return one
+localStorage.setItem("role", data.role || "student");
+
+// Redirect to dashboard
+router.push("/dashboard");
+} catch (err) {
+  setError("Server error. Try again.");
+}
+
 
   return (
     <div style={{ padding: "40px" }}>
