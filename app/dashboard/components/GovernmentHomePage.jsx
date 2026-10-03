@@ -96,12 +96,7 @@ export default function GovernmentHomePage() {
         <li>Cloud‑based diagnostics</li>
       </ul>
 
-      <h2 style={{ marginTop: "40px" }}>Scientific Leadership</h2>
-      <p>
-        Under the leadership of Dr. Selemani Mziray, our company has transformed QCM technology into a
-        machine‑learning‑ready diagnostic platform.
-      </p>
-
+    
       <h2 style={{ marginTop: "40px" }}>Built in Canada. Engineered for National Resilience.</h2>
     </div>
   );
