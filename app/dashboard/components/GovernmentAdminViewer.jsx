@@ -8,7 +8,10 @@ export default function GovernmentAdminViewer() {
   useEffect(() => {
     async function loadRecords() {
       try {
-        const res = await fetch("/api/government/all");
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/government/all`
+        );
+
         const data = await res.json();
 
         if (data.success) {
@@ -60,10 +63,12 @@ export default function GovernmentAdminViewer() {
               <p><strong>Phone:</strong> {rec.phone || "N/A"}</p>
               <p><strong>Country:</strong> {rec.country || "N/A"}</p>
               <p><strong>Priority:</strong> {rec.priority}</p>
+
               <p style={{ marginTop: "10px" }}>
                 <strong>Message:</strong><br />
                 {rec.message}
               </p>
+
               <p style={{ marginTop: "10px", fontSize: "14px", color: "#555" }}>
                 Submitted: {new Date(rec.createdAt).toLocaleString()}
               </p>

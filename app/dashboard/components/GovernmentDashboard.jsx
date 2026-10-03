@@ -24,11 +24,14 @@ export default function GovernmentDashboard() {
     setStatus("loading");
 
     try {
-      const res = await fetch("/api/government/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/government/contact`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        }
+      );
 
       const data = await res.json();
 
@@ -59,8 +62,10 @@ export default function GovernmentDashboard() {
         Government Contact Request
       </h2>
 
-      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-        
+      <form
+        onSubmit={handleSubmit}
+        style={{ display: "flex", flexDirection: "column", gap: "12px" }}
+      >
         <input
           type="text"
           name="organization"
