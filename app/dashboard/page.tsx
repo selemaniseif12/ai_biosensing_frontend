@@ -64,6 +64,11 @@ import { getMeetings } from "./components/MeetingAPI.jsx";
 /* ⭐ ADMIN TOKEN DASHBOARD */
 import AdminTokenDashboard from "./components/AdminTokenDashboard.jsx";
 
+/* ⭐ GOVERNMENT COMPONENTS */
+import GovernmentHomePage from "./components/GovernmentHomePage.jsx";
+import GovernmentDashboard from "./components/GovernmentDashboard.jsx";
+import GovernmentAdminViewer from "./components/GovernmentAdminViewer.jsx";
+
 /* ⭐ FIX: Proper Meeting interface */
 interface Meeting {
   id: string;
@@ -147,7 +152,7 @@ export default function DashboardPage() {
     cursor: "pointer",
   });
 
-  // ⭐ Access Denied Component (correct placement)
+  // ⭐ Access Denied Component
   const AccessDenied = () => (
     <div style={{ color: "red", padding: "20px" }}>
       Access Denied — You do not have permission to view this section.
@@ -158,27 +163,25 @@ export default function DashboardPage() {
     <div style={pageStyle}>
       <h1 style={{ marginBottom: "20px" }}>Dashboard</h1>
 
-     
-{/* LOGOUT BUTTON */}
-<div style={{ marginBottom: "20px" }}>
-  <button
-    onClick={() => {
-      localStorage.removeItem("token");
-      window.location.href = "/auth/login";
-    }}
-    style={{
-      padding: "10px 16px",
-      backgroundColor: "#d9534f",
-      color: "white",
-      border: "none",
-      borderRadius: "6px",
-      cursor: "pointer"
-    }}
-  >
-    Logout
-  </button>
-</div>
-
+      {/* LOGOUT BUTTON */}
+      <div style={{ marginBottom: "20px" }}>
+        <button
+          onClick={() => {
+            localStorage.removeItem("token");
+            window.location.href = "/auth/login";
+          }}
+          style={{
+            padding: "10px 16px",
+            backgroundColor: "#d9534f",
+            color: "white",
+            border: "none",
+            borderRadius: "6px",
+            cursor: "pointer"
+          }}
+        >
+          Logout
+        </button>
+      </div>
 
       {/* TOKEN INPUT */}
       <div style={{ marginBottom: "20px" }}>
@@ -203,214 +206,38 @@ export default function DashboardPage() {
           paddingBottom: "10px",
         }}
       >
-        {/* HOME */}
+        {/* GOVERNMENT SECTION */}
         <div style={cardStyle}>
-          <h3 onClick={() => toggleSection("home")} style={{ cursor: "pointer" }}>
-            Home
+          <h3 onClick={() => toggleSection("government")} style={{ cursor: "pointer" }}>
+            Government
           </h3>
-          {openSection === "home" && (
+
+          {openSection === "government" && (
             <div style={{ display: "flex", flexWrap: "wrap", gap: "18px" }}>
+              
+              {/* PUBLIC */}
               <button
-                onClick={() => setActiveTab("home")}
-                style={buttonStyle(activeTab === "home")}
+                onClick={() => setActiveTab("government_home")}
+                style={buttonStyle(activeTab === "government_home")}
               >
-                Home
-              </button>
-              <button
-                onClick={() => setActiveTab("profile")}
-                style={buttonStyle(activeTab === "profile")}
-              >
-                Profile
-              </button>
-            </div>
-          )}
-        </div>
-
-        {/* MACHINE LEARNING */}
-        <div style={cardStyle}>
-          <h3 onClick={() => toggleSection("ml")} style={{ cursor: "pointer" }}>
-            Machine Learning
-          </h3>
-
-          {openSection === "ml" && (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "18px" }}>
-              <button
-                onClick={() => setActiveTab("ml_v2")}
-                style={buttonStyle(activeTab === "ml_v2")}
-              >
-                ML Training V2
+                Government Home
               </button>
 
               <button
-                onClick={() => setActiveTab("ml_v6")}
-                style={buttonStyle(activeTab === "ml_v6")}
+                onClick={() => setActiveTab("government_dashboard")}
+                style={buttonStyle(activeTab === "government_dashboard")}
               >
-                ML Training V6
+                Government Dashboard
               </button>
 
+              {/* ADMIN ONLY */}
               <button
-                onClick={() => setActiveTab("ml_drift")}
-                style={buttonStyle(activeTab === "ml_drift")}
+                onClick={() => setActiveTab("government_admin")}
+                style={buttonStyle(activeTab === "government_admin")}
               >
-                ML Drift
+                Government Admin Viewer
               </button>
 
-              {/* SENSOR DEVICES */}
-              <button
-                onClick={() => setActiveTab("sensor_devices")}
-                style={buttonStyle(activeTab === "sensor_devices")}
-              >
-                Sensor Devices
-              </button>
-            </div>
-          )}
-        </div>
-
-        {/* VIRUS TOOLS */}
-        <div style={cardStyle}>
-          <h3 onClick={() => toggleSection("virus")} style={{ cursor: "pointer" }}>
-            Virus Tools
-          </h3>
-
-          {openSection === "virus" && (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "18px" }}>
-              <button
-                onClick={() => setActiveTab("virus_list")}
-                style={buttonStyle(activeTab === "virus_list")}
-              >
-                Virus List
-              </button>
-
-              <button
-                onClick={() => setActiveTab("virus_access")}
-                style={buttonStyle(activeTab === "virus_access")}
-              >
-                Virus Access
-              </button>
-            </div>
-          )}
-        </div>
-
-        {/* COURSES */}
-        <div style={cardStyle}>
-          <h3 onClick={() => toggleSection("courses")} style={{ cursor: "pointer" }}>
-            Courses
-          </h3>
-          {openSection === "courses" && (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "18px" }}>
-              <button
-                onClick={() => setActiveTab("enrollment")}
-                style={buttonStyle(activeTab === "enrollment")}
-              >
-                Enrollment
-              </button>
-              <button
-                onClick={() => setActiveTab("course_dashboard")}
-                style={buttonStyle(activeTab === "course_dashboard")}
-              >
-                Course Dashboard
-              </button>
-              <button
-                onClick={() => setActiveTab("course_modules")}
-                style={buttonStyle(activeTab === "course_modules")}
-              >
-                Course Modules
-              </button>
-              <button
-                onClick={() => setActiveTab("course_content")}
-                style={buttonStyle(activeTab === "course_content")}
-              >
-                Course Content
-              </button>
-              <button
-                onClick={() => setActiveTab("course_access")}
-                style={buttonStyle(activeTab === "course_access")}
-              >
-                Course Access
-              </button>
-            </div>
-          )}
-        </div>
-
-        {/* PAYMENT HISTORY */}
-        <div style={cardStyle}>
-          <h3
-            onClick={() => router.push("/dashboard/payment-history")}
-            style={{ cursor: "pointer", color: "#007bff" }}
-          >
-            Payment History
-          </h3>
-        </div>
-
-        {/* CONSULTING */}
-        <div style={cardStyle}>
-          <h3
-            onClick={() => toggleSection("consulting")}
-            style={{ cursor: "pointer" }}
-          >
-            Consulting
-          </h3>
-          {openSection === "consulting" && (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "18px" }}>
-              <button
-                onClick={() => setActiveTab("consulting")}
-                style={buttonStyle(activeTab === "consulting")}
-              >
-                Consulting
-              </button>
-              <button
-                onClick={() => setActiveTab("consulting_history")}
-                style={buttonStyle(activeTab === "consulting_history")}
-              >
-                Consulting History
-              </button>
-              <button
-                onClick={() => setActiveTab("consulting_calendar")}
-                style={buttonStyle(activeTab === "consulting_calendar")}
-              >
-                Consultation Calendar
-              </button>
-              <button
-                onClick={() => setActiveTab("consulting_meetings")}
-                style={buttonStyle(activeTab === "consulting_meetings")}
-              >
-                Consulting Meetings
-              </button>
-              <button
-                onClick={() => setActiveTab("consulting_access")}
-                style={buttonStyle(activeTab === "consulting_access")}
-              >
-                Consulting Access
-              </button>
-            </div>
-          )}
-        </div>
-
-        {/* ML MODELS VCE-100 */}
-        <div style={cardStyle}>
-          <h3 onClick={() => toggleSection("vce")} style={{ cursor: "pointer" }}>
-            ML Models VCE-100
-          </h3>
-          {openSection === "vce" && (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "18px" }}>
-              <button
-                onClick={() => setActiveTab("vce100_v2")}
-                style={buttonStyle(activeTab === "vce100_v2")}
-              >
-                VCE-100 V2
-              </button>
-              <button
-                onClick={() => setActiveTab("vce100_v6")}
-                style={buttonStyle(activeTab === "vce100_v6")}
-              >
-                VCE-100 V6
-              </button>
-              <button
-                onClick={() => setActiveTab("vce100_compare")}
-                style={buttonStyle(activeTab === "vce100_compare")}
-              >
-                VCE-100 Compare
-              </button>
             </div>
           )}
         </div>
@@ -519,13 +346,11 @@ export default function DashboardPage() {
             <div style={{ color: "red" }}>Token required</div>
           ))}
 
-      {/* MACHINE LEARNING */}
-{activeTab === "ml_v2" && <MLTrainingV2 />}
+        {/* MACHINE LEARNING */}
+        {activeTab === "ml_v2" && <MLTrainingV2 />}
+        {activeTab === "ml_v6" && <MLTrainingV6 />}
 
-{activeTab === "ml_v6" && <MLTrainingV6 />}
-
-
-        {/* SENSOR DEVICES — FULL RESTORED CONTENT */}
+        {/* SENSOR DEVICES */}
         {activeTab === "sensor_devices" && (
           <div style={{ padding: "20px", maxWidth: "800px" }}>
             <h2>Sensor Devices</h2>
@@ -574,27 +399,27 @@ export default function DashboardPage() {
         )}
 
         {/* CONSULTING */}
-       {activeTab === "consulting" &&
-       (role === "consulting" || role === "admin" ? (
-       <ConsultingPage />
-       ) : (
-       <AccessDenied />
-       ))}
+        {activeTab === "consulting" &&
+          (role === "consulting" || role === "admin" ? (
+            <ConsultingPage />
+          ) : (
+            <AccessDenied />
+          ))}
 
-       {activeTab === "consulting_history" &&
-       (role === "consulting" || role === "admin" ? (
-       <ConsultingPaymentHistory />
-       ) : (
-       <AccessDenied />
-     ))}
+        {activeTab === "consulting_history" &&
+          (role === "consulting" || role === "admin" ? (
+            <ConsultingPaymentHistory />
+          ) : (
+            <AccessDenied />
+          ))}
 
         {activeTab === "consulting_calendar" &&
-  (role === "consulting" || role === "admin" ? (
-    <ConsultationCalendar />
-  ) : (
-    <AccessDenied />
-  ))}
- 
+          (role === "consulting" || role === "admin" ? (
+            <ConsultationCalendar />
+          ) : (
+            <AccessDenied />
+          ))}
+
         {/* COURSES */}
         {activeTab === "enrollment" && <EnrollmentStatus />}
         {activeTab === "course_dashboard" && <CourseDashboard />}
@@ -603,23 +428,23 @@ export default function DashboardPage() {
 
         {/* STUDENT / ADMIN / PUBLIC */}
         {activeTab === "student" &&
-        (role === "student" || role === "admin" ? (
-        <StudentDashboard />
-        ) : (
-        <AccessDenied />
-    ))}
+          (role === "student" || role === "admin" ? (
+            <StudentDashboard />
+          ) : (
+            <AccessDenied />
+          ))}
 
-       {activeTab === "admin" &&
-       (role === "admin" ? <AdminDashboard /> : <AccessDenied />)}
+        {activeTab === "admin" &&
+          (role === "admin" ? <AdminDashboard /> : <AccessDenied />)}
 
         {activeTab === "public" && <PublicDashboard />}
 
         {/* ML MODELS */}
         {activeTab === "vce100_v2" &&
-  (role === "admin" ? <VCE100V2Dashboard /> : <AccessDenied />)}
+          (role === "admin" ? <VCE100V2Dashboard /> : <AccessDenied />)}
 
         {activeTab === "vce100_v6" &&
-  (role === "admin" ? <VCE100V6Dashboard /> : <AccessDenied />)}
+          (role === "admin" ? <VCE100V6Dashboard /> : <AccessDenied />)}
 
         {activeTab === "vce100_compare" && <VCE100CompareDashboard />}
 
@@ -640,20 +465,27 @@ export default function DashboardPage() {
 
         {/* CONSULTING MEETINGS */}
         {activeTab === "consulting_meetings" &&
-  (role === "consulting" || role === "admin" ? (
-    <div style={{ display: "grid", gap: "24px" }}>
-      <MeetingForm onCreate={handleCreate} />
-      <ScheduleCalendar meetings={meetings} />
-      <MeetingList meetings={meetings} />
-    </div>
-  ) : (
-    <AccessDenied />
-  ))}
-
+          (role === "consulting" || role === "admin" ? (
+            <div style={{ display: "grid", gap: "24px" }}>
+              <MeetingForm onCreate={handleCreate} />
+              <ScheduleCalendar meetings={meetings} />
+              <MeetingList meetings={meetings} />
+            </div>
+          ) : (
+            <AccessDenied />
+          ))}
 
         {/* ADMIN TOKENS */}
         {activeTab === "admin_tokens" &&
-        (role === "admin" ? <AdminTokenDashboard /> : <AccessDenied />)}
+          (role === "admin" ? <AdminTokenDashboard /> : <AccessDenied />)}
+
+        {/* ⭐ GOVERNMENT ROUTES */}
+        {activeTab === "government_home" && <GovernmentHomePage />}
+
+        {activeTab === "government_dashboard" && <GovernmentDashboard />}
+
+        {activeTab === "government_admin" &&
+          (role === "admin" ? <GovernmentAdminViewer /> : <AccessDenied />)}
 
       </div>
     </div>
