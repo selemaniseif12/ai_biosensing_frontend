@@ -194,28 +194,44 @@ export default function DashboardPage() {
           )}
         </div>
 
-        {/* MACHINE LEARNING */}
-        <div style={cardStyle}>
-          <h3 onClick={() => toggleSection("ml")} style={{ cursor: "pointer" }}>
-            Machine Learning
-          </h3>
-          {openSection === "ml" && (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "18px" }}>
-              <button onClick={() => setActiveTab("ml_v2")} style={buttonStyle(activeTab === "ml_v2")}>
-                ML Training V2
-              </button>
-              <button onClick={() => setActiveTab("ml_v6")} style={buttonStyle(activeTab === "ml_v6")}>
-                ML Training V6
-              </button>
-              <button onClick={() => setActiveTab("ml_drift")} style={buttonStyle(activeTab === "ml_drift")}>
-                ML Drift
-              </button>
-              <button onClick={() => setActiveTab("prob_flow")} style={buttonStyle(activeTab === "prob_flow")}>
-                Probability Flow
-              </button>
-            </div>
-          )}
-        </div>
+{/* MACHINE LEARNING */}
+<div style={cardStyle}>
+  <h3 onClick={() => toggleSection("ml")} style={{ cursor: "pointer" }}>
+    Machine Learning
+  </h3>
+  {openSection === "ml" && (
+    <div style={{ display: "flex", flexWrap: "wrap", gap: "18px" }}>
+      <button
+        onClick={() => setActiveTab("ml_v2")}
+        style={buttonStyle(activeTab === "ml_v2")}
+      >
+        ML Training V2
+      </button>
+
+      <button
+        onClick={() => setActiveTab("ml_v6")}
+        style={buttonStyle(activeTab === "ml_v6")}
+      >
+        ML Training V6
+      </button>
+
+      <button
+        onClick={() => setActiveTab("ml_drift")}
+        style={buttonStyle(activeTab === "ml_drift")}
+      >
+        ML Drift
+      </button>
+
+      <button
+        onClick={() => setActiveTab("sensor_devices")}
+        style={buttonStyle(activeTab === "sensor_devices")}
+      >
+        Sensor Devices
+      </button>
+    </div>
+  )}
+</div>
+
 
         {/* VIRUS TOOLS */}
         <div style={cardStyle}>
