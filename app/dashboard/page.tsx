@@ -49,14 +49,20 @@ import GovernmentAdminViewer from "./components/GovernmentAdminViewer.jsx";
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState("home");
   const [openSection, setOpenSection] = useState<string | null>("home");
-  const [meetings, setMeetings] = useState<any[]>([]);
+  const [meetings, setMeetings] = useState([]);
   const [token, setToken] = useState("");
+  const [role, setRole] = useState("");
 
   const params = useSearchParams();
   const router = useRouter();
 
   useEffect(() => {
     localStorage.setItem("user_id", "1");
+  }, []);
+
+  useEffect(() => {
+    const storedRole = localStorage.getItem("role");
+    if (storedRole) setRole(storedRole);
   }, []);
 
   const toggleSection = (section: string) => {
@@ -110,9 +116,35 @@ export default function DashboardPage() {
     cursor: "pointer",
   });
 
+  const AccessDenied = () => (
+    <div style={{ color: "red", padding: "20px" }}>
+      Access Denied — You do not have permission to view this section.
+    </div>
+  );
+
   return (
     <div style={pageStyle}>
       <h1 style={{ marginBottom: "20px" }}>Dashboard</h1>
+
+      <div style={{ marginBottom: "20px" }}>
+        <button
+          onClick={() => {
+            localStorage.removeItem("token");
+            localStorage.removeItem("role");
+            window.location.href = "/auth/login";
+          }}
+          style={{
+            padding: "10px 16px",
+            backgroundColor: "#d9534f",
+            color: "white",
+            border: "none",
+            borderRadius: "6px",
+            cursor: "pointer",
+          }}
+        >
+          Logout
+        </button>
+      </div>
 
       <div style={{ marginBottom: "20px" }}>
         <label>Service Token:</label>
@@ -124,7 +156,7 @@ export default function DashboardPage() {
           style={{ marginLeft: "10px", width: "300px" }}
         />
       </div>
-
+      {/* NAVIGATION CARDS */}
       <div
         style={{
           marginBottom: "26px",
@@ -135,64 +167,100 @@ export default function DashboardPage() {
           paddingBottom: "10px",
         }}
       >
+        {/* HOME */}
         <div style={cardStyle}>
           <h3 onClick={() => toggleSection("home")} style={{ cursor: "pointer" }}>
             Home
           </h3>
           {openSection === "home" && (
             <div style={{ display: "flex", flexWrap: "wrap", gap: "18px" }}>
-              <button onClick={() => setActiveTab("home")} style={buttonStyle(activeTab === "home")}>Home</button>
-              <button onClick={() => setActiveTab("profile")} style={buttonStyle(activeTab === "profile")}>Profile</button>
+              <button onClick={() => setActiveTab("home")} style={buttonStyle(activeTab === "home")}>
+                Home
+              </button>
+              <button onClick={() => setActiveTab("profile")} style={buttonStyle(activeTab === "profile")}>
+                Profile
+              </button>
             </div>
           )}
         </div>
 
+        {/* MACHINE LEARNING */}
         <div style={cardStyle}>
           <h3 onClick={() => toggleSection("ml")} style={{ cursor: "pointer" }}>
             Machine Learning
           </h3>
           {openSection === "ml" && (
             <div style={{ display: "flex", flexWrap: "wrap", gap: "18px" }}>
-              <button onClick={() => setActiveTab("ml_v2")} style={buttonStyle(activeTab === "ml_v2")}>ML Training V2</button>
-              <button onClick={() => setActiveTab("ml_v6")} style={buttonStyle(activeTab === "ml_v6")}>ML Training V6</button>
-              <button onClick={() => setActiveTab("ml_drift")} style={buttonStyle(activeTab === "ml_drift")}>ML Drift</button>
-              <button onClick={() => setActiveTab("prob_flow")} style={buttonStyle(activeTab === "prob_flow")}>Probability Flow</button>
+              <button onClick={() => setActiveTab("ml_v2")} style={buttonStyle(activeTab === "ml_v2")}>
+                ML Training V2
+              </button>
+              <button onClick={() => setActiveTab("ml_v6")} style={buttonStyle(activeTab === "ml_v6")}>
+                ML Training V6
+              </button>
+              <button onClick={() => setActiveTab("ml_drift")} style={buttonStyle(activeTab === "ml_drift")}>
+                ML Drift
+              </button>
+              <button onClick={() => setActiveTab("prob_flow")} style={buttonStyle(activeTab === "prob_flow")}>
+                Probability Flow
+              </button>
             </div>
           )}
         </div>
 
+        {/* VIRUS TOOLS */}
         <div style={cardStyle}>
           <h3 onClick={() => toggleSection("virus")} style={{ cursor: "pointer" }}>
             Virus Tools
           </h3>
           {openSection === "virus" && (
             <div style={{ display: "flex", flexWrap: "wrap", gap: "18px" }}>
-              <button onClick={() => setActiveTab("virus_list")} style={buttonStyle(activeTab === "virus_list")}>Virus List</button>
-              <button onClick={() => setActiveTab("virus_access")} style={buttonStyle(activeTab === "virus_access")}>Virus Access</button>
+              <button onClick={() => setActiveTab("virus_list")} style={buttonStyle(activeTab === "virus_list")}>
+                Virus List
+              </button>
+              <button onClick={() => setActiveTab("virus_access")} style={buttonStyle(activeTab === "virus_access")}>
+                Virus Access
+              </button>
             </div>
           )}
         </div>
 
+        {/* COURSES */}
         <div style={cardStyle}>
           <h3 onClick={() => toggleSection("courses")} style={{ cursor: "pointer" }}>
             Courses
           </h3>
           {openSection === "courses" && (
             <div style={{ display: "flex", flexWrap: "wrap", gap: "18px" }}>
-              <button onClick={() => setActiveTab("enrollment")} style={buttonStyle(activeTab === "enrollment")}>Enrollment</button>
-              <button onClick={() => setActiveTab("course_dashboard")} style={buttonStyle(activeTab === "course_dashboard")}>Course Dashboard</button>
-              <button onClick={() => setActiveTab("course_modules")} style={buttonStyle(activeTab === "course_modules")}>Course Modules</button>
-              <button onClick={() => setActiveTab("course_content")} style={buttonStyle(activeTab === "course_content")}>Course Content</button>
-              <button onClick={() => setActiveTab("course_access")} style={buttonStyle(activeTab === "course_access")}>Course Access</button>
+              <button onClick={() => setActiveTab("enrollment")} style={buttonStyle(activeTab === "enrollment")}>
+                Enrollment
+              </button>
+              <button onClick={() => setActiveTab("course_dashboard")} style={buttonStyle(activeTab === "course_dashboard")}>
+                Course Dashboard
+              </button>
+              <button onClick={() => setActiveTab("course_modules")} style={buttonStyle(activeTab === "course_modules")}>
+                Course Modules
+              </button>
+              <button onClick={() => setActiveTab("course_content")} style={buttonStyle(activeTab === "course_content")}>
+                Course Content
+              </button>
+              <button onClick={() => setActiveTab("course_access")} style={buttonStyle(activeTab === "course_access")}>
+                Course Access
+              </button>
             </div>
           )}
         </div>
 
+        {/* PAYMENT HISTORY */}
         <div style={cardStyle}>
-          <h3 onClick={() => router.push("/dashboard/payment-history")} style={{ cursor: "pointer", color: "#007bff" }}>
+          <h3
+            onClick={() => router.push("/dashboard/payment-history")}
+            style={{ cursor: "pointer", color: "#007bff" }}
+          >
             Payment History
           </h3>
         </div>
+
+        {/* CONSULTING */}
         <div style={cardStyle}>
           <h3 onClick={() => toggleSection("consulting")} style={{ cursor: "pointer" }}>
             Consulting
@@ -218,6 +286,7 @@ export default function DashboardPage() {
           )}
         </div>
 
+        {/* ML MODELS VCE-100 */}
         <div style={cardStyle}>
           <h3 onClick={() => toggleSection("vce")} style={{ cursor: "pointer" }}>
             ML Models VCE-100
@@ -237,6 +306,7 @@ export default function DashboardPage() {
           )}
         </div>
 
+        {/* GOVERNMENT */}
         <div style={cardStyle}>
           <h3 onClick={() => toggleSection("government")} style={{ cursor: "pointer" }}>
             Government
@@ -256,6 +326,7 @@ export default function DashboardPage() {
           )}
         </div>
 
+        {/* ADMIN & SYSTEM */}
         <div style={cardStyle}>
           <h3 onClick={() => toggleSection("admin")} style={{ cursor: "pointer" }}>
             Admin & System
@@ -287,6 +358,7 @@ export default function DashboardPage() {
           )}
         </div>
 
+        {/* MARKETPLACE */}
         <div style={cardStyle}>
           <h3 onClick={() => toggleSection("marketplace")} style={{ cursor: "pointer", color: "#b8860b" }}>
             Marketplace
@@ -311,57 +383,95 @@ export default function DashboardPage() {
         {activeTab === "home" && <HomePage />}
         {activeTab === "profile" && <Profile />}
 
+        {/* VIRUS LIST */}
         {activeTab === "virus_list" &&
           (token ? <VirusList /> : <div style={{ color: "red" }}>Token required</div>)}
 
+        {/* MACHINE LEARNING */}
         {activeTab === "ml_v2" && <MLTrainingV2 />}
         {activeTab === "ml_v6" && <MLTrainingV6 />}
 
-        {activeTab === "consulting" && <ConsultingPage />}
-        {activeTab === "consulting_history" && <ConsultingPaymentHistory />}
-        {activeTab === "consulting_calendar" && <ConsultationCalendar />}
+        {/* ML DRIFT */}
+        {activeTab === "ml_drift" && <MlDrift />}
 
+        {/* VIRUS PROBABILITY FLOW */}
+        {activeTab === "prob_flow" && <VirusProbabilityFlowChart />}
+
+        {/* CONSULTING */}
+        {activeTab === "consulting" &&
+          (role === "consulting" || role === "admin" ? <ConsultingPage /> : <AccessDenied />)}
+
+        {activeTab === "consulting_history" &&
+          (role === "consulting" || role === "admin" ? (
+            <ConsultingPaymentHistory />
+          ) : (
+            <AccessDenied />
+          ))}
+
+        {activeTab === "consulting_calendar" &&
+          (role === "consulting" || role === "admin" ? (
+            <ConsultationCalendar />
+          ) : (
+            <AccessDenied />
+          ))}
+
+        {/* CONSULTING MEETINGS */}
+        {activeTab === "consulting_meetings" &&
+          (role === "consulting" || role === "admin" ? (
+            <div style={{ display: "grid", gap: "24px" }}>
+              <MeetingForm onCreate={handleCreate} />
+              <ScheduleCalendar meetings={meetings} />
+              <MeetingList meetings={meetings} />
+            </div>
+          ) : (
+            <AccessDenied />
+          ))}
+
+        {/* COURSES */}
         {activeTab === "enrollment" && <EnrollmentStatus />}
         {activeTab === "course_dashboard" && <CourseDashboard />}
         {activeTab === "course_modules" && <CourseModulesDashboard />}
         {activeTab === "course_content" && <CourseContentDashboard />}
 
-        {activeTab === "student" && <StudentDashboard />}
-        {activeTab === "admin" && <AdminDashboard />}
+        {/* COURSE ACCESS */}
+        {activeTab === "course_access" && <CourseAccessButton courseId="1" userId="1" />}
+
+        {/* VIRUS ACCESS */}
+        {activeTab === "virus_access" && <VirusAccessButton userId="1" token={token} />}
+
+        {/* CONSULTING ACCESS */}
+        {activeTab === "consulting_access" && (
+          <ConsultingAccessButton consultingService={token} userId="1" />
+        )}
+
+        {/* STUDENT / ADMIN / PUBLIC */}
+        {activeTab === "student" &&
+          (role === "student" || role === "admin" ? <StudentDashboard /> : <AccessDenied />)}
+
+        {activeTab === "admin" && (role === "admin" ? <AdminDashboard /> : <AccessDenied />)}
+
         {activeTab === "public" && <PublicDashboard />}
 
-        {activeTab === "vce100_v2" && <VCE100V2Dashboard />}
-        {activeTab === "vce100_v6" && <VCE100V6Dashboard />}
+        {/* ML MODELS */}
+        {activeTab === "vce100_v2" &&
+          (role === "admin" ? <VCE100V2Dashboard /> : <AccessDenied />)}
+
+        {activeTab === "vce100_v6" &&
+          (role === "admin" ? <VCE100V6Dashboard /> : <AccessDenied />)}
+
         {activeTab === "vce100_compare" && <VCE100CompareDashboard />}
 
-        {activeTab === "ml_drift" && <MlDrift />}
-        {activeTab === "prob_flow" && <VirusProbabilityFlowChart />}
+        {/* ADMIN TOKENS */}
+        {activeTab === "admin_tokens" &&
+          (role === "admin" ? <AdminTokenDashboard /> : <AccessDenied />)}
 
-        {activeTab === "course_access" && (
-          <CourseAccessButton courseId="1" userId={1} />
-        )}
-
-        {activeTab === "virus_access" && (
-          <VirusAccessButton userId={1} token={token} />
-        )}
-
-        {activeTab === "consulting_meetings" && (
-          <div>
-            <MeetingForm onCreate={handleCreate} />
-            <MeetingList meetings={meetings} />
-            <ScheduleCalendar meetings={meetings} />
-          </div>
-        )}
-
-        {activeTab === "consulting_access" && (
-          <ConsultingAccessButton consultingService="consulting" userId={1} />
-        )}
-
-        {activeTab === "admin_tokens" && <AdminTokenDashboard />}
-
+        {/* GOVERNMENT */}
         {activeTab === "government_home" && <GovernmentHomePage />}
+
         {activeTab === "government_dashboard" && <GovernmentDashboard />}
-        {activeTab === "government_admin" && <GovernmentAdminViewer />}
+
+        {activeTab === "government_admin" &&
+          (role === "admin" ? <GovernmentAdminViewer /> : <AccessDenied />)}
       </div>
     </div>
   );
