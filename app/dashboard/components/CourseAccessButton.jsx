@@ -1,13 +1,13 @@
 "use client";
 import { useState } from "react";
 
-export default function CourseAccessButton({ courseId, userId }) {
+export default function CourseAccessButton({ courseId }) {
   const [status, setStatus] = useState("");
   const [data, setData] = useState(null);
   const [manualToken, setManualToken] = useState("");
 
   const handleAccess = async () => {
-    if (!manualToken || manualToken.trim() === "") {
+    if (!manualToken.trim()) {
       setStatus("Please enter a valid token.");
       return;
     }
@@ -15,10 +15,13 @@ export default function CourseAccessButton({ courseId, userId }) {
     setStatus("Checking token...");
 
     try {
-      const response = await fetch(
-        `http://127.0.0.1:8000/services/course/${courseId}?token=${manualToken}`,
-        { method: "GET" }
-      );
+      const response = await fetch(`/api/proxy/services/course/${courseId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ token: manualToken })
+      });
 
       if (!response.ok) {
         setStatus("Invalid or inactive token.");
