@@ -33,7 +33,9 @@ import VCE100V6Dashboard from "./components/VCE100V6Dashboard.jsx";
 import VCE100CompareDashboard from "./components/VCE100CompareDashboard.jsx";
 
 import MlDrift from "./components/MlDrift.jsx";
-import SensorDevices from "./components/SensorDevices.jsx";
+
+import SensorDevices from "./SensorDevices";
+
 
 import VirusProbabilityFlowChart from "./components/VirusProbabilityFlowChart.jsx";
 
