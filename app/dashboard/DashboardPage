@@ -10,7 +10,7 @@ import MeetingForm from "./components/MeetingForm";
 import MeetingList from "./components/MeetingList";
 import ScheduleCalendar from "./components/ScheduleCalendar";
 
-// API functions
+// API functions (we will fix these next)
 import {
   createMeeting,
   assignTeam,
@@ -18,23 +18,21 @@ import {
   sendEmail
 } from "./components/MeetingAPI";
 
-export default function DashboardPage() {
+const DashboardPage = () => {
   const [activeTab, setActiveTab] = useState("home");
 
-  // FIX: Proper typing
   const [viruses, setViruses] = useState<any[]>([]);
   const [meetings, setMeetings] = useState<any[]>([]);
 
-  // Load virus list
+  // Load virus list (FIXED: use proxy instead of localhost)
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    fetch("http://127.0.0.1:8000/virus/list", {
+    fetch("/api/proxy/virus/list", {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(r => r.json())
       .then(data => {
-        // FIX: backend returns { viruses: [...] }
         if (Array.isArray(data)) {
           setViruses(data);
         } else if (Array.isArray(data.viruses)) {
@@ -46,36 +44,26 @@ export default function DashboardPage() {
       .catch(err => console.error("Error loading virus list:", err));
   }, []);
 
-  // Load meetings
+  // Load meetings (FIXED: MeetingAPI must use proxy)
   useEffect(() => {
     getMeetings()
       .then(setMeetings)
       .catch(err => console.error("Error loading meetings:", err));
   }, []);
 
-  // Create meeting handler
+  // Create meeting handler (FIXED: remove fake ID)
   const handleCreate = async (form: any) => {
     try {
-      const meeting = await createMeeting({
-        id: 1, // temporary ID until backend wiring
-        ...form
-      });
+      const meeting = await createMeeting(form);
 
-      // Optional: assign team automatically
-      await assignTeam(meeting.id, 1);
+      // Temporarily disable auto-assign + auto-email until backend endpoints exist
+      // await assignTeam(meeting.id, 1);
+      // await sendEmail(...)
 
-      // Send email automatically
-      await sendEmail(
-        form.participants,
-        `Meeting Invitation: ${form.title}`,
-        `You have a meeting on ${form.date} at ${form.time}.`
-      );
-
-      // Reload meetings
       const updated = await getMeetings();
       setMeetings(updated);
 
-      alert("Meeting created and email sent.");
+      alert("Meeting created.");
     } catch (err) {
       console.error("Error creating meeting:", err);
       alert("Error creating meeting.");
@@ -107,8 +95,6 @@ export default function DashboardPage() {
       {activeTab === "virus" && (
         <div>
           <h2>Virus List</h2>
-
-          {/* FIX: viruses is now correctly typed and populated */}
           <VirusList viruses={viruses as unknown as never[]} />
         </div>
       )}
@@ -129,4 +115,7 @@ export default function DashboardPage() {
       )}
     </div>
   );
-}
+};
+
+export default DashboardPage;
+
