@@ -9,7 +9,8 @@ export default function AdminDashboard() {
   useEffect(() => {
     async function loadStudents() {
       try {
-        const res = await fetch("http://127.0.0.1:8000/auth/users");
+        const res = await fetch("https://ai-biosensing-backend-trial2.onrender.com/auth/users");
+
         const data = await res.json();
         setStudents(data || []);
       } catch (err) {
