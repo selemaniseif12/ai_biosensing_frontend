@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 /* -----------------------------
-   TYPES (Fix TS errors)
+   TYPES
 ------------------------------ */
 type Consultation = {
   id: number;
@@ -33,10 +33,7 @@ type PaymentStats = {
   completed: number;
 };
 
-export default function AdminDashboardOverview() {
-  /* -----------------------------
-     FIX: Proper typing for all states
-  ------------------------------ */
+export default function DashboardOverview() {
   const [upcoming, setUpcoming] = useState<Consultation[]>([]);
   const [teamStats, setTeamStats] = useState<TeamStat[]>([]);
   const [platformStats, setPlatformStats] = useState<PlatformStat[]>([]);
@@ -53,7 +50,9 @@ export default function AdminDashboardOverview() {
     try {
       setLoading(true);
 
-      const res = await fetch("https://ai-biosensing-backend-trial2.onrender.com/consultations/overview");
+      const res = await fetch(
+        "https://ai-biosensing-backend-trial2.onrender.com/consultations/overview"
+      );
 
       const data = await res.json();
 
@@ -69,7 +68,7 @@ export default function AdminDashboardOverview() {
         }
       );
     } catch (err) {
-      console.error("Failed to load admin overview:", err);
+      console.error("Failed to load overview:", err);
 
       setUpcoming([]);
       setTeamStats([]);
@@ -93,26 +92,26 @@ export default function AdminDashboardOverview() {
 
   return (
     <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6">Admin Dashboard Overview</h1>
+      <h1 className="text-3xl font-bold mb-6">Dashboard Overview</h1>
 
       {/* Quick Actions */}
       <div className="flex gap-4 mb-8">
         <Link
-          href="/admin/consultations/create"
+          href="/consultations/create"
           className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
         >
           + Create Consultation
         </Link>
 
         <Link
-          href="/admin/consultations"
+          href="/consultations"
           className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
         >
           View All Consultations
         </Link>
 
         <Link
-          href="/admin/consultations/calendar"
+          href="/consultations/calendar"
           className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700"
         >
           Calendar View
@@ -141,7 +140,7 @@ export default function AdminDashboardOverview() {
                 </p>
                 <p className="capitalize">{c.platform ?? "Unknown platform"}</p>
                 <Link
-                  href={`/admin/consultations/${c.id}`}
+                  href={`/consultations/${c.id}`}
                   className="text-blue-600 hover:underline"
                 >
                   View Details

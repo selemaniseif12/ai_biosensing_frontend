@@ -24,6 +24,10 @@ const DashboardPage = () => {
   const [viruses, setViruses] = useState<any[]>([]);
   const [meetings, setMeetings] = useState<any[]>([]);
 
+  const styles = {
+    nav: { marginBottom: "20px" }
+  };
+
   // Load virus list (FIXED: use proxy instead of localhost)
   useEffect(() => {
     const token = localStorage.getItem("token");

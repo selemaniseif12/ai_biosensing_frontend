@@ -29,16 +29,11 @@ export default function LoginPage() {
 
       const data = await res.json();
 
-      // Store token + role in cookies (middleware can read these)
+      // Store only token (no role needed anymore)
       document.cookie = `token=${data.access_token}; path=/`;
-      document.cookie = `role=${data.role}; path=/`;
 
-      // Redirect based on role
-      if (data.role === "admin") {
-        router.push("/admin");
-      } else {
-        router.push("/dashboard");
-      }
+      // Everyone goes to dashboard now
+      router.push("/dashboard");
 
     } catch (err) {
       setError("Server error. Try again.");

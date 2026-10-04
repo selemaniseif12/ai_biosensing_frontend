@@ -1,8 +1,8 @@
-export default function AdminDashboard() {
+export default function DashboardHome() {
   return (
     <div style={{ padding: "32px" }}>
-      <h2>Admin Dashboard</h2>
-      <p>Welcome, admin.</p>
+      <h2>Dashboard</h2>
+      <p>Welcome to your dashboard.</p>
     </div>
   );
 }
