@@ -1,7 +1,14 @@
+import "./globals.css";
+
+export const metadata = {
+  title: "Dashboard",
+  description: "Admin and user dashboard",
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body suppressHydrationWarning={true}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
