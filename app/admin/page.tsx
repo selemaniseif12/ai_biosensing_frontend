@@ -53,7 +53,8 @@ export default function AdminDashboardOverview() {
     try {
       setLoading(true);
 
-      const res = await fetch("http://localhost:8000/consultations/overview");
+      const res = await fetch("https://ai-biosensing-backend-trial2.onrender.com/consultations/overview");
+
       const data = await res.json();
 
       setUpcoming(data?.upcoming ?? []);
