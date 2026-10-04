@@ -33,6 +33,7 @@ import VCE100V6Dashboard from "./components/VCE100V6Dashboard.jsx";
 import VCE100CompareDashboard from "./components/VCE100CompareDashboard.jsx";
 
 import MlDrift from "./components/MlDrift.jsx";
+import SensorDevices from "./components/SensorDevices.jsx";
 import VirusProbabilityFlowChart from "./components/VirusProbabilityFlowChart.jsx";
 
 import CourseAccessButton from "./components/CourseAccessButton.jsx";
@@ -413,12 +414,16 @@ export default function DashboardPage() {
         {activeTab === "virus_list" &&
           (token ? <VirusList /> : <div style={{ color: "red" }}>Token required</div>)}
 
-        {/* MACHINE LEARNING */}
-        {activeTab === "ml_v2" && <MLTrainingV2 />}
-        {activeTab === "ml_v6" && <MLTrainingV6 />}
+{/* MACHINE LEARNING */}
+{activeTab === "ml_v2" && <MLTrainingV2 />}
+{activeTab === "ml_v6" && <MLTrainingV6 />}
 
-        {/* ML DRIFT */}
-        {activeTab === "ml_drift" && <MlDrift />}
+{/* ML DRIFT */}
+{activeTab === "ml_drift" && <MlDrift />}
+
+{/* SENSOR DEVICES */}
+{activeTab === "sensor_devices" && <SensorDevices />}
+
 
         {/* VIRUS PROBABILITY FLOW */}
         {activeTab === "prob_flow" && <VirusProbabilityFlowChart />}
