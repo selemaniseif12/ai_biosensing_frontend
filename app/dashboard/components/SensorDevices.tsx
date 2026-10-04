@@ -1,30 +1,54 @@
+"use client";
+import { useEffect, useState } from "react";
+
+type SensorDeviceData = {
+  title: string;
+  image_url: string;
+  content: string[];
+};
+
 export default function SensorDevices() {
+  const [data, setData] = useState<SensorDeviceData | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch("https://ai-biosensing-backend-trial2.onrender.com/sensor-devices/")
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to load sensor device data");
+        return res.json();
+      })
+      .then(setData)
+      .catch((err) => setError(err.message));
+  }, []);
+
+  if (error) {
+    return <div style={{ color: "red" }}>{error}</div>;
+  }
+
+  if (!data) {
+    return <div>Loading Sensor Devices...</div>;
+  }
+
   return (
-    <div className="sensor-devices-container">
+    <div style={{ padding: "20px", maxWidth: "800px" }}>
+      <h2>{data.title}</h2>
 
       <img
-        src="/images/sensor-device.png"
+        src={data.image_url}
         alt="Sensor Device"
-        style={{ maxWidth: "300px", marginBottom: "20px" }}
+        style={{
+          maxWidth: "350px",
+          marginBottom: "20px",
+          borderRadius: "10px",
+          display: "block",
+        }}
       />
 
-      <p>
-        Sensor devices are used to collect environmental and biological data
-        from various locations. They provide real‑time monitoring and support
-        machine learning models that detect anomalies and predict risks.
-      </p>
-
-      <p>
-        These devices operate autonomously and transmit data securely to the
-        backend for processing. They are designed for reliability, low power
-        consumption, and high accuracy.
-      </p>
-
-      <p>
-        Future versions will include enhanced connectivity, improved battery
-        life, and additional sensing capabilities.
-      </p>
-
+      {data.content.map((paragraph, index) => (
+        <p key={index} style={{ marginBottom: "16px" }}>
+          {paragraph}
+        </p>
+      ))}
     </div>
   );
 }
