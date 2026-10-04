@@ -22,25 +22,23 @@ export default function LoginPage() {
       });
 
       if (!res.ok) {
-        const msg = await res.text();
-        setError(msg || "Login failed");
+        const msg = await res.json().catch(() => null);
+        setError(msg?.detail || "Invalid email or password");
         return;
       }
 
       const data = await res.json();
 
-      // Save JWT token
-      localStorage.setItem("token", data.access_token);
+      // Store token + role in cookies (middleware can read these)
+      document.cookie = `token=${data.access_token}; path=/`;
+      document.cookie = `role=${data.role}; path=/`;
 
-      // Save user info based on backend response
-      localStorage.setItem("user_id", data.user_id);
-      localStorage.setItem("email", data.email);
-
-      // Set a default role if backend does not return one
-      localStorage.setItem("role", data.role || "student");
-
-      // Redirect to dashboard
-      router.push("/dashboard");
+      // Redirect based on role
+      if (data.role === "admin") {
+        router.push("/admin");
+      } else {
+        router.push("/dashboard");
+      }
 
     } catch (err) {
       setError("Server error. Try again.");
