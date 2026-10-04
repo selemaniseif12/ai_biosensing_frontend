@@ -1,50 +1,83 @@
 "use client";
-
 import { useState } from "react";
-import CourseAccessButton from "./components/CourseAccessButton";
-import VirusAccessButton from "./components/VirusAccessButton";
-import ConsultationAccessButton from "./components/ConsultationAccessButton";
 
-export default function DashboardPage() {
-  const [activeTab, setActiveTab] = useState("course_access");
-  const [token, setToken] = useState("");
+export default function CourseAccessButton({ courseId }) {
+  const [status, setStatus] = useState("");
+  const [data, setData] = useState(null);
+  const [manualToken, setManualToken] = useState("");
+
+  const handleAccess = async () => {
+    if (!manualToken.trim()) {
+      setStatus("Please enter a valid token.");
+      return;
+    }
+
+    setStatus("Checking token...");
+
+    try {
+      const response = await fetch(`/api/proxy/services/course/${courseId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ token: manualToken })
+      });
+
+      if (!response.ok) {
+        setStatus("Invalid or inactive token.");
+        return;
+      }
+
+      const json = await response.json();
+      setData(json);
+      setStatus("Access granted.");
+    } catch (err) {
+      console.error("Course access error:", err);
+      setStatus("Server error.");
+    }
+  };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>AI Biosensing Dashboard</h1>
+    <div style={{ marginTop: "20px" }}>
+      <h3>Course Access</h3>
 
-      {/* TOKEN INPUT */}
-      <div style={{ marginBottom: "20px" }}>
+      <div style={{ marginBottom: "10px" }}>
         <label>Service Token:</label>
         <input
           type="text"
           placeholder="Paste your token here"
-          value={token}
-          onChange={(e) => setToken(e.target.value)}
+          value={manualToken}
+          onChange={(e) => setManualToken(e.target.value)}
           style={{ marginLeft: "10px", width: "300px" }}
         />
       </div>
 
-      {/* TABS */}
-      <div style={{ marginBottom: "20px" }}>
-        <button onClick={() => setActiveTab("course_access")}>Course Access</button>
-        <button onClick={() => setActiveTab("virus_access")} style={{ marginLeft: "10px" }}>
-          Virus Access
-        </button>
-        <button onClick={() => setActiveTab("consultation_access")} style={{ marginLeft: "10px" }}>
-          Consultation Access
-        </button>
-      </div>
+      <button
+        onClick={handleAccess}
+        style={{
+          padding: "10px 20px",
+          backgroundColor: "#0078ff",
+          color: "white",
+          borderRadius: "6px",
+          cursor: "pointer"
+        }}
+      >
+        Access Course {courseId}
+      </button>
 
-      {/* COURSE ACCESS */}
-      {activeTab === "course_access" && <CourseAccessButton courseId="1" />}
+      <p style={{ marginTop: "10px" }}>{status}</p>
 
-      {/* VIRUS ACCESS */}
-      {activeTab === "virus_access" && <VirusAccessButton userId="1" token={token} />}
-
-      {/* CONSULTATION ACCESS */}
-      {activeTab === "consultation_access" && (
-        <ConsultationAccessButton userId="1" token={token} />
+      {data && (
+        <pre
+          style={{
+            marginTop: "20px",
+            backgroundColor: "#f4f4f4",
+            padding: "10px",
+            borderRadius: "6px"
+          }}
+        >
+          {JSON.stringify(data, null, 2)}
+        </pre>
       )}
     </div>
   );
