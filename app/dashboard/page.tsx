@@ -431,41 +431,51 @@ export default function DashboardPage() {
         {/* VIRUS PROBABILITY FLOW */}
         {activeTab === "prob_flow" && <VirusProbabilityFlowChart />}
 
-        {/* CONSULTING */}
-        {activeTab === "consulting" &&
-          (role === "consulting" || role === "admin" ? <ConsultingPage /> : <AccessDenied />)}
+{/* CONSULTING */}
+{activeTab === "consulting" && <ConsultingPage />}
 
-        {activeTab === "consulting_history" &&
-          (role === "consulting" || role === "admin" ? (
-            <ConsultingPaymentHistory />
-          ) : (
-            <AccessDenied />
-          ))}
+{/* CONSULTING HISTORY */}
+{activeTab === "consulting_history" && <ConsultingPaymentHistory />}
 
-        {activeTab === "consulting_calendar" &&
-          (role === "consulting" || role === "admin" ? (
-            <ConsultationCalendar />
-          ) : (
-            <AccessDenied />
-          ))}
+{/* CONSULTING CALENDAR */}
+{activeTab === "consulting_calendar" && <ConsultationCalendar />}
 
-        {/* CONSULTING MEETINGS */}
-        {activeTab === "consulting_meetings" &&
-          (role === "consulting" || role === "admin" ? (
-            <div style={{ display: "grid", gap: "24px" }}>
-              <MeetingForm onCreate={handleCreate} />
-              <ScheduleCalendar meetings={meetings} />
-              <MeetingList meetings={meetings} />
-            </div>
-          ) : (
-            <AccessDenied />
-          ))}
+{/* CONSULTING MEETINGS */}
+{activeTab === "consulting_meetings" && (
+  <div style={{ display: "grid", gap: "24px" }}>
+    <MeetingForm onCreate={handleCreate} />
+    <ScheduleCalendar meetings={meetings} />
+    <MeetingList meetings={meetings} />
+  </div>
+)}
+
 
         {/* COURSES */}
         {activeTab === "enrollment" && <EnrollmentStatus />}
-        {activeTab === "course_dashboard" && <CourseDashboard />}
-        {activeTab === "course_modules" && <CourseModulesDashboard />}
-        {activeTab === "course_content" && <CourseContentDashboard />}
+       {/* COURSE DASHBOARD */}
+{activeTab === "course_dashboard" &&
+  (role === "course" || role === "admin" ? (
+    <CourseDashboard />
+  ) : (
+    <AccessDenied />
+  ))}
+
+{/* COURSE MODULES */}
+{activeTab === "course_modules" &&
+  (role === "course" || role === "admin" ? (
+    <CourseModulesDashboard />
+  ) : (
+    <AccessDenied />
+  ))}
+
+{/* COURSE CONTENT */}
+{activeTab === "course_content" &&
+  (role === "course" || role === "admin" ? (
+    <CourseContentDashboard />
+  ) : (
+    <AccessDenied />
+  ))}
+
 
         {/* COURSE ACCESS */}
         {activeTab === "course_access" && <CourseAccessButton courseId="1" userId="1" />}
