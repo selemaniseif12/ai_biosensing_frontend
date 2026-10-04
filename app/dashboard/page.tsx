@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import CourseAccessButton from "./components/CourseAccessButton";
-import VirusAccessButton from "./components/VirusAccessButton";
+import CourseAccessButton from "./components/CourseAccessButton.jsx";
+import VirusAccessButton from "./components/VirusAccessButton.jsx";
+import ConsultationAccessButton from "./components/ConsultationAccessButton.jsx";
 
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState("course_access");
@@ -30,14 +31,21 @@ export default function DashboardPage() {
         <button onClick={() => setActiveTab("virus_access")} style={{ marginLeft: "10px" }}>
           Virus Access
         </button>
+        <button onClick={() => setActiveTab("consultation_access")} style={{ marginLeft: "10px" }}>
+          Consultation Access
+        </button>
       </div>
 
       {/* COURSE ACCESS */}
-      {activeTab === "course_access" && <CourseAccessButton />}
+      {activeTab === "course_access" && <CourseAccessButton courseId="1" />}
 
       {/* VIRUS ACCESS */}
       {activeTab === "virus_access" && <VirusAccessButton userId="1" token={token} />}
 
+      {/* CONSULTATION ACCESS */}
+      {activeTab === "consultation_access" && (
+        <ConsultationAccessButton userId="1" token={token} />
+      )}
     </div>
   );
 }
