@@ -1,7 +1,8 @@
 "use client"
 import React, { useEffect, useState } from "react";
 
-const API_BASE = "http://127.0.0.1:8000"; // Adjust if your backend runs elsewhere
+const API_BASE = "https://ai-biosensing-backend-trial2.onrender.com";
+
 
 export default function ConsultationDashboard() {
   const [consultations, setConsultations] = useState([]);
