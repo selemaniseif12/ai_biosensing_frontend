@@ -4,12 +4,6 @@ export const runtime = "edge";
 
 import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import AccessDenied from "./components/AccessDenied.jsx";   // adminOnly guard added
-
-// adminOnly guard added
-const adminOnly = (component, role) =>
-  role === "admin" ? component : <AccessDenied />;
-
 import VirusList from "./components/VirusList.jsx";
 import MLTrainingV2 from "./components/MLTrainingV2.jsx";
 import MLTrainingV6 from "./components/MLTrainingV6.jsx";
