@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
@@ -12,7 +13,10 @@ export default function AdminDashboard() {
         const res = await fetch("https://ai-biosensing-backend-trial2.onrender.com/auth/users");
 
         const data = await res.json();
-        setStudents(data || []);
+        console.log("ADMIN USERS API RESPONSE:", data);
+
+        // Prevent .map() crash
+        setStudents(Array.isArray(data) ? data : []);
       } catch (err) {
         console.error("Failed to load students:", err);
       }

@@ -1,8 +1,20 @@
 "use client";
+
 export default function AdminCoursesList({ course, onOpenOutline }) {
-  if (!course) {
-    return <p>No course found.</p>;
+  // Validate course object
+  const isValidCourse =
+    course &&
+    typeof course === "object" &&
+    !Array.isArray(course) &&
+    course.title &&
+    course.description;
+
+  if (!isValidCourse) {
+    return <p>No course found or invalid course data.</p>;
   }
+
+  // Ensure modules is always an array
+  const modules = Array.isArray(course.modules) ? course.modules : [];
 
   return (
     <div style={{ marginTop: "20px" }}>
@@ -23,7 +35,7 @@ export default function AdminCoursesList({ course, onOpenOutline }) {
         <p><strong>Price:</strong> ${course.price}</p>
         <p><strong>Status:</strong> {course.status}</p>
 
-        <p><strong>Modules:</strong> {course.modules?.length || 0}</p>
+        <p><strong>Modules:</strong> {modules.length}</p>
 
         <button
           onClick={() => onOpenOutline(course.id)}

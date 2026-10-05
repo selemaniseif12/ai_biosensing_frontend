@@ -12,7 +12,11 @@ export default function StudentDashboard() {
       try {
         const res = await fetch("http://127.0.0.1:8000/course/");
         const data = await res.json();
-        setCourses(data || []);
+
+        console.log("STUDENT COURSES API RESPONSE:", data);
+
+        // Prevent .map() crash
+        setCourses(Array.isArray(data) ? data : []);
       } catch (err) {
         console.error("Failed to load courses:", err);
       }
