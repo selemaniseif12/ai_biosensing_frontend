@@ -62,10 +62,11 @@ export default function ConsultationCalendar() {
     // ⭐ Hardcoded consultation ID for now (you can replace with dynamic ID)
     const consultationId = 1;
 
-    const url =
-      `http://127.0.0.1:8000/consultations/${consultationId}/schedule` +
-      `?scheduled_time=${encodeURIComponent(scheduledTime)}` +
-      `&meeting_link=${encodeURIComponent(meetingLink)}`;
+   const url =
+  `https://ai-biosensing-backend-trial2.onrender.com/consultations/${consultationId}/schedule` +
+  `?scheduled_time=${encodeURIComponent(scheduledTime)}` +
+  `&meeting_link=${encodeURIComponent(meetingLink)}`;
+
 
     try {
       const response = await fetch(url, {
