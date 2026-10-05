@@ -449,12 +449,13 @@ export default function DashboardPage() {
 
         {/* STUDENT / ADMIN / PUBLIC */}
         {activeTab === "student" &&
-          (role === "student" || role === "admin" ? <StudentDashboard /> : <AccessDenied />)}
+          (role === "admin" ? <StudentDashboard /> : <AccessDenied />)}
 
         {activeTab === "admin" &&
           (role === "admin" ? <AdminDashboard /> : <AccessDenied />)}
 
-        {activeTab === "public" && <PublicDashboard />}
+        {activeTab === "public" &&
+          (role === "admin" ? <PublicDashboard /> : <AccessDenied />)}
 
         {/* ML MODELS */}
         {activeTab === "vce100_v2" &&
@@ -463,17 +464,21 @@ export default function DashboardPage() {
         {activeTab === "vce100_v6" &&
           (role === "admin" ? <VCE100V6Dashboard /> : <AccessDenied />)}
 
-        {activeTab === "vce100_compare" && <VCE100CompareDashboard />}
+        {activeTab === "vce100_compare" &&
+          (role === "admin" ? <VCE100CompareDashboard /> : <AccessDenied />)}
 
         {/* ADMIN TOKENS */}
         {activeTab === "admin_tokens" &&
           (role === "admin" ? <AdminTokenDashboard /> : <AccessDenied />)}
 
         {/* GOVERNMENT */}
-        {activeTab === "government_home" && <GovernmentHomePage />}
+        {activeTab === "government_home" &&
+          (role === "admin" ? <GovernmentHomePage /> : <AccessDenied />)}
 
-        {activeTab === "government_dashboard" && <GovernmentDashboard />}
-               {activeTab === "government_admin" &&
+        {activeTab === "government_dashboard" &&
+          (role === "admin" ? <GovernmentDashboard /> : <AccessDenied />)}
+
+        {activeTab === "government_admin" &&
           (role === "admin" ? <GovernmentAdminViewer /> : <AccessDenied />)}
       </div>
     </div>
