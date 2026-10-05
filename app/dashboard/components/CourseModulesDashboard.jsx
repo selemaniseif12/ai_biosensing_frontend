@@ -13,21 +13,29 @@ export default function CourseModulesDashboard() {
 
   // Load all courses (needed for dropdown)
   useEffect(() => {
-    fetch("http://localhost:8000/course/")
+    fetch("https://ai-biosensing-backend-trial2.onrender.com/course/")
       .then((res) => res.json())
-      .then((data) => setCourses(data));
+      .then((data) => {
+        console.log("COURSE LIST RESPONSE:", data);
+        setCourses(Array.isArray(data) ? data : []);
+      })
+      .catch((err) => console.error("Failed to load courses:", err));
   }, []);
 
   // Load modules for selected course
   const loadModules = (courseId) => {
     setLoading(true);
-    fetch(`http://localhost:8000/course-modules/course/${courseId}`)
+    fetch(`https://ai-biosensing-backend-trial2.onrender.com/course-modules/course/${courseId}`)
       .then((res) => res.json())
       .then((data) => {
-        setModules(data);
+        console.log("MODULE LIST RESPONSE:", data);
+        setModules(Array.isArray(data) ? data : []);
         setLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch((err) => {
+        console.error("Failed to load modules:", err);
+        setLoading(false);
+      });
   };
 
   // Create new module
@@ -38,26 +46,28 @@ export default function CourseModulesDashboard() {
       module_number: Number(moduleNumber),
     };
 
-    fetch("http://localhost:8000/course-modules/", {
+    fetch("https://ai-biosensing-backend-trial2.onrender.com/course-modules/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     })
       .then((res) => res.json())
-      .then(() => {
+      .then((data) => {
+        console.log("MODULE CREATE RESPONSE:", data);
         loadModules(selectedCourseId); // refresh table
         setTitle("");
         setModuleNumber("");
-      });
+      })
+      .catch((err) => console.error("Failed to create module:", err));
   };
 
   // Delete module
   const handleDeleteModule = (id) => {
-    fetch(`http://localhost:8000/course-modules/${id}`, {
+    fetch(`https://ai-biosensing-backend-trial2.onrender.com/course-modules/${id}`, {
       method: "DELETE",
-    }).then(() => {
-      loadModules(selectedCourseId);
-    });
+    })
+      .then(() => loadModules(selectedCourseId))
+      .catch((err) => console.error("Failed to delete module:", err));
   };
 
   return (
