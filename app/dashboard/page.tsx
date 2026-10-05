@@ -178,17 +178,6 @@ export default function DashboardPage() {
           paddingBottom: "10px",
         }}
       >
-      {/* NAVIGATION CARDS */}
-      <div
-        style={{
-          marginBottom: "26px",
-          display: "flex",
-          flexDirection: "row",
-          gap: "16px",
-          overflowX: "auto",
-          paddingBottom: "10px",
-        }}
-      >
         {/* HOME */}
         <div style={cardStyle}>
           <h3 onClick={() => toggleSection("home")} style={{ cursor: "pointer" }}>
@@ -484,10 +473,10 @@ export default function DashboardPage() {
         {activeTab === "government_home" && <GovernmentHomePage />}
 
         {activeTab === "government_dashboard" && <GovernmentDashboard />}
-
-        {activeTab === "government_admin" &&
+               {activeTab === "government_admin" &&
           (role === "admin" ? <GovernmentAdminViewer /> : <AccessDenied />)}
       </div>
     </div>
   );
 }
+
