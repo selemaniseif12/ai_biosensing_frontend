@@ -4,6 +4,7 @@ export const runtime = "edge";
 
 import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import AccessDenied from "./components/AccessDenied.jsx";   // adminOnly guard added
 
 // adminOnly guard added
 const adminOnly = (component, role) =>
