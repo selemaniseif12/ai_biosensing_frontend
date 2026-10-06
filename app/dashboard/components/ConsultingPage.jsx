@@ -163,6 +163,24 @@ export default function ConsultingPage() {
         style={{ padding: "10px", width: "300px", marginBottom: "10px" }}
       /><br />
 
+      {/* ⭐ NEW FIELD — ORGANIZATION */}
+      <input
+        type="text"
+        placeholder="Organization (optional)"
+        value={form.organization}
+        onChange={(e) => setForm({ ...form, organization: e.target.value })}
+        style={{ padding: "10px", width: "300px", marginBottom: "10px" }}
+      /><br />
+
+      {/* ⭐ NEW FIELD — API KEY */}
+      <input
+        type="text"
+        placeholder="API Key (optional)"
+        value={form.api_key}
+        onChange={(e) => setForm({ ...form, api_key: e.target.value })}
+        style={{ padding: "10px", width: "300px", marginBottom: "10px" }}
+      /><br />
+
       <textarea
         placeholder="Describe your project..."
         value={form.project_description}
