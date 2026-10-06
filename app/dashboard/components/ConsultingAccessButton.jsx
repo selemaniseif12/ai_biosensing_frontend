@@ -27,7 +27,7 @@ export default function ConsultingAccessButton({ consultingService, userId }) {
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/services/consulting/${consultingService}?token=${token}`
+        `https://ai-biosensing-backend-trial2.onrender.com/services/consulting/${consultingService}?token=${token}`
       );
 
       if (response.status === 403) {
