@@ -1,26 +1,24 @@
 "use client";
 
-import AdminGuard from "@/components/AdminGuard";
+import AdminGuard from "@/app/dashboard/components/AdminGuard";
 
-import StudentDashboard from "@/components/StudentDashboard";
-import AdminDashboard from "@/components/AdminDashboard";
-import PublicDashboard from "@/components/PublicDashboard";
-import AdminTokensDashboard from "@/components/AdminTokensDashboard";
+import StudentDashboard from "@/app/dashboard/components/StudentDashboard";
+import AdminDashboard from "@/app/dashboard/components/AdminDashboard";
+import PublicDashboard from "@/app/dashboard/components/PublicDashboard";
+import AdminTokenDashboard from "@/app/dashboard/components/AdminTokenDashboard";
 
-import StoreDashboard from "@/components/StoreDashboard";
-import CartDashboard from "@/components/CartDashboard";
-import CheckoutDashboard from "@/components/CheckoutDashboard";
+import StoreAccessButton from "@/app/dashboard/components/StoreAccessButton";
 
-import CourseContent from "@/components/CourseContent";
-import CourseDashboard from "@/components/CourseDashboard";
+import CourseContentDashboard from "@/app/dashboard/components/CourseContentDashboard";
+import CourseDashboard from "@/app/dashboard/components/CourseDashboard";
 
-import GovernmentAdminViewer from "@/components/GovernmentAdminViewer";
+import GovernmentAdminViewer from "@/app/dashboard/components/GovernmentAdminViewer";
 
-import ConsultingHistory from "@/components/ConsultingHistory";
-import ConsultingMeetings from "@/components/ConsultingMeetings";
-import ConsultingAccess from "@/components/ConsultingAccess";
+import ConsultingDashboard from "@/app/dashboard/components/ConsultingPage";
+import ConsultingAccessButton from "@/app/dashboard/components/ConsultingAccessButton";
+import ConsultingPaymentHistory from "@/app/dashboard/components/ConsultingPaymentHistory";
 
-import PaymentHistory from "@/components/PaymentHistory";
+import PaymentPage from "@/app/dashboard/components/PaymentPage";
 
 export default function AdminSystemPage() {
   return (
@@ -31,22 +29,23 @@ export default function AdminSystemPage() {
         <StudentDashboard />
         <AdminDashboard />
         <PublicDashboard />
-        <AdminTokensDashboard />
+        <AdminTokenDashboard />
 
-        <StoreDashboard />
-        <CartDashboard />
-        <CheckoutDashboard />
-
-        <CourseContent />
+        <StoreAccessButton
+          itemId="store-access"
+          serviceName="Store Access"
+          userId="admin"
+        />
+        <CourseContentDashboard />
         <CourseDashboard />
 
         <GovernmentAdminViewer />
 
-        <ConsultingHistory />
-        <ConsultingMeetings />
-        <ConsultingAccess />
+        <ConsultingDashboard />
+        <ConsultingAccessButton consultingService="Consulting" userId="admin" />
+        <ConsultingPaymentHistory />
 
-        <PaymentHistory />
+        <PaymentPage />
       </div>
     </AdminGuard>
   );
