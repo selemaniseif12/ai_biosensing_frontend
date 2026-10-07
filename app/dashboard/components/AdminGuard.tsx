@@ -7,7 +7,11 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
   const [status, setStatus] = useState("Checking admin access...");
 
   useEffect(() => {
-    const token = localStorage.getItem("admin_token");
+    // Read token from cookies (correct)
+    const token = document.cookie
+      .split("; ")
+      .find(row => row.startsWith("token="))
+      ?.split("=")[1];
 
     if (!token) {
       setStatus("Admin token required: admin only");
