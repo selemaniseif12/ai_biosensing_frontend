@@ -1,20 +1,14 @@
 "use client";
 
-import VirusCount from "./dashboard/components/VirusCount.jsx";
-import VirusList from "./dashboard/components/VirusList.jsx";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-export default function Page() {
-  return (
-    <div style={{ padding: "20px" }}>
-      <h1>Main Dashboard</h1>
+export default function HomeRedirect() {
+  const router = useRouter();
 
-      <section style={{ marginTop: "40px" }}>
-        <VirusCount />
-      </section>
+  useEffect(() => {
+    router.replace("/dashboard");
+  }, [router]);
 
-      <section style={{ marginTop: "40px" }}>
-        <VirusList />
-      </section>
-    </div>
-  );
+  return null;
 }
