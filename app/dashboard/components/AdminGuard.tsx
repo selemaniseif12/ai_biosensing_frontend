@@ -1,44 +1,58 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import StudentDashboard from "@/app/dashboard/components/StudentDashboard";
+import AdminDashboard from "@/app/dashboard/components/AdminDashboard";
+import PublicDashboard from "@/app/dashboard/components/PublicDashboard";
+import AdminTokenDashboard from "@/app/dashboard/components/AdminTokenDashboard";
 
-export default function AdminGuard({ children }: { children: React.ReactNode }) {
-  const [allowed, setAllowed] = useState(false);
-  const [status, setStatus] = useState("Checking admin access...");
+import StoreAccessButton from "@/app/dashboard/components/StoreAccessButton";
 
-  useEffect(() => {
-    // Read token from cookies (correct)
-    const token = document.cookie
-      .split("; ")
-      .find(row => row.startsWith("token="))
-      ?.split("=")[1];
+import CourseContentDashboard from "@/app/dashboard/components/CourseContentDashboard";
+import CourseDashboard from "@/app/dashboard/components/CourseDashboard";
 
-    if (!token) {
-      setStatus("Admin token required: admin only");
-      return;
-    }
+import GovernmentAdminViewer from "@/app/dashboard/components/GovernmentAdminViewer";
 
-    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/admin-system?token=${token}`)
-      .then(res => {
-        if (res.status === 403) {
-          setStatus("Invalid admin token: admin only");
-          return;
-        }
-        setAllowed(true);
-        setStatus("Admin access granted");
-      })
-      .catch(() => {
-        setStatus("Unable to validate admin token");
-      });
-  }, []);
+import ConsultingDashboard from "@/app/dashboard/components/ConsultingPage";
+import ConsultingAccessButton from "@/app/dashboard/components/ConsultingAccessButton";
+import ConsultingPaymentHistory from "@/app/dashboard/components/ConsultingPaymentHistory";
 
-  if (!allowed) {
-    return (
-      <div style={{ padding: "20px" }}>
-        <h2>{status}</h2>
-      </div>
-    );
-  }
+import PaymentPage from "@/app/dashboard/components/PaymentPage";
 
-  return <>{children}</>;
+export default function AdminSystemPage() {
+  return (
+    <div style={{ padding: "20px" }}>
+      <h1 style={{ color: "red", fontSize: "32px" }}>
+        ADMIN-SYSTEM PAGE LOADED
+      </h1>
+
+      <h2>Admin & System</h2>
+
+      <StudentDashboard />
+      <AdminDashboard />
+      <PublicDashboard />
+      <AdminTokenDashboard />
+
+      <StoreAccessButton
+        itemId="store-access"
+        serviceName="Store Access"
+        userId="admin"
+      />
+
+      <CourseContentDashboard />
+      <CourseDashboard />
+
+      <GovernmentAdminViewer />
+
+      <ConsultingDashboard />
+
+      <ConsultingAccessButton
+        consultingService="Consulting"
+        userId="admin"
+      />
+
+      <ConsultingPaymentHistory />
+
+      <PaymentPage />
+    </div>
+  );
 }
