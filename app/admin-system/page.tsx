@@ -24,7 +24,11 @@ export default function AdminSystemPage() {
   return (
     <AdminGuard>
       <div style={{ padding: "20px" }}>
-        <h1>Admin & System</h1>
+        <h1 style={{ color: "red", fontSize: "32px" }}>
+          ADMIN-SYSTEM PAGE LOADED
+        </h1>
+
+        <h2>Admin & System</h2>
 
         <StudentDashboard />
         <AdminDashboard />
@@ -36,13 +40,17 @@ export default function AdminSystemPage() {
           serviceName="Store Access"
           userId="admin"
         />
+
         <CourseContentDashboard />
         <CourseDashboard />
 
         <GovernmentAdminViewer />
 
         <ConsultingDashboard />
-        <ConsultingAccessButton consultingService="Consulting" userId="admin" />
+        <ConsultingAccessButton
+          consultingService="Consulting"
+          userId="admin"
+        />
         <ConsultingPaymentHistory />
 
         <PaymentPage />
