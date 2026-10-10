@@ -21,8 +21,10 @@ import ConsultingPaymentHistory from "@/app/dashboard/components/ConsultingPayme
 import PaymentPage from "@/app/dashboard/components/PaymentPage";
 
 export default function AdminSystemPage() {
+  const SafeAdminGuard = AdminGuard as any;
+
   return (
-    <AdminGuard>
+    <SafeAdminGuard>
       <div style={{ padding: "20px" }}>
         <h1 style={{ color: "red", fontSize: "32px" }}>
           ADMIN-SYSTEM PAGE LOADED
@@ -55,6 +57,6 @@ export default function AdminSystemPage() {
 
         <PaymentPage />
       </div>
-    </AdminGuard>
+    </SafeAdminGuard>
   );
 }
