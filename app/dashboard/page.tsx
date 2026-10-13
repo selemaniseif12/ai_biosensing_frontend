@@ -336,33 +336,198 @@ export default function DashboardPage() {
           )}
         </div>
 
-        {/* ADMIN & SYSTEM */}
+          {/* ADMIN & SYSTEM */}
         <div style={cardStyle}>
-          <h3 onClick={() => toggleSection("admin")} style={{ cursor: "pointer" }}>
-            Admin & System
+          <h3
+            onClick={() => toggleSection("admin")}
+            style={{ cursor: "pointer" }}
+          >
+            Admin &amp; System
           </h3>
+
           {openSection === "admin" && (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "18px" }}>
-              <button onClick={() => setActiveTab("student")} style={buttonStyle(activeTab === "student")}>
-                Student
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "18px",
+              }}
+            >
+              {/* USER AND ADMIN MANAGEMENT */}
+              <button
+                onClick={() => setActiveTab("student")}
+                style={buttonStyle(activeTab === "student")}
+              >
+                Student Management
               </button>
-              <button onClick={() => setActiveTab("admin")} style={buttonStyle(activeTab === "admin")}>
-                Admin
+
+              <button
+                onClick={() => setActiveTab("admin")}
+                style={buttonStyle(activeTab === "admin")}
+              >
+                Admin Management
               </button>
-              <button onClick={() => setActiveTab("public")} style={buttonStyle(activeTab === "public")}>
-                Public
+
+              <button
+                onClick={() => setActiveTab("public")}
+                style={buttonStyle(activeTab === "public")}
+              >
+                Public Dashboard
               </button>
-              <button onClick={() => setActiveTab("admin_tokens")} style={buttonStyle(activeTab === "admin_tokens")}>
+
+              <button
+                onClick={() => setActiveTab("admin_tokens")}
+                style={buttonStyle(activeTab === "admin_tokens")}
+              >
                 Admin Tokens
               </button>
-              <button onClick={() => router.push("/dashboard/admin/store")} style={buttonStyle(false)}>
+
+              {/* PAYMENT MANAGEMENT */}
+              <button
+                onClick={() => router.push("/dashboard/payment-history")}
+                style={buttonStyle(false)}
+              >
+                Payment History
+              </button>
+
+              {/* CONSULTING MANAGEMENT */}
+              <button
+                onClick={() => setActiveTab("consulting")}
+                style={buttonStyle(activeTab === "consulting")}
+              >
+                Consulting Dashboard
+              </button>
+
+              <button
+                onClick={() => setActiveTab("consulting_history")}
+                style={buttonStyle(activeTab === "consulting_history")}
+              >
+                Consulting History
+              </button>
+
+              <button
+                onClick={() => setActiveTab("consulting_calendar")}
+                style={buttonStyle(activeTab === "consulting_calendar")}
+              >
+                Consultation Calendar
+              </button>
+
+              <button
+                onClick={() => setActiveTab("consulting_meetings")}
+                style={buttonStyle(activeTab === "consulting_meetings")}
+              >
+                Consulting Meetings
+              </button>
+
+              <button
+                onClick={() => setActiveTab("consulting_access")}
+                style={buttonStyle(activeTab === "consulting_access")}
+              >
+                Consulting Access
+              </button>
+
+              {/* GOVERNMENT MANAGEMENT */}
+              <button
+                onClick={() => setActiveTab("government_home")}
+                style={buttonStyle(activeTab === "government_home")}
+              >
+                Government Home
+              </button>
+
+              <button
+                onClick={() => setActiveTab("government_dashboard")}
+                style={buttonStyle(activeTab === "government_dashboard")}
+              >
+                Government Dashboard
+              </button>
+
+              <button
+                onClick={() => setActiveTab("government_admin")}
+                style={buttonStyle(activeTab === "government_admin")}
+              >
+                Government Admin Viewer
+              </button>
+
+              {/* COURSE MANAGEMENT */}
+              <button
+                onClick={() => setActiveTab("enrollment")}
+                style={buttonStyle(activeTab === "enrollment")}
+              >
+                Enrollment
+              </button>
+
+              <button
+                onClick={() => setActiveTab("course_dashboard")}
+                style={buttonStyle(activeTab === "course_dashboard")}
+              >
+                Course Dashboard
+              </button>
+
+              <button
+                onClick={() => setActiveTab("course_modules")}
+                style={buttonStyle(activeTab === "course_modules")}
+              >
+                Course Modules
+              </button>
+
+              <button
+                onClick={() => setActiveTab("course_content")}
+                style={buttonStyle(activeTab === "course_content")}
+              >
+                Course Content
+              </button>
+
+              <button
+                onClick={() => setActiveTab("course_access")}
+                style={buttonStyle(activeTab === "course_access")}
+              >
+                Course Access
+              </button>
+
+              {/* MEETINGS */}
+              <button
+                onClick={() => router.push("/dashboard/meetings")}
+                style={buttonStyle(false)}
+              >
+                Meetings
+              </button>
+
+              {/* SETTINGS */}
+              <button
+                onClick={() => router.push("/dashboard/settings")}
+                style={buttonStyle(false)}
+              >
+                Settings
+              </button>
+
+              {/* STORE MANAGEMENT */}
+              <button
+                onClick={() => router.push("/dashboard/admin/store")}
+                style={buttonStyle(false)}
+              >
                 Store
               </button>
-              <button onClick={() => router.push("/dashboard/admin/cart")} style={buttonStyle(false)}>
+
+              <button
+                onClick={() => router.push("/dashboard/admin/cart")}
+                style={buttonStyle(false)}
+              >
                 Cart
               </button>
-              <button onClick={() => router.push("/dashboard/admin/checkout")} style={buttonStyle(false)}>
+
+              <button
+                onClick={() => router.push("/dashboard/admin/checkout")}
+                style={buttonStyle(false)}
+              >
                 Checkout
+              </button>
+
+              {/* FULL ADMIN SYSTEM */}
+              <button
+                onClick={() => router.push("/admin-system")}
+                style={buttonStyle(false)}
+              >
+                Full Admin System
               </button>
             </div>
           )}
