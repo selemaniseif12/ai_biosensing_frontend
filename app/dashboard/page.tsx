@@ -364,7 +364,7 @@ export default function DashboardPage() {
           )}
         </div>
 
-          {/* ADMIN & SYSTEM */}
+                  {/* ADMIN & SYSTEM */}
         <div style={cardStyle}>
           <h3
             onClick={() => toggleSection("admin")}
@@ -512,7 +512,6 @@ export default function DashboardPage() {
                 Course Access
               </button>
 
-              
               {/* STORE MANAGEMENT */}
               <button
                 onClick={() => router.push("/dashboard/admin/store")}
@@ -535,6 +534,21 @@ export default function DashboardPage() {
                 Checkout
               </button>
 
+              {/* MEETINGS AND SETTINGS */}
+              <button
+                onClick={() => router.push("/dashboard/meetings")}
+                style={buttonStyle(false)}
+              >
+                Meetings
+              </button>
+
+              <button
+                onClick={() => router.push("/dashboard/settings")}
+                style={buttonStyle(false)}
+              >
+                Settings
+              </button>
+
               {/* FULL ADMIN SYSTEM */}
               <button
                 onClick={() => router.push("/admin-system")}
@@ -545,7 +559,6 @@ export default function DashboardPage() {
             </div>
           )}
         </div>
-
         {/* MARKETPLACE */}
         <div style={cardStyle}>
           <h3 onClick={() => toggleSection("marketplace")} style={{ cursor: "pointer", color: "#b8860b" }}>
