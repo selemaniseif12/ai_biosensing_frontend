@@ -234,62 +234,76 @@ export default function DashboardPage() {
           )}
         </div>
 
-        {/* COURSES */}
+          {/* COURSES — PUBLIC DASHBOARD */}
         <div style={cardStyle}>
-          <h3 onClick={() => toggleSection("courses")} style={{ cursor: "pointer" }}>
+          <h3
+            onClick={() => toggleSection("courses")}
+            style={{ cursor: "pointer" }}
+          >
             Courses
           </h3>
+
           {openSection === "courses" && (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "18px" }}>
-              <button onClick={() => setActiveTab("enrollment")} style={buttonStyle(activeTab === "enrollment")}>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "18px",
+              }}
+            >
+              <button
+                onClick={() => setActiveTab("enrollment")}
+                style={buttonStyle(activeTab === "enrollment")}
+              >
                 Enrollment
               </button>
-              <button onClick={() => setActiveTab("course_dashboard")} style={buttonStyle(activeTab === "course_dashboard")}>
-                Course Dashboard
-              </button>
-              <button onClick={() => setActiveTab("course_modules")} style={buttonStyle(activeTab === "course_modules")}>
-                Course Modules
-              </button>
-              <button onClick={() => setActiveTab("course_content")} style={buttonStyle(activeTab === "course_content")}>
-                Course Content
-              </button>
-              <button onClick={() => setActiveTab("course_access")} style={buttonStyle(activeTab === "course_access")}>
+
+              <button
+                onClick={() => setActiveTab("course_access")}
+                style={buttonStyle(activeTab === "course_access")}
+              >
                 Course Access
               </button>
             </div>
           )}
         </div>
 
-        {/* PAYMENT HISTORY */}
+
+         {/* CONSULTING — PUBLIC DASHBOARD */}
         <div style={cardStyle}>
           <h3
-            onClick={() => router.push("/dashboard/payment-history")}
-            style={{ cursor: "pointer", color: "#007bff" }}
+            onClick={() => toggleSection("consulting")}
+            style={{ cursor: "pointer" }}
           >
-            Payment History
-          </h3>
-        </div>
-
-        {/* CONSULTING */}
-        <div style={cardStyle}>
-          <h3 onClick={() => toggleSection("consulting")} style={{ cursor: "pointer" }}>
             Consulting
           </h3>
+
           {openSection === "consulting" && (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "18px" }}>
-              <button onClick={() => setActiveTab("consulting")} style={buttonStyle(activeTab === "consulting")}>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "18px",
+              }}
+            >
+              <button
+                onClick={() => setActiveTab("consulting")}
+                style={buttonStyle(activeTab === "consulting")}
+              >
                 Consulting
               </button>
-              <button onClick={() => setActiveTab("consulting_history")} style={buttonStyle(activeTab === "consulting_history")}>
-                Consulting History
-              </button>
-              <button onClick={() => setActiveTab("consulting_calendar")} style={buttonStyle(activeTab === "consulting_calendar")}>
+
+              <button
+                onClick={() => setActiveTab("consulting_calendar")}
+                style={buttonStyle(activeTab === "consulting_calendar")}
+              >
                 Consultation Calendar
               </button>
-              <button onClick={() => setActiveTab("consulting_meetings")} style={buttonStyle(activeTab === "consulting_meetings")}>
-                Consulting Meetings
-              </button>
-              <button onClick={() => setActiveTab("consulting_access")} style={buttonStyle(activeTab === "consulting_access")}>
+
+              <button
+                onClick={() => setActiveTab("consulting_access")}
+                style={buttonStyle(activeTab === "consulting_access")}
+              >
                 Consulting Access
               </button>
             </div>
@@ -316,21 +330,35 @@ export default function DashboardPage() {
           )}
         </div>
 
-        {/* GOVERNMENT */}
+         {/* GOVERNMENT — PUBLIC DASHBOARD */}
         <div style={cardStyle}>
-          <h3 onClick={() => toggleSection("government")} style={{ cursor: "pointer" }}>
+          <h3
+            onClick={() => toggleSection("government")}
+            style={{ cursor: "pointer" }}
+          >
             Government
           </h3>
+
           {openSection === "government" && (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "18px" }}>
-              <button onClick={() => setActiveTab("government_home")} style={buttonStyle(activeTab === "government_home")}>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "18px",
+              }}
+            >
+              <button
+                onClick={() => setActiveTab("government_home")}
+                style={buttonStyle(activeTab === "government_home")}
+              >
                 Government Home
               </button>
-              <button onClick={() => setActiveTab("government_dashboard")} style={buttonStyle(activeTab === "government_dashboard")}>
+
+              <button
+                onClick={() => setActiveTab("government_dashboard")}
+                style={buttonStyle(activeTab === "government_dashboard")}
+              >
                 Government Dashboard
-              </button>
-              <button onClick={() => setActiveTab("government_admin")} style={buttonStyle(activeTab === "government_admin")}>
-                Government Admin Viewer
               </button>
             </div>
           )}
@@ -484,22 +512,7 @@ export default function DashboardPage() {
                 Course Access
               </button>
 
-              {/* MEETINGS */}
-              <button
-                onClick={() => router.push("/dashboard/meetings")}
-                style={buttonStyle(false)}
-              >
-                Meetings
-              </button>
-
-              {/* SETTINGS */}
-              <button
-                onClick={() => router.push("/dashboard/settings")}
-                style={buttonStyle(false)}
-              >
-                Settings
-              </button>
-
+              
               {/* STORE MANAGEMENT */}
               <button
                 onClick={() => router.push("/dashboard/admin/store")}
@@ -588,23 +601,39 @@ export default function DashboardPage() {
           </div>
         )}
 
-        {/* COURSES */}
-        {activeTab === "enrollment" && <EnrollmentStatus />}
+        {/* COURSES — PUBLIC DASHBOARD */}
+        <div style={cardStyle}>
+          <h3
+            onClick={() => toggleSection("courses")}
+            style={{ cursor: "pointer" }}
+          >
+            Courses
+          </h3>
 
-        {activeTab === "course_dashboard" &&
-          (role === "course" || role === "admin" ? <CourseDashboard /> : <AccessDenied />)}
+          {openSection === "courses" && (
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "18px",
+              }}
+            >
+              <button
+                onClick={() => setActiveTab("enrollment")}
+                style={buttonStyle(activeTab === "enrollment")}
+              >
+                Enrollment
+              </button>
 
-        {activeTab === "course_modules" &&
-          (role === "course" || role === "admin" ? <CourseModulesDashboard /> : <AccessDenied />)}
-
-        {activeTab === "course_content" &&
-          (role === "course" || role === "admin" ? <CourseContentDashboard /> : <AccessDenied />)}
-
-        {/* COURSE ACCESS */}
-        {activeTab === "course_access" && <CourseAccessButton courseId="1" />}
-
-        {/* VIRUS ACCESS */}
-        {activeTab === "virus_access" && <VirusAccessButton userId="1" token={token} />}
+              <button
+                onClick={() => setActiveTab("course_access")}
+                style={buttonStyle(activeTab === "course_access")}
+              >
+                Course Access
+              </button>
+            </div>
+          )}
+        </div>
 
         {/* CONSULTING ACCESS */}
         {activeTab === "consulting_access" && (
