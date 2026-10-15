@@ -548,17 +548,11 @@ export default function DashboardPage() {
               >
                 Settings
               </button>
-
-              {/* FULL ADMIN SYSTEM */}
-              <button
-                onClick={() => router.push("/admin-system")}
-                style={buttonStyle(false)}
-              >
-                Full Admin System
-              </button>
             </div>
           )}
         </div>
+
+
         {/* MARKETPLACE */}
         <div style={cardStyle}>
           <h3 onClick={() => toggleSection("marketplace")} style={{ cursor: "pointer", color: "#b8860b" }}>
