@@ -552,6 +552,40 @@ export default function DashboardPage() {
           )}
         </div>
 
+        {/* FULL ADMIN SYSTEM */}
+<div
+  style={{
+    background: "#ffffff",
+    border: "1px solid #e5e7eb",
+    borderRadius: "12px",
+    padding: "20px",
+    boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
+  }}
+>
+  <h3 style={{ marginBottom: "10px" }}>
+    Full Admin System
+  </h3>
+
+  <p style={{ marginBottom: "16px", color: "#555" }}>
+    Access the protected Admin & System workspace.
+  </p>
+
+  <a
+    href="/admin-system"
+    style={{
+      display: "inline-block",
+      padding: "10px 16px",
+      background: "#17365d",
+      color: "#fff",
+      textDecoration: "none",
+      borderRadius: "8px",
+      fontWeight: 600,
+    }}
+  >
+    Open Admin & System
+  </a>
+</div>
+
 
         {/* MARKETPLACE */}
         <div style={cardStyle}>
