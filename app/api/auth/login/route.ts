@@ -1,11 +1,61 @@
 import { NextResponse } from "next/server";
 
-export async function POST() {
-  // Remove token stored in cookies (if any)
-  const response = NextResponse.json({ message: "Logged out" });
+const BACKEND_URL =
+  "https://ai-biosensing-backend-trial2.onrender.com";
 
-  // Clear token cookie
-  response.cookies.set("token", "", { expires: new Date(0) });
+export async function POST(request: Request) {
+  try {
+    const body = await request.json();
 
-  return response;
+    const token =
+      typeof body.token === "string" ? body.token.trim() : "";
+
+    if (!token) {
+      return NextResponse.json(
+        { access: "denied", detail: "Administrator token required." },
+        { status: 400 }
+      );
+    }
+
+    const backendResponse = await fetch(
+      `${BACKEND_URL}/admin-system/?token=${encodeURIComponent(token)}`,
+      {
+        method: "GET",
+        cache: "no-store",
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    );
+
+    const data = await backendResponse.json().catch(() => ({}));
+
+    if (!backendResponse.ok || data.access !== "granted") {
+      return NextResponse.json(
+        {
+          access: "denied",
+          detail: "Administrator token is invalid or expired.",
+        },
+        { status: backendResponse.status === 403 ? 403 : 502 }
+      );
+    }
+
+    return NextResponse.json(
+      {
+        access: "granted",
+        message: "Administrator access verified.",
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Admin token validation failed:", error);
+
+    return NextResponse.json(
+      {
+        access: "denied",
+        detail: "Could not contact the backend administrator service.",
+      },
+      { status: 502 }
+    );
+  }
 }
