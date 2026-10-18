@@ -459,78 +459,66 @@ export default function DashboardPage() {
                 </div>
               </section>
 
-              {/* CONSULTING */}
-              <section>
-                <h4>Consulting</h4>
-                <div
-                  style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    gap: "8px",
-                  }}
-                >
-                  <button
-                    onClick={() => setActiveTab("consulting")}
-                    style={buttonStyle(activeTab === "consulting")}
-                  >
-                    Consulting Dashboard
-                  </button>
+{/* CONSULTING */}
+<section>
+  <h4>Consulting</h4>
 
-                  <button
-                    onClick={() => setActiveTab("consulting_history")}
-                    style={buttonStyle(activeTab === "consulting_history")}
-                  >
-                    Consulting History
-                  </button>
+  <div
+    style={{
+      display: "flex",
+      flexWrap: "wrap",
+      gap: "8px",
+    }}
+  >
+    <button
+      onClick={() => setActiveTab("consulting")}
+      style={buttonStyle(activeTab === "consulting")}
+    >
+      Consulting Dashboard
+    </button>
 
-                  <button
-                    onClick={() => setActiveTab("consulting_calendar")}
-                    style={buttonStyle(activeTab === "consulting_calendar")}
-                  >
-                    Consultation Calendar
-                  </button>
+    <button
+      onClick={() => setActiveTab("consulting_history")}
+      style={buttonStyle(activeTab === "consulting_history")}
+    >
+      Consulting History
+    </button>
 
-                  <button
-                    onClick={() => setActiveTab("consulting_meetings")}
-                    style={buttonStyle(activeTab === "consulting_meetings")}
-                  >
-                    Consulting Meetings
-                  </button>
+    <button
+      onClick={() => setActiveTab("consulting_meetings")}
+      style={buttonStyle(activeTab === "consulting_meetings")}
+    >
+      Consulting Meetings
+    </button>
+  </div>
+</section>
 
-                  <button
-                    onClick={() => setActiveTab("consulting_access")}
-                    style={buttonStyle(activeTab === "consulting_access")}
-                  >
-                    Consulting Access
-                  </button>
-                </div>
-              </section>
+{/* PAYMENTS */}
+<section>
+  <h4>Payments & Financial Records</h4>
 
-              {/* PAYMENTS */}
-              <section>
-                <h4>Payments &amp; Financial Records</h4>
-                <div
-                  style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    gap: "8px",
-                  }}
-                >
-                  <button
-                    onClick={() => setActiveTab("payment_history")}
-                    style={buttonStyle(activeTab === "payment_history")}
-                  >
-                    Payment History
-                  </button>
+  <div
+    style={{
+      display: "flex",
+      flexWrap: "wrap",
+      gap: "8px",
+    }}
+  >
+    <button
+      onClick={() => setActiveTab("payment_history")}
+      style={buttonStyle(activeTab === "payment_history")}
+    >
+      Payment History
+    </button>
 
-                  <button
-                    onClick={() => setActiveTab("payment")}
-                    style={buttonStyle(activeTab === "payment")}
-                  >
-                    Payment Page
-                  </button>
-                </div>
-              </section>
+    <button
+      onClick={() => setActiveTab("payment")}
+      style={buttonStyle(activeTab === "payment")}
+    >
+      Payment Page
+    </button>
+  </div>
+</section>
 
               {/* MACHINE LEARNING MODELS */}
               <section>
