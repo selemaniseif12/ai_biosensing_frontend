@@ -4,7 +4,6 @@ import Link from "next/link";
 import React from "react";
 
 export default function Sidebar() {
-  // Check if admin is logged in
   const isAdmin =
     typeof window !== "undefined"
       ? !!localStorage.getItem("admin_token")
@@ -29,44 +28,29 @@ export default function Sidebar() {
         {/* Home */}
         <Link href="/dashboard">Home</Link>
 
-        {/* Government Dashboard */}
+        {/* Government Portal */}
         <Link href="/dashboard/government">Government Portal</Link>
-
-        {/* Government Admin Viewer */}
-        <Link href="/dashboard/government/admin">Government Admin</Link>
 
         <hr style={{ borderColor: "#ddd" }} />
 
-        {/* Course Access */}
+        {/* Public Services */}
         <Link href="/dashboard/course-access">Course Access</Link>
 
-        {/* ML Access */}
         <Link href="/dashboard/ml-access">ML Access</Link>
 
-        {/* Virus Access */}
         <Link href="/dashboard/virus-access">Virus Access</Link>
 
-        {/* Consulting Access */}
-        <Link href="/dashboard/consulting-access">Consulting Access</Link>
-
-        {/* Store Access */}
-        <Link href="/dashboard/store-access">Store Access</Link>
-
-        {/* Subscription Access */}
-        <Link href="/dashboard/subscription-access">Subscription Access</Link>
-
-        {/* ----------------------------- */}
-        {/* ADMIN‑ONLY LINKS (hidden unless logged in) */}
-        {/* ----------------------------- */}
-
+        {/* ADMIN‑ONLY LINKS */}
         {isAdmin && (
           <>
             <hr style={{ borderColor: "#ddd" }} />
 
+            <Link href="/admin-system">Admin & System</Link>
+
             <Link href="/dashboard/admin">Admin Dashboard</Link>
-            <Link href="/dashboard/admin/payments">Payments</Link>
-            <Link href="/dashboard/admin/devices">Devices</Link>
-            <Link href="/dashboard/admin/students">Students</Link>
+
+            <Link href="/board/admin/students">Students</Link>
+
             <Link href="/dashboard/admin/logs">System Logs</Link>
           </>
         )}
