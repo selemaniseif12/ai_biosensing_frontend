@@ -1,14 +1,5 @@
-"use client";
+import HomePage from "./dashboard/components/HomePage.jsx";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-
-export default function HomeRedirect() {
-  const router = useRouter();
-
-  useEffect(() => {
-    router.replace("/dashboard");
-  }, [router]);
-
-  return null;
+export default function PublicHomePage() {
+  return <HomePage />;
 }
