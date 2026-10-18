@@ -141,38 +141,49 @@ export default function DashboardPage() {
     <div style={pageStyle}>
       <h1 style={{ marginBottom: "20px" }}>Dashboard</h1>
 
-      <div style={{ marginBottom: "20px" }}>
-        <button
-          onClick={() => {
-            localStorage.removeItem("token");
-            localStorage.removeItem("role");
-            window.location.href = "/auth/login";
-          }}
-          style={{
-            padding: "10px 16px",
-            backgroundColor: "#d9534f",
-            color: "white",
-            border: "none",
-            borderRadius: "6px",
-            cursor: "pointer",
-          }}
-        >
-          Logout
-        </button>
-      </div>
+      {/* LOGIN CONTROLS — ADMIN ENTRY ONLY */}
+      {params.get("section") === "admin" && (
+        <>
+          {/* LOGOUT BUTTON */}
+          <div style={{ marginBottom: "20px" }}>
+            <button
+              onClick={() => {
+                localStorage.removeItem("token");
+                localStorage.removeItem("role");
+                window.location.href = "/auth/login";
+              }}
+              style={{
+                padding: "10px 16px",
+                backgroundColor: "#d9534f",
+                color: "white",
+                border: "none",
+                borderRadius: "6px",
+                cursor: "pointer",
+              }}
+            >
+              Logout
+            </button>
+          </div>
 
-      <div style={{ marginBottom: "20px" }}>
-        <label>Service Token:</label>
-        <input
-          type="text"
-          placeholder="Enter your token"
-          value={token}
-          onChange={(e) => setToken(e.target.value)}
-          style={{ marginLeft: "10px", width: "300px" }}
-        />
-      </div>
-
-      {/* NAVIGATION CARDS */}
+          {/* SERVICE TOKEN FIELD */}
+          <div style={{ marginBottom: "20px" }}>
+            <label htmlFor="service-token">Service Token:</label>
+            <input
+              id="service-token"
+              type="password"
+              placeholder="Enter your token"
+              value={token}
+              onChange={(e) => setToken(e.target.value)}
+              autoComplete="off"
+              style={{
+                marginLeft: "10px",
+                width: "300px",
+              }}
+            />
+          </div>
+        </>
+      )}
+            {/* NAVIGATION CARDS */}
       <div
         style={{
           marginBottom: "26px",
