@@ -65,6 +65,11 @@ export default function DashboardPage() {
 
   const params = useSearchParams();
   const router = useRouter();
+  useEffect(() => {
+  if (params.get("section") === "admin") {
+    setOpenSection("admin");
+  }
+}, [params]);
 
   useEffect(() => {
     localStorage.setItem("user_id", "1");
@@ -350,275 +355,277 @@ export default function DashboardPage() {
           )}
         </div>
 
-                      {/* ADMIN & SYSTEM */}
-      <div style={cardStyle}>
-        <h3
-          onClick={() => toggleSection("admin")}
-          style={{ cursor: "pointer" }}
-        >
-          Admin &amp; System
-        </h3>
+                            {/* ADMIN & SYSTEM — ONLY SHOWN THROUGH THE ADMIN ENTRY ROUTE */}
+      {params.get("section") === "admin" && (
+        <div style={cardStyle}>
+          <h3
+            onClick={() => toggleSection("admin")}
+            style={{ cursor: "pointer" }}
+          >
+            Admin &amp; System
+          </h3>
 
-        {openSection === "admin" && (
-          <AdminGuard>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "18px",
-                padding: "12px 0",
-              }}
-            >
-              {/* USER DASHBOARDS */}
-              <section>
-                <h4>User Dashboards</h4>
-                <div
-                  style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    gap: "8px",
-                  }}
-                >
-                  <button
-                    onClick={() => setActiveTab("student")}
-                    style={buttonStyle(activeTab === "student")}
+          {openSection === "admin" && (
+            <AdminGuard>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "18px",
+                  padding: "12px 0",
+                }}
+              >
+                {/* USER DASHBOARDS */}
+                <section>
+                  <h4>User Dashboards</h4>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      gap: "8px",
+                    }}
                   >
-                    Student Dashboard
-                  </button>
+                    <button
+                      onClick={() => setActiveTab("student")}
+                      style={buttonStyle(activeTab === "student")}
+                    >
+                      Student Dashboard
+                    </button>
 
-                  <button
-                    onClick={() => setActiveTab("admin")}
-                    style={buttonStyle(activeTab === "admin")}
+                    <button
+                      onClick={() => setActiveTab("admin")}
+                      style={buttonStyle(activeTab === "admin")}
+                    >
+                      Admin Dashboard
+                    </button>
+
+                    <button
+                      onClick={() => setActiveTab("public")}
+                      style={buttonStyle(activeTab === "public")}
+                    >
+                      Public Dashboard
+                    </button>
+                  </div>
+                </section>
+
+                {/* ADMINISTRATION */}
+                <section>
+                  <h4>Administration</h4>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      gap: "8px",
+                    }}
                   >
-                    Admin Dashboard
-                  </button>
+                    <button
+                      onClick={() => setActiveTab("admin_tokens")}
+                      style={buttonStyle(activeTab === "admin_tokens")}
+                    >
+                      Admin Tokens
+                    </button>
 
-                  <button
-                    onClick={() => setActiveTab("public")}
-                    style={buttonStyle(activeTab === "public")}
+                    <button
+                      onClick={() => setActiveTab("government_home")}
+                      style={buttonStyle(activeTab === "government_home")}
+                    >
+                      Government Home
+                    </button>
+
+                    <button
+                      onClick={() => setActiveTab("government_dashboard")}
+                      style={buttonStyle(
+                        activeTab === "government_dashboard"
+                      )}
+                    >
+                      Government Dashboard
+                    </button>
+
+                    <button
+                      onClick={() => setActiveTab("government_admin")}
+                      style={buttonStyle(activeTab === "government_admin")}
+                    >
+                      Government Admin Viewer
+                    </button>
+                  </div>
+                </section>
+
+                {/* CONSULTING */}
+                <section>
+                  <h4>Consulting</h4>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      gap: "8px",
+                    }}
                   >
-                    Public Dashboard
-                  </button>
-                </div>
-              </section>
+                    <button
+                      onClick={() => setActiveTab("consulting")}
+                      style={buttonStyle(activeTab === "consulting")}
+                    >
+                      Consulting Dashboard
+                    </button>
 
-              {/* ADMINISTRATION */}
-              <section>
-                <h4>Administration</h4>
-                <div
-                  style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    gap: "8px",
-                  }}
-                >
-                  <button
-                    onClick={() => setActiveTab("admin_tokens")}
-                    style={buttonStyle(activeTab === "admin_tokens")}
+                    <button
+                      onClick={() => setActiveTab("consulting_history")}
+                      style={buttonStyle(activeTab === "consulting_history")}
+                    >
+                      Consulting History
+                    </button>
+
+                    <button
+                      onClick={() => setActiveTab("consulting_calendar")}
+                      style={buttonStyle(activeTab === "consulting_calendar")}
+                    >
+                      Consultation Calendar
+                    </button>
+
+                    <button
+                      onClick={() => setActiveTab("consulting_meetings")}
+                      style={buttonStyle(activeTab === "consulting_meetings")}
+                    >
+                      Consulting Meetings
+                    </button>
+
+                    <button
+                      onClick={() => setActiveTab("consulting_access")}
+                      style={buttonStyle(activeTab === "consulting_access")}
+                    >
+                      Consulting Access
+                    </button>
+                  </div>
+                </section>
+
+                {/* MACHINE LEARNING MODELS */}
+                <section>
+                  <h4>Machine Learning Models — VCE-100</h4>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      gap: "8px",
+                    }}
                   >
-                    Admin Tokens
-                  </button>
+                    <button
+                      onClick={() => setActiveTab("vce100_v2")}
+                      style={buttonStyle(activeTab === "vce100_v2")}
+                    >
+                      VCE-100 V2
+                    </button>
 
-                  <button
-                    onClick={() => setActiveTab("government_home")}
-                    style={buttonStyle(activeTab === "government_home")}
+                    <button
+                      onClick={() => setActiveTab("vce100_v6")}
+                      style={buttonStyle(activeTab === "vce100_v6")}
+                    >
+                      VCE-100 V6
+                    </button>
+
+                    <button
+                      onClick={() => setActiveTab("vce100_compare")}
+                      style={buttonStyle(activeTab === "vce100_compare")}
+                    >
+                      VCE-100 Compare
+                    </button>
+                  </div>
+                </section>
+
+                {/* COURSES */}
+                <section>
+                  <h4>Course Management</h4>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      gap: "8px",
+                    }}
                   >
-                    Government Home
-                  </button>
+                    <button
+                      onClick={() => setActiveTab("enrollment")}
+                      style={buttonStyle(activeTab === "enrollment")}
+                    >
+                      Enrollment
+                    </button>
 
-                  <button
-                    onClick={() => setActiveTab("government_dashboard")}
-                    style={buttonStyle(
-                      activeTab === "government_dashboard"
-                    )}
+                    <button
+                      onClick={() => setActiveTab("course_dashboard")}
+                      style={buttonStyle(activeTab === "course_dashboard")}
+                    >
+                      Course Dashboard
+                    </button>
+
+                    <button
+                      onClick={() => setActiveTab("course_modules")}
+                      style={buttonStyle(activeTab === "course_modules")}
+                    >
+                      Course Modules
+                    </button>
+
+                    <button
+                      onClick={() => setActiveTab("course_content")}
+                      style={buttonStyle(activeTab === "course_content")}
+                    >
+                      Course Content
+                    </button>
+
+                    <button
+                      onClick={() => setActiveTab("course_access")}
+                      style={buttonStyle(activeTab === "course_access")}
+                    >
+                      Course Access
+                    </button>
+                  </div>
+                </section>
+
+                {/* STORE AND MARKETPLACE */}
+                <section>
+                  <h4>Store &amp; Marketplace</h4>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      gap: "8px",
+                    }}
                   >
-                    Government Dashboard
-                  </button>
+                    <button
+                      onClick={() => setActiveTab("store")}
+                      style={buttonStyle(activeTab === "store")}
+                    >
+                      Store
+                    </button>
 
+                    <button
+                      onClick={() => setActiveTab("cart")}
+                      style={buttonStyle(activeTab === "cart")}
+                    >
+                      Cart
+                    </button>
+
+                    <button
+                      onClick={() => setActiveTab("checkout")}
+                      style={buttonStyle(activeTab === "checkout")}
+                    >
+                      Checkout
+                    </button>
+                  </div>
+                </section>
+
+                {/* SETTINGS */}
+                <section>
+                  <h4>Settings</h4>
                   <button
-                    onClick={() => setActiveTab("government_admin")}
-                    style={buttonStyle(activeTab === "government_admin")}
+                    onClick={() => setActiveTab("settings")}
+                    style={buttonStyle(activeTab === "settings")}
                   >
-                    Government Admin Viewer
+                    System Settings
                   </button>
-                </div>
-              </section>
-
-{/* CONSULTING */}
-<section>
-  <h4>Consulting</h4>
-
-  <div
-    style={{
-      display: "flex",
-      flexWrap: "wrap",
-      gap: "8px",
-    }}
-  >
-    <button
-      onClick={() => setActiveTab("consulting")}
-      style={buttonStyle(activeTab === "consulting")}
-    >
-      Consulting Dashboard
-    </button>
-
-    <button
-      onClick={() => setActiveTab("consulting_history")}
-      style={buttonStyle(activeTab === "consulting_history")}
-    >
-      Consulting History
-    </button>
-
-    <button
-      onClick={() => setActiveTab("consulting_calendar")}
-      style={buttonStyle(activeTab === "consulting_calendar")}
-    >
-      Consultation Calendar
-    </button>
-
-    <button
-      onClick={() => setActiveTab("consulting_meetings")}
-      style={buttonStyle(activeTab === "consulting_meetings")}
-    >
-      Consulting Meetings
-    </button>
-
-    <button
-      onClick={() => setActiveTab("consulting_access")}
-      style={buttonStyle(activeTab === "consulting_access")}
-    >
-      Consulting Access
-    </button>
-  </div>
-</section>
-
-              {/* MACHINE LEARNING MODELS */}
-              <section>
-                <h4>Machine Learning Models — VCE-100</h4>
-                <div
-                  style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    gap: "8px",
-                  }}
-                >
-                  <button
-                    onClick={() => setActiveTab("vce100_v2")}
-                    style={buttonStyle(activeTab === "vce100_v2")}
-                  >
-                    VCE-100 V2
-                  </button>
-
-                  <button
-                    onClick={() => setActiveTab("vce100_v6")}
-                    style={buttonStyle(activeTab === "vce100_v6")}
-                  >
-                    VCE-100 V6
-                  </button>
-
-                  <button
-                    onClick={() => setActiveTab("vce100_compare")}
-                    style={buttonStyle(activeTab === "vce100_compare")}
-                  >
-                    VCE-100 Compare
-                  </button>
-                </div>
-              </section>
-
-              {/* COURSES */}
-              <section>
-                <h4>Course Management</h4>
-                <div
-                  style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    gap: "8px",
-                  }}
-                >
-                  <button
-                    onClick={() => setActiveTab("enrollment")}
-                    style={buttonStyle(activeTab === "enrollment")}
-                  >
-                    Enrollment
-                  </button>
-
-                  <button
-                    onClick={() => setActiveTab("course_dashboard")}
-                    style={buttonStyle(activeTab === "course_dashboard")}
-                  >
-                    Course Dashboard
-                  </button>
-
-                  <button
-                    onClick={() => setActiveTab("course_modules")}
-                    style={buttonStyle(activeTab === "course_modules")}
-                  >
-                    Course Modules
-                  </button>
-
-                  <button
-                    onClick={() => setActiveTab("course_content")}
-                    style={buttonStyle(activeTab === "course_content")}
-                  >
-                    Course Content
-                  </button>
-
-                  <button
-                    onClick={() => setActiveTab("course_access")}
-                    style={buttonStyle(activeTab === "course_access")}
-                  >
-                    Course Access
-                  </button>
-                </div>
-              </section>
-
-              {/* STORE AND MARKETPLACE */}
-              <section>
-                <h4>Store &amp; Marketplace</h4>
-                <div
-                  style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    gap: "8px",
-                  }}
-                >
-                  <button
-                    onClick={() => setActiveTab("store")}
-                    style={buttonStyle(activeTab === "store")}
-                  >
-                    Store
-                  </button>
-
-                  <button
-                    onClick={() => setActiveTab("cart")}
-                    style={buttonStyle(activeTab === "cart")}
-                  >
-                    Cart
-                  </button>
-
-                  <button
-                    onClick={() => setActiveTab("checkout")}
-                    style={buttonStyle(activeTab === "checkout")}
-                  >
-                    Checkout
-                  </button>
-                </div>
-              </section>
-
-              {/* SETTINGS */}
-              <section>
-                <h4>Settings</h4>
-                <button
-                  onClick={() => setActiveTab("settings")}
-                  style={buttonStyle(activeTab === "settings")}
-                >
-                  System Settings
-                </button>
-              </section>
-            </div>
-          </AdminGuard>
-        )}
-      </div>
+                </section>
+              </div>
+            </AdminGuard>
+          )}
+        </div>
+      )}
        
 
         {/* MARKETPLACE */}
