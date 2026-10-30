@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import SessionManager from "./SessionManager";
 
 export const metadata: Metadata = {
   title: "AI Biosensing Dashboard",
@@ -12,7 +13,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body suppressHydrationWarning>{children}</body>
+      <body suppressHydrationWarning>
+        <SessionManager />
+        {children}
+      </body>
     </html>
   );
 }
