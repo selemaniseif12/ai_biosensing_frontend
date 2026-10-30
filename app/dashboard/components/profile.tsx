@@ -151,8 +151,8 @@ export default function Profile() {
 
           <div>
             <h4 className="text-xl font-semibold">
-              DeepLearning.AI — Coursera (October 2025)
-            </h4>
+              DeepLearning.AI — Coursera
+             </h4>
             <p className="text-lg leading-relaxed">
               Certification in AI and Deep Learning, complementing his research
               background with contemporary approaches to artificial
@@ -162,8 +162,8 @@ export default function Profile() {
 
           <div>
             <h4 className="text-xl font-semibold">
-              Data Science Infinity (August 2025)
-            </h4>
+              Data Science Infinity
+              </h4>
             <p className="text-lg leading-relaxed">
               Certification in Data Analyst Specialist, supporting continued
               development in data analysis and evidence-informed technical
@@ -173,8 +173,8 @@ export default function Profile() {
 
           <div>
             <h4 className="text-xl font-semibold">
-              Northern Alberta Institute of Technology (NAIT), 2021–2024
-            </h4>
+              Northern Alberta Institute of Technology (NAIT)
+              </h4>
             <p className="text-lg leading-relaxed">
               Diploma in Nanosystem Engineering Technology, further developing
               his applied engineering knowledge in small-scale systems and
@@ -184,8 +184,8 @@ export default function Profile() {
 
           <div>
             <h4 className="text-xl font-semibold">
-              Alabama A&amp;M University, 2002–2007
-            </h4>
+              Alabama A&amp;M University
+              </h4>
             <p className="text-lg leading-relaxed">
               Ph.D. in Applied Physics — Materials Science. This academic
               foundation supports his interdisciplinary work across materials,
